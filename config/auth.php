@@ -37,9 +37,21 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'sanctum',
             'provider' => 'users',
         ],
+        'user' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins',
+        ],
+        'librarian' => [
+            'driver' => 'sanctum',
+            'provider' => 'librarians',
+        ]
     ],
 
     /*
@@ -64,6 +76,14 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Admin::class),
+        ],
+        'librarians' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Librarian::class),
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
