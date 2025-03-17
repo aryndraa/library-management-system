@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LibrarianProfile extends Model
@@ -19,7 +20,7 @@ class LibrarianProfile extends Model
       'birth_date',
     ];
 
-    public function librarian(): HasOne {
-        return $this->hasOne(Librarian::class);
+    public function librarian(): BelongsTo {
+        return $this->belongsTo(Librarian::class);
     }
 }

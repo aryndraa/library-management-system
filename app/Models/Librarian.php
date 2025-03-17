@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -17,7 +18,7 @@ class Librarian extends Model
         'password'
     ];
 
-    public function library(): HasOne {
-        return $this->hasOne(Library::class);
+    public function library(): BelongsTo {
+        return $this->belongsTo(Library::class);
     }
 }
