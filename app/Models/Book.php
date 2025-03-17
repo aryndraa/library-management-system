@@ -17,7 +17,8 @@ class Book extends Model
         'publication_date'
     ];
 
-    public function category(): BelongsTo {
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class);
     }
 }

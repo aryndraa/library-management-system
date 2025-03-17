@@ -20,7 +20,8 @@ class LibrarianProfile extends Model
       'birth_date',
     ];
 
-    public function librarian(): BelongsTo {
+    public function librarian(): BelongsTo
+    {
         return $this->belongsTo(Librarian::class);
     }
 }

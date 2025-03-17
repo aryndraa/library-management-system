@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('libraries', function (Blueprint $table) {
+        Schema::create('library_schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('email');
+            $table->foreignId('library_id')->constrained('libraries');
+            $table->string('day');
+            $table->time('opening_time');
+            $table->time('closing_time');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('libraries');
+        Schema::dropIfExists('library_schedules');
     }
 };

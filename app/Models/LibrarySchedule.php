@@ -4,18 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Laravel\Sanctum\HasApiTokens;
 
-class Librarian extends Model
+class LibrarySchedule extends Model
 {
-    use HasApiTokens;
-
     protected $fillable = [
         'library_id',
-        'name',
-        'email',
-        'password'
+        'day',
+        'opening_time',
+        'closing_time'
     ];
 
     public function library(): BelongsTo
