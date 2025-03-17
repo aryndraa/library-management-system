@@ -24,6 +24,8 @@ class LibraryResource extends Resource
     protected static ?string $label = "Branch";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Library';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -47,8 +49,6 @@ class LibraryResource extends Resource
                 TextColumn::make('address')->searchable(),
                 TextColumn::make('phone')->searchable(),
                 TextColumn::make('email')->searchable(),
-                TextColumn::make('opening_time'),
-                TextColumn::make('closing_time'),
             ])
             ->filters([
                 //
