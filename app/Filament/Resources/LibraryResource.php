@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class LibraryResource extends Resource
 {
     protected static ?string $model = Library::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -34,6 +33,10 @@ class LibraryResource extends Resource
                 TextInput::make('phone')
                     ->required(),
                 TextInput::make('email')
+                    ->required(),
+                TimePicker::make('opening_time')
+                    ->required(),
+                TimePicker::make('closing_time')
                     ->required(),
             ]);
     }
