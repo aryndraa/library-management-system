@@ -13,7 +13,6 @@ class Librarian extends Model
 
     protected $fillable = [
         'library_id',
-        'name',
         'email',
         'password'
     ];
