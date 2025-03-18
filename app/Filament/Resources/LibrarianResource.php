@@ -25,8 +25,6 @@ class LibrarianResource extends Resource
 
     protected static ?string $label = 'Librarians';
 
-
-
     public static function form(Form $form): Form
     {
         return $form
@@ -35,8 +33,8 @@ class LibrarianResource extends Resource
                     ->relationship('library', 'name')
                     ->searchable()
                     ->required(),
-                Select::make('email'),
-                Select::make('password')
+                TextInput::make('email'),
+                TextInput::make('password')
             ]);
     }
 

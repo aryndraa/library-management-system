@@ -22,6 +22,9 @@ class LibraryResource extends Resource
     protected static ?string $model = Library::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $label = 'Branch';
+
+
     public static function form(Form $form): Form
     {
         return $form
