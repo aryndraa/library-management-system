@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LibrarianResource\Pages;
 use App\Filament\Resources\LibrarianResource\RelationManagers;
 use App\Models\Librarian;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -14,8 +13,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LibrarianResource extends Resource
 {
@@ -25,7 +22,7 @@ class LibrarianResource extends Resource
 
     protected static ?string $navigationGroup = 'Librarian';
 
-    protected static ?string $label = 'Librarians';
+    protected static ?string $label = 'Librarian Accounts';
 
     public static function form(Form $form): Form
     {
@@ -53,14 +50,13 @@ class LibrarianResource extends Resource
                     ->searchable(),
                 TextColumn::make('library.name')
                     ->searchable(),
-                TextColumn::make('full_name')
-                    ->label('Full Name')
-                    ->formatStateUsing(fn ($record) =>
-                        ($record->profile->first_name ?? '')
-                            . ' ' .
-                        ($record->profile->last_name ?? ''))
-                    ->searchable(),
-
+//                TextColumn::make('full_name')
+//                    ->label('Full Name')
+//                    ->formatStateUsing(fn ($record) =>
+//                        ($record->profile->first_name ?? '')
+//                            . ' ' .
+//                        ($record->profile->last_name ?? ''))
+//                    ->searchable(),
             ])
             ->filters([
                 SelectFilter::make('library')

@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -48,4 +51,28 @@ class User extends Authenticatable
         ];
     }
 
+    public function profile(): HasOne
+    {
+        return $this->hasOne(MemberProfile::class);
+    }
+
+    public function borrowedBooks(): HasMany
+    {
+        return $this->hasMany(BorrowedBook::class);
+    }
+
+    public function bookLikes(): BelongsToMany
+    {
+        return $this->belongsToMany(Book::class, 'member_book_likes', 'user_id', 'book_id');
+    }
+
+    public function bookComments(): HasMany
+    {
+        return $this->hasMany(BookComment::class);
+    }
+
+    public function bookReplyComments(): HasMany
+    {
+        return $this->hasMany(BookReplyComment::class);
+    }
 }
