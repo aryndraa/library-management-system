@@ -20,4 +20,9 @@ class Library extends Model
     {
         return $this->hasMany(Book::class);
     }
+
+    public function rooms(): HasMany
+    {
+        return $this->hasMany(Room::class);
+    }
 }
