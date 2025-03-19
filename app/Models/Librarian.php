@@ -33,9 +33,13 @@ class Librarian extends Model
         return $this->hasMany(BorrowedPenalty::class);
     }
 
-    public function shift(): HasMany
+    public function shifts(): HasMany
     {
         return $this->hasMany(LibrarianShift::class);
     }
 
+    public function absents(): HasMany
+    {
+        return $this->hasMany(LibrarianAbsent::class);
+    }
 }
