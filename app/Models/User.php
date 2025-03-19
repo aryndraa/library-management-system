@@ -75,4 +75,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(BookReplyComment::class);
     }
+
+    public function roomBookings(): HasMany
+    {
+        return $this->hasMany(RoomBooking::class);
+    }
+
+    public function visits(): BelongsToMany
+    {
+        return $this->belongsToMany(Library::class, 'member_visits', 'user_id', 'library_id');
+    }
+
 }
