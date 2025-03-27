@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('library_id')->constrained('libraries');
             $table->string('name');
             $table->string('type');
-            $table->string('price');
+            $table->string('status');
+            $table->integer('price');
             $table->timestamps();
         });
     }
