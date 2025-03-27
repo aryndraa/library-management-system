@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
+use App\Models\Librarian;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LibrarySeeder extends Seeder
+class LibrarianSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $books = Book::factory()->count(1000)->make();
-        Book::query()->insert($books->toArray());
+        $librarians = Librarian::factory()->count(1000)->make();
+        Librarian::query()->insert($librarians->toArray());
     }
 }
