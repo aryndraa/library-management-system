@@ -2,19 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class MemberSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $users = User::factory()->count(50)->make();
+        $users = Member::factory()->count(50)->make();
 
-        User::query()->insert($users->toArray());
+        Member::query()->insert($users->toArray());
     }
 }

@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             LibrarianProfileSeeder::class,
             CategorySeeder::class,
             BookSeeder::class,
+            MemberSeeder::class,
+            MemberProfileSeeder::class,
         ]);
     }
 }

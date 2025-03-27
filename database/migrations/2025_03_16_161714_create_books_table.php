@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('library_id')->constrained('libraries');
             $table->string('title');
+            $table->integer('stock');
             $table->string('isbn');
             $table->string('author');
             $table->string('publisher');
