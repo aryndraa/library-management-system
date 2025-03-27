@@ -20,8 +20,8 @@ class BookCommentFactory extends Factory
     {
         return [
             "member_id" => Member::query()->inRandomOrder()->first()->id,
-            "book_id" => Book::query()->inRandomOrder()->first()->id,
-            "message" => fake()->text(80)
+            "book_id"   => Book::query()->inRandomOrder()->first()->id,
+            "message"   => fake()->text(80)
         ];
     }
 }
