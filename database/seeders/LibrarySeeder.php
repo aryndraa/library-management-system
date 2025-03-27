@@ -2,20 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AdminSeeder extends Seeder
+class LibrarySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-
     public function run(): void
     {
-        $admins = Admin::factory()->count(1000)->make();
-        Admin::query()->insert($admins->toArray());
-    }
+        $books = Book::factory()->count(1000)->create();
+        Book::query()->insert($books->toArray());
 
+    }
 }
