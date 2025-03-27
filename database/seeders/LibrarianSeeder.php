@@ -13,7 +13,7 @@ class LibrarianSeeder extends Seeder
      */
     public function run(): void
     {
-        $librarians = Librarian::factory()->count(1000)->make();
+        $librarians = Librarian::factory()->count(50)->make();
         Librarian::query()->insert($librarians->toArray());
     }
 }

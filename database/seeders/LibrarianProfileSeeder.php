@@ -14,9 +14,22 @@ class LibrarianProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        $librarianCount = Librarian::query()->count();
-        $librarianProfiles = LIbrarianProfile::factory()->count($librarianCount)->make();
+        $librariansWithoutProfile = Librarian::whereDoesntHave('profile')->pluck('id');
 
-        LibrarianProfile::query()->insert($librarianProfiles->toArray());
+        $profiles = $librariansWithoutProfile->map(fn ($id) => [
+            'librarian_id' => $id,
+            'first_name'   => fake()->firstName(),
+            'last_name'    => fake()->lastName(),
+            'phone'        => fake()->phoneNumber(),
+            'gender'       => fake()->randomElement(["male", "female"]),
+            'birth_date'   => fake()->date(),
+            'province'     => fake()->country(),
+            'city'         => fake()->city(),
+            'address'      => fake()->address(),
+            'created_at'   => now(),
+            'updated_at'   => now(),
+        ])->toArray();
+
+        LibrarianProfile::insert($profiles);
     }
 }

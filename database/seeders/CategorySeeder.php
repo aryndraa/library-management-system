@@ -13,7 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = Category::factory()->count(50)->make();
+        $categories = Category::factory()->count(10)->make();
 
         Category::query()->insert($categories->toArray());
     }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\Library;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +14,7 @@ class LibrarySeeder extends Seeder
      */
     public function run(): void
     {
-        $books = Book::factory()->count(1000)->make();
-        Book::query()->insert($books->toArray());
+        $books = Library::factory()->count(50)->make();
+        Library::query()->insert($books->toArray());
     }
 }
