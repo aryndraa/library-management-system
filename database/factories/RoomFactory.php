@@ -19,8 +19,8 @@ class RoomFactory extends Factory
     {
         return [
             "library_id" => Library::query()->inRandomOrder()->first()->id,
-            "name" => $this->faker->name(),
-            "type" => $this->faker->randomElement(['creative', 'lounge', 'conference', 'study']),
+            "name" => fake()->name(),
+            "type" => fake()->randomElement(['creative', 'lounge', 'conference', 'study']),
             "status" => fake()->randomElement(['available', 'maintenance', 'booked']),
             "price" => fake()->numberBetween(35000, 80000),
         ];
