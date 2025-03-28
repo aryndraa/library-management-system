@@ -26,13 +26,13 @@ class BorrowedBookFactory extends Factory
         $returnedDate = (clone $dueDate)->modify('+' . rand(1, 10) . ' days');
 
         return [
-            "book_id" => $book->id,
-            "member_id" => Member::query()->inRandomOrder()->first()->id,
-            "library_id" => $bookLibrary,
+            "book_id"       => $book->id,
+            "member_id"     => Member::query()->inRandomOrder()->first()->id,
+            "library_id"    => $bookLibrary,
             "borrowed_date" => $borrowedDate,
-            "due_date" => $dueDate,
+            "due_date"      => $dueDate,
             "returned_date" => $returnedDate,
-            "code" => fake()->currencyCode()
+            "code"          => fake()->currencyCode()
         ];
     }
 }
