@@ -20,10 +20,10 @@ class BorrowedBookFactory extends Factory
     public function definition(): array
     {
         $book =  Book::query()->inRandomOrder()->first();
-        $bookLibrary = $book->library()->pluck('id');
+        $bookLibrary = $book->library()->pluck('id')->first();
         $borrowedDate = fake()->dateTimeThisYear();
         $dueDate = (clone $borrowedDate)->modify('+5 days');
-        $returnedDate = (clone $dueDate)->modify('+' . rand(1, 10) . ' days');
+        $returnedDate = (clone $borrowedDate)->modify('+' . rand(1, 10) . ' days');
 
         return [
             "book_id"       => $book->id,

@@ -18,14 +18,14 @@ class BorrowedPenaltyFactory extends Factory
     public function definition(): array
     {
         $borrowedBook = BorrowedBook::query()
-            ->whereDate('returned_date', '<', 'due_date' )
+            ->whereDate('returned_date', '>', 'due_date' )
             ->first();
 
         if (!$borrowedBook) {
             return [];
         }
 
-        $dueDate = (clone $borrowedBook->returned_at)->modify('+5 days');
+        $dueDate = (clone $borrowedBook->returned_date)->modify('+5 days');
 
         return [
             "borrowed_book_id" => $borrowedBook->id,

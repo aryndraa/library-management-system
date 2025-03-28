@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\BookComment;
+use App\Models\BookReplyComment;
+use App\Models\BorrowedPenalty;
+use App\Models\LibrarianAbsent;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,6 +26,15 @@ class DatabaseSeeder extends Seeder
             BookSeeder::class,
             MemberSeeder::class,
             MemberProfileSeeder::class,
+            BorrowedBookSeeder::class,
+            BorrowedPenaltySeeder::class,
+            BookCommentSeeder::class,
+            BookReplyCommentSeeder::class,
+            RoomSeeder::class,
+            RoomFacilitySeeder::class,
+            RoomBookingSeeder::class,
+            LibrarianShiftSeeder::class,
+            LibrarianAbsentSeeder::class,
         ]);
     }
 }
