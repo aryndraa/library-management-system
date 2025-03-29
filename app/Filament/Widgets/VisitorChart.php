@@ -24,6 +24,7 @@ class VisitorChart extends ChartWidget
     protected function getData(): array
     {
         $data = Trend::model(MemberVisit::class)
+            ->dateColumn('visit_date')
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear()
@@ -38,6 +39,7 @@ class VisitorChart extends ChartWidget
                     'data' => $data->map(fn ($item) => $item->aggregate)->toArray(),
                     'backgroundColor' => 'rgba(255, 210, 93, 0.05)',
                     'fill' => true,
+                    'tension' => 0.5,
                     'borderColor' => 'rgba(255, 210, 93, 1)',
                 ],
             ],
