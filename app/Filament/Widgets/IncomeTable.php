@@ -21,7 +21,7 @@ class IncomeTable extends BaseWidget
                 Library::query()
                     ->with(['rooms.bookings'])
                     ->withCount('rooms as total_rooms')
-                    ->selectRaw('libraries.*, (SELECT SUM(rooms.price * (SELECT COUNT(*) FROM room_bookings WHERE room_bookings.room_id = rooms.id)) FROM rooms WHERE rooms.library_id = libraries.id) as total_income')
+                    ->withSum('roomBookings as total_income', 'total_price')
             )
             ->defaultPaginationPageOption(5)
             ->paginated([5])
@@ -36,7 +36,8 @@ class IncomeTable extends BaseWidget
                 Tables\Columns\TextColumn::make('total_income')
                     ->label('Total Income')
                     ->money('USD')
-                    ->sortable(),
+                    ->sortable()
+                    ->default(fn ($record) => $record->total_income ?? 0),
             ]);
     }
 }
