@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+@theme {
+    --color-primary: #704FE6;
+}
+
+body {
+    font-family: "Outfit", sans-serif;
+}
