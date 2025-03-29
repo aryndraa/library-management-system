@@ -8,7 +8,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
-class LibrariesVisitors extends BaseWidget
+class TotalVisitors extends BaseWidget
 {
     protected int | string | array $columnSpan = 'full';
 
