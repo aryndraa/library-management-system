@@ -2,6 +2,8 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\RoomBooking;
+use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 
 class IncomeRecordChart extends ChartWidget
@@ -10,17 +12,36 @@ class IncomeRecordChart extends ChartWidget
 
     protected static ?int $sort = 5;
 
+
     protected function getData(): array
     {
+        $incomeData = RoomBooking::query()->selectRaw("MONTH(booking_date) as month, SUM(total_price) as total_income")
+            ->whereYear('booking_date', Carbon::now()->year)
+            ->where('total_price', '>=', 0)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('total_income', 'month')
+            ->toArray();
+
+        $labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        $incomePerMonth = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $incomePerMonth[] = $incomeData[$i] ?? 0;
+        }
+
         return [
             'datasets' => [
                 [
-                    'label' => 'Customers',
-                    'data' => [4344, 5676, 6798, 7890, 8987, 9388, 10343, 10524, 13664, 14345, 15753, 17332],
-                    'fill' => 'start',
+                    'label' => 'Total Income',
+                    'data' => $incomePerMonth,
+                    'backgroundColor' => 'rgba(255, 210, 93, 0.2)',
+                    'borderColor' => 'rgba(255, 210, 93, 1)',
+                    'borderWidth' => 2,
+                    'fill' => true,
                 ],
             ],
-            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            'labels' => $labels,
         ];
     }
 
