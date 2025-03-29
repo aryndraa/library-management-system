@@ -33,6 +33,6 @@ class Library extends Model
 
     public function memberVisits(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'member_visits', 'library_id', 'user_id');
+        return $this->belongsToMany(Member::class, 'member_visits', 'library_id', 'member_id');
     }
 }

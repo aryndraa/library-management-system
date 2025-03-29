@@ -49,7 +49,7 @@ class Member extends Model
 
     public function visits(): BelongsToMany
     {
-        return $this->belongsToMany(Library::class, 'member_visits', 'user_id', 'library_id');
+        return $this->belongsToMany(Library::class, 'member_visits', 'member_id', 'library_id');
     }
 
 }

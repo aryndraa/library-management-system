@@ -42,7 +42,8 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->brandLogo("anjay")
+            ->brandLogo(fn () => view('filament.app.logo'))
+            ->brandLogoHeight('2rem')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
