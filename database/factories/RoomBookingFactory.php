@@ -28,14 +28,16 @@ class RoomBookingFactory extends Factory
                 ->exists();
         } while ($exists);
 
-        $finishedTime = (clone Carbon::createFromFormat('H:i:s', $startedTime))
-            ->addHours(fake()->numberBetween(1, 4))
-            ->format('H:i:s');
+        $start = Carbon::createFromFormat('H:i:s', $startedTime);
+        $finish = (clone $start)->addHours(fake()->numberBetween(1, 4));
 
-        $status = $this->determineStatus($bookingDate, $startedTime, $finishedTime);
 
-        $totalHours = Carbon::createFromFormat('H:i:s', $startedTime)
-            ->diffInHours(Carbon::createFromFormat('H:i:s', $finishedTime));
+        if ($finish->lessThan($start)) {
+            $finish->addDay();
+        }
+
+        $totalHours = $start->diffInHours($finish);
+        $status = $this->determineStatus($bookingDate, $startedTime, $finish->format('H:i:s'));
 
         $room = Room::query()->inRandomOrder()->first();
         $totalPrice = $totalHours * $room->price;
@@ -45,7 +47,7 @@ class RoomBookingFactory extends Factory
             "room_id"       => Room::query()->inRandomOrder()->first()->id,
             "booking_date"  => $bookingDate,
             "started_time"  => $startedTime,
-            "finished_time" => $finishedTime,
+            "finished_time" => $finish->format('H:i:s'),
             "status"        => $status,
             "total_price"   => $totalPrice,
         ];

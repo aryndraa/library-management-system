@@ -20,6 +20,7 @@ class StatsOverview extends BaseWidget
 
     protected static ?int $sort = 0;
 
+
     protected function getStats(): array
     {
         $filter = $this->filters['time_range'] ?? 'today';
@@ -40,7 +41,7 @@ class StatsOverview extends BaseWidget
             ->count();
 
         $todayVisitors = DB::table('member_visits')
-            ->whereDate('created_at', '>=', $startDate)
+            ->whereDate('visit_date', '>=', $startDate)
             ->count();
 
         return [
@@ -52,5 +53,4 @@ class StatsOverview extends BaseWidget
                 ->description('Today visitors')
         ];
     }
-
 }
