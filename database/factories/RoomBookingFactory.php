@@ -21,7 +21,7 @@ class RoomBookingFactory extends Factory
     public function definition(): array
     {
         do {
-            $bookingDate  = fake()->date();
+            $bookingDate  = fake()->dateTimeThisYear();
             $startedTime  = fake()->time();
             $exists = RoomBooking::query()->where('booking_date', $bookingDate)
                 ->where('started_time', $startedTime)
@@ -50,8 +50,10 @@ class RoomBookingFactory extends Factory
     private function determineStatus($bookingDate, $startedTime, $finishedTime): string
     {
         $now = now();
-        $start = Carbon::createFromFormat('Y-m-d H:i:s', "$bookingDate $startedTime");
-        $finish = Carbon::createFromFormat('Y-m-d H:i:s', "$bookingDate $finishedTime");
+        $bookingDateFormatted = Carbon::instance($bookingDate)->format('Y-m-d');
+
+        $start = Carbon::createFromFormat('Y-m-d H:i:s', "$bookingDateFormatted $startedTime");
+        $finish = Carbon::createFromFormat('Y-m-d H:i:s', "$bookingDateFormatted $finishedTime");
 
         if ($now->lessThan($start)) {
             return 'pending';

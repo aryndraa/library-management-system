@@ -2,21 +2,22 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\BorrowedBook;
+use App\Models\RoomBooking;
 use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 
-class BorrowedBookChart extends ChartWidget
+class BookingRoomChart extends ChartWidget
 {
-    protected static ?string $heading = 'All Book Borrowed Record';
+    protected static ?string $heading = 'All Booking Room Record';
 
     protected static ?int $sort = 1;
 
+
     protected function getData(): array
     {
-        $data = Trend::model(BorrowedBook::class)
-            ->dateColumn("borrowed_date")
+        $data = Trend::model(RoomBooking::class)
+            ->dateColumn("booking_date")
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear()
@@ -27,7 +28,7 @@ class BorrowedBookChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Borrowed Books',
+                    'label' => 'Blog posts created',
                     'data' => $data->map(fn ($item) => $item->aggregate)->toArray(),
                     'tension' => 0.5,
                 ],
@@ -35,7 +36,6 @@ class BorrowedBookChart extends ChartWidget
             'labels' => $data->map(fn ($item) => Carbon::parse($item->date)->translatedFormat('M'))->toArray(),
         ];
     }
-
 
     protected function getType(): string
     {
