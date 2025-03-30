@@ -32,6 +32,13 @@ class StatsOverview extends BaseWidget
             default => Carbon::today(),
         };
 
+        $status = match ($filter) {
+            'week' => "Last Week",
+            'month' => "Last Month",
+            'year' => "Last Year",
+            default => "Today",
+        };
+
         $todayBorrowedBooks = BorrowedBook::query()
             ->whereDate('borrowed_date', '>=', $startDate)
             ->count();
@@ -46,11 +53,11 @@ class StatsOverview extends BaseWidget
 
         return [
             Stat::make('Borrowed Books', $todayBorrowedBooks)
-                ->description('Today borrowed books'),
+                ->description("$status borrowed books"),
             Stat::make('Booking Rooms', $todayRoomBookings)
-                ->description('Today room bookings'),
+                ->description("$status room bookings"),
             Stat::make('Visitors', $todayVisitors)
-                ->description('Today visitors')
+                ->description("$status visitors")
         ];
     }
 }
