@@ -13,7 +13,7 @@ class BookingRoomChart extends ChartWidget
 
     protected static ?string $pollingInterval = '10s';
 
-    protected static ?int $sort = 1;
+    protected static ?int $sort = 2;
 
     protected static string $color = "primary";
 
@@ -23,9 +23,9 @@ class BookingRoomChart extends ChartWidget
     protected function getFilters(): ?array
     {
         return [
-            'week' => 'Last week',
-            'month' => 'Last month',
             'year' => 'This year',
+            'month' => 'Last month',
+            'week' => 'Last week',
         ];
     }
 
