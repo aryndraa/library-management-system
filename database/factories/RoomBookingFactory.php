@@ -34,6 +34,12 @@ class RoomBookingFactory extends Factory
 
         $status = $this->determineStatus($bookingDate, $startedTime, $finishedTime);
 
+        $totalHours = Carbon::createFromFormat('H:i:s', $startedTime)
+            ->diffInHours(Carbon::createFromFormat('H:i:s', $finishedTime));
+
+        $room = Room::query()->inRandomOrder()->first();
+        $totalPrice = $totalHours * $room->price;
+
         return [
             "member_id"     => Member::query()->inRandomOrder()->first()->id,
             "room_id"       => Room::query()->inRandomOrder()->first()->id,
@@ -41,6 +47,7 @@ class RoomBookingFactory extends Factory
             "started_time"  => $startedTime,
             "finished_time" => $finishedTime,
             "status"        => $status,
+            "total_price"   => $totalPrice,
         ];
     }
 

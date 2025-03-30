@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('started_time');
             $table->time('finished_time');
             $table->string('status');
+            $table->integer('total_price')->nullable();
             $table->timestamps();
         });
     }
