@@ -7,6 +7,7 @@ use App\Filament\Resources\LibraryResource\RelationManagers;
 use App\Models\Library;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,6 +27,17 @@ class LibraryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->required(),
+                TextInput::make('address')
+                    ->required(),
+                TextInput::make('email')
+                    ->required(),
+                TextInput::make('phone')
+                    ->required(),
+                TimePicker::make('opening_time')
+                    ->required(),
+                TimePicker::make('closing_time')
+                    ->required(),
             ]);
     }
 
