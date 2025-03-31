@@ -26,7 +26,7 @@ class Librarian extends Model
 
     public function profile(): HasOne
     {
-        return $this->hasone(LibrarianProfile::class);
+        return $this->hasOne(LibrarianProfile::class);
     }
 
     public function borrowedPenalties(): HasMany

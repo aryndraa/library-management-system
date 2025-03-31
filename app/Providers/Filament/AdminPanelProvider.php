@@ -56,6 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->discoverClusters(app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->authMiddleware([
                 Authenticate::class,
             ])

@@ -20,6 +20,7 @@ class LibraryResource extends Resource
 {
     protected static ?string $model = Library::class;
 
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -71,7 +72,8 @@ class LibraryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BooksRelationManager::class,
+            RelationManagers\LibrariansRelationManager::class
         ];
     }
 
