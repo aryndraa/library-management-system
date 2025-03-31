@@ -2,7 +2,7 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\LibraryResource;
+use App\Filament\Resources\LibrariesResource;
 use App\Models\Library;
 use Filament\Tables;
 use Filament\Tables\Table;
