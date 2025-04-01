@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             BorrowedPenaltySeeder::class,
             BookCommentSeeder::class,
             BookReplyCommentSeeder::class,
+            RoomCategorySeeder::class,
             RoomSeeder::class,
             RoomFacilitySeeder::class,
             RoomBookingSeeder::class,

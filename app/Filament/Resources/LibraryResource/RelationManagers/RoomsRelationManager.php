@@ -4,6 +4,7 @@ namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
 use App\Models\Room;
 use App\Models\RoomBooking;
+use App\Models\RoomCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -34,7 +35,11 @@ class RoomsRelationManager extends RelationManager
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('type'),
+                TextColumn::make('category')
+                    ->label('Room Category')
+                    ->getStateUsing(function ($record) {
+                        return RoomCategory::query()->where('id', $record->room_category_id)->first()->name;
+                    }),
                 TextColumn::make('price')
                     ->money('USD')
                     ->sortable(),
