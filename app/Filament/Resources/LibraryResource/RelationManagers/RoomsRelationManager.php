@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -53,8 +54,11 @@ class RoomsRelationManager extends RelationManager
 
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('type')
+                SelectFilter::make('category')
+                    ->relationship('category', 'name')
                     ->searchable()
+                    ->preload()
+                    ->attribute('category.name'),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),

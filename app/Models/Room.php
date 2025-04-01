@@ -13,13 +13,13 @@ class Room extends Model
 
     protected $fillable = [
         'name',
-        'category_id',
+        'room_category_id',
         'price'
     ];
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'room_category_id');
     }
 
     public function library(): BelongsTo

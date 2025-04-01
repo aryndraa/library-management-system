@@ -21,7 +21,7 @@ class LibraryResource extends Resource
     protected static ?string $model = Library::class;
 
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
 
     public static function form(Form $form): Form
     {
@@ -56,7 +56,7 @@ class LibraryResource extends Resource
                 TextColumn::make('phone')
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
