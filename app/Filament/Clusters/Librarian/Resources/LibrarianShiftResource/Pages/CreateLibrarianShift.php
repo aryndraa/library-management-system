@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\Pages;
+
+use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateLibrarianShift extends CreateRecord
+{
+    protected static string $resource = LibrarianShiftResource::class;
+}
