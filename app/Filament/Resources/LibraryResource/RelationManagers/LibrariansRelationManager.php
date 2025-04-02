@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
-use App\Filament\Resources\LibrarianResource\Pages\CreateLibrarian;
-use App\Filament\Resources\LibrarianResource\Pages\EditLibrarian;
-use App\Models\Librarian;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -23,9 +24,40 @@ class LibrariansRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->required()
+                    ->email()
                     ->maxLength(255),
+                TextInput::make('password')
+                    ->required()
+                    ->minLength(8)
+                    ->password(),
+                Group::make()
+                    ->relationship('profile')
+                    ->schema([
+                        TextInput::make('first_name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('last_name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('phone')
+                            ->required()
+                            ->tel(),
+                        Select::make('gender')
+                            ->options([
+                                'male' => 'Male',
+                                'female' => 'Female',
+                            ])
+                            ->required(),
+                        TextInput::make('address'),
+                        TextInput::make('province'),
+                        TextInput::make('city'),
+                        DatePicker::make('birth_date')
+                    ])
+                    ->columns(2)
+                    ->columnSpan(2)
+
             ]);
     }
 
@@ -51,9 +83,9 @@ class LibrariansRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
