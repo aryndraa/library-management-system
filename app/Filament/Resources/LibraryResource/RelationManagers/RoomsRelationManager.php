@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
-use App\Models\Room;
 use App\Models\RoomBooking;
 use App\Models\RoomCategory;
 use Filament\Forms;
@@ -14,7 +13,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RoomsRelationManager extends RelationManager
 {

@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\LibraryResource\Pages;
 
 use App\Filament\Resources\LibraryResource;
-use App\Filament\Widgets\ViewLibraryTabs;
-use App\Models\Library;
 use Filament\Actions;
 use Filament\Resources\Pages\Concerns\HasRelationManagers;
 use Filament\Resources\Pages\ViewRecord;

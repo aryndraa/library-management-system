@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\LibrarianResource\Pages;
+namespace App\Filament\Clusters\Librarian\Resources\LibrarianResource\Pages;
 
-use App\Filament\Resources\LibrarianResource;
+use App\Filament\Clusters\Librarian\Resources\LibrarianResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
