@@ -4,6 +4,9 @@ namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
 use Filament\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -21,9 +24,31 @@ class BooksRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                TextInput::make('isbn')
+                    ->required()
+                    ->unique()
+                    ->maxLength(13),
+                Select::make('library_id')
+                    ->relationship('library', 'name')
+                    ->required()
+                    ->label('Library'),
+                Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Category')
+                    ->required(),
+                TextInput::make('author'),
+                TextInput::make('publisher'),
+                TextInput::make('pages')
+                    ->required()
+                    ->numeric(),
+                DatePicker::make('publication_date')
+                    ->required()
+                    ->date()
             ]);
     }
 
@@ -56,7 +81,6 @@ class BooksRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ViewAction::make(),
             ])
