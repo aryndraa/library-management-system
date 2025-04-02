@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\LibraryResource\Pages\ViewLibrary;
 use App\Models\Library;
 use App\Models\Room;
 use Filament\Tables;
@@ -40,4 +41,5 @@ class IncomeTable extends BaseWidget
                     ->default(fn ($record) => $record->total_income ?? 0),
             ]);
     }
+
 }

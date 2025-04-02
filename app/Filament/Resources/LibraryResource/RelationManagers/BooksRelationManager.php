@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -57,6 +58,7 @@ class BooksRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -64,4 +66,5 @@ class BooksRelationManager extends RelationManager
                 ]),
             ]);
     }
+
 }
