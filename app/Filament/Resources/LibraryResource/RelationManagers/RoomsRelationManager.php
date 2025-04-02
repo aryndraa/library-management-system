@@ -6,6 +6,8 @@ use App\Models\Room;
 use App\Models\RoomBooking;
 use App\Models\RoomCategory;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -22,9 +24,26 @@ class RoomsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                TextInput::make('price')
+                    ->required()
+                    ->numeric(),
+                Select::make('room_category_id')
+                    ->relationship('category', 'name')
+                    ->required()
+                    ->searchable()
+                    ->preload(),
+                Forms\Components\Repeater::make('facilities')
+                    ->relationship('facilities')
+                    ->schema([
+                        TextInput::make('facility')
+                            ->required(),
+                        TextInput::make('description'),
+                    ])
+                    ->columns(2)
+
             ]);
     }
 
@@ -51,7 +70,6 @@ class RoomsRelationManager extends RelationManager
                     })
                     ->money('USD')
                     ->sortable(),
-
             ])
             ->filters([
                 SelectFilter::make('category')
@@ -64,9 +82,9 @@ class RoomsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
