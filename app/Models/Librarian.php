@@ -19,6 +19,17 @@ class Librarian extends Model
         'password'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($librarian) {
+            $librarian->absents()->delete();
+            $librarian->profile()->delete();
+            $librarian->shifts()->delete();
+        });
+    }
+
     public function library(): BelongsTo
     {
         return $this->belongsTo(Library::class);
@@ -27,11 +38,6 @@ class Librarian extends Model
     public function profile(): HasOne
     {
         return $this->hasOne(LibrarianProfile::class);
-    }
-
-    public function borrowedPenalties(): HasMany
-    {
-        return $this->hasMany(BorrowedPenalty::class);
     }
 
     public function shifts(): HasMany

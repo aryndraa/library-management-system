@@ -19,8 +19,4 @@ class BorrowedPenalty extends Model
         return $this->belongsTo(BorrowedBook::class, 'book_id');
     }
 
-    public function librarian(): BelongsTo
-    {
-        return $this->belongsTo(Librarian::class);
-    }
 }
