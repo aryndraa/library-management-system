@@ -8,8 +8,10 @@ use App\Models\Librarian;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -70,7 +72,28 @@ class LibrarianResource extends Resource
                     ])
                 ->columns(2)
                 ->columnSpan(2),
-
+                Repeater::make('shifts')
+                    ->relationship('shifts')
+                    ->schema([
+                        Select::make('day')
+                            ->options([
+                                'Monday' => 'Monday',
+                                'Tuesday' => 'Tuesday',
+                                'Wednesday' => 'Wednesday',
+                                'Thursday' => 'Thursday',
+                                'Friday' => 'Friday',
+                                'Saturday' => 'Saturday',
+                                'Sunday' => 'Sunday',
+                            ])
+                            ->required(),
+                        TimePicker::make('clock_in')
+                            ->required(),
+                        TimePicker::make('clock_out')
+                            ->required(),
+                    ])
+                    ->columns(3)
+                    ->label('Shifts')
+                    ->columnSpan(2)
 
             ]);
     }
