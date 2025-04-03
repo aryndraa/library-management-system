@@ -44,14 +44,16 @@ class LibrarianShiftResource extends Resource
 
         return $table
             ->columns([
-                TextColumn::make('librarian.profile.full_name')
-                    ->searchable()
+                TextColumn::make('librarian.profile.first_name')
                     ->label('Name')
                     ->getStateUsing(function ($record) {
                         return $record->librarian->profile->first_name . ' ' . $record->librarian->profile->last_name;
                     })
-                    ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('librarian.library.name'),
+
 
                 TextColumn::make('status')
                     ->label('Presence Status')
@@ -78,6 +80,7 @@ class LibrarianShiftResource extends Resource
                         'Not present' => 'danger',
                     }),
 
+
                 TextColumn::make('clock_in')
                     ->time()
                     ->sortable(),
@@ -102,7 +105,13 @@ class LibrarianShiftResource extends Resource
                     ->placeholder("Today")
                     ->preload()
                     ->default($today)
+                    ->searchable(),
+
+                SelectFilter::make('library')
+                    ->relationship('librarian.library', 'name')
                     ->searchable()
+                    ->preload()
+                    ->attribute('librarian.library.name')
 
             ])
             ->actions([
