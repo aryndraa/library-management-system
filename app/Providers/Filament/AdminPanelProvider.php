@@ -33,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => "#704FE6",
                 'secondary' => "#FFD25D",
             ])
+            ->font('"Outfit", sans-serif')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
