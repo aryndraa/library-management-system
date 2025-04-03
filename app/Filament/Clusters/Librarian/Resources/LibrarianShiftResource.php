@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\Librarian\Resources;
 use App\Filament\Clusters\Librarian;
 use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\Pages;
 use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\RelationManagers;
+use App\Models\LibrarianAbsent;
 use App\Models\LibrarianShift;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -37,6 +38,10 @@ class LibrarianShiftResource extends Resource
     {
         $today = Carbon::today()->format('l');
 
+        $today = Carbon::today()->format('l');
+        $todayDate = Carbon::today()->toDateString();
+        $currentTime = Carbon::now()->format('H:i:s');
+
         return $table
             ->columns([
                 TextColumn::make('librarian.profile.full_name')
@@ -47,6 +52,40 @@ class LibrarianShiftResource extends Resource
                     })
                     ->searchable()
                     ->sortable(),
+
+                TextColumn::make('status')
+                    ->label('Presence Status')
+                    ->getStateUsing(function ($record) use ($todayDate, $currentTime) {
+                        $absent = $record->librarian->absents()
+                            ->whereDate('created_at', $todayDate)
+                            ->first();
+
+                        if ($absent) {
+                            return "Presence";
+                        }
+
+                        if ($record->day === Carbon::now()->format('l')) {
+                            return ($currentTime > $record->clock_in) ? "Not present" : "Not yet come";
+                        }
+
+                        return "-///-";
+                    })
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        '-///-' => 'gray',
+                        'Not yet come' => 'warning',
+                        'Presence' => 'success',
+                        'Not present' => 'danger',
+                    }),
+
+                TextColumn::make('clock_in')
+                    ->time()
+                    ->sortable(),
+
+                TextColumn::make('clock_out')
+                    ->time()
+                    ->sortable(),
+
             ])
             ->filters([
                 SelectFilter::make('day')
