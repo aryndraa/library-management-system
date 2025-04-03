@@ -6,10 +6,13 @@ use App\Filament\Clusters\Librarian;
 use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\Pages;
 use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\RelationManagers;
 use App\Models\LibrarianShift;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -33,11 +36,32 @@ class LibrarianShiftResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(LibrarianShift::query()->where('day', Carbon::today()->format('l')))
             ->columns([
-                //
+                TextColumn::make('librarian.profile.full_name')
+                    ->searchable()
+                    ->label('Name')
+                    ->getStateUsing(function ($record) {
+                        return $record->librarian->profile->first_name . ' ' . $record->librarian->profile->last_name;
+                    })
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('day')
+                    ->label('Day')
+                    ->options([
+                        'Monday' => 'Monday',
+                        'Tuesday' => 'Tuesday',
+                        'Wednesday' => 'Wednesday',
+                        'Thursday' => 'Thursday',
+                        'Friday' => 'Friday',
+                        'Saturday' => 'Saturday',
+                        'Sunday' => 'Sunday',
+                    ])
+                    ->preload()
+                    ->searchable()
+                    ->default([]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
