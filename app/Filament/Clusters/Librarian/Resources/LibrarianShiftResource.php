@@ -35,8 +35,9 @@ class LibrarianShiftResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $today = Carbon::today()->format('l');
+
         return $table
-            ->query(LibrarianShift::query()->where('day', Carbon::today()->format('l')))
             ->columns([
                 TextColumn::make('librarian.profile.full_name')
                     ->searchable()
@@ -59,9 +60,11 @@ class LibrarianShiftResource extends Resource
                         'Saturday' => 'Saturday',
                         'Sunday' => 'Sunday',
                     ])
+                    ->placeholder("Today")
                     ->preload()
+                    ->default($today)
                     ->searchable()
-                    ->default([]),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
