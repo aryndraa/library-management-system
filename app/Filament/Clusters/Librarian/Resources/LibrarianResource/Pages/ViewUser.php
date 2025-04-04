@@ -4,9 +4,10 @@ namespace App\Filament\Clusters\Librarian\Resources\LibrarianResource\Pages;
 
 use App\Filament\Clusters\Librarian\Resources\LibrarianResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ViewLibrarian;
+use Filament\Resources\Pages\ViewRecord;
 
-class ViewUser extends ViewLibrarian
+
+class ViewUser extends ViewRecord
 {
     protected static string $resource = LibrarianResource::class;
 }

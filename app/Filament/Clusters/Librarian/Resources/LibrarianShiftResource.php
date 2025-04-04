@@ -9,14 +9,14 @@ use App\Models\LibrarianAbsent;
 use App\Models\LibrarianShift;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LibrarianShiftResource extends Resource
 {
@@ -30,7 +30,24 @@ class LibrarianShiftResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('day')
+                    ->options([
+                        'Monday' => 'Monday',
+                        'Tuesday' => 'Tuesday',
+                        'Wednesday' => 'Wednesday',
+                        'Thursday' => 'Thursday',
+                        'Friday' => 'Friday',
+                        'Saturday' => 'Saturday',
+                        'Sunday' => 'Sunday',
+                    ])
+                    ->required(),
+                TimePicker::make('clock_in')
+                    ->time()
+                    ->required(),
+                TimePicker::make('clock_out')
+                    ->time()
+                    ->required(),
+
             ]);
     }
 
