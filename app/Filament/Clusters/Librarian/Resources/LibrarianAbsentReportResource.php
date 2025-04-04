@@ -9,6 +9,8 @@ use App\Models\LibrarianAbsent;
 use App\Models\LibrarianAbsentReport;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -35,7 +37,37 @@ class LibrarianAbsentReportResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Group::make()
+                ->relationship('librarian')
+                ->schema([
+                    Group::make()
+                        ->relationship('profile')
+                        ->schema([
+                            TextInput::make('name')
+                                ->placeholder(function ($record) {
+                                    return $record->librarian->profile->first_name . ' ' . $record->librarian->profile->last_name;
+                                }),
+
+                        ]),
+
+                    TextInput::make('email')
+                        ->disabled()
+                ])
+                    ->columnSpan(2),
+
+                TextInput::make('status')
+                    ->disabled(),
+
+
+                TextInput::make('created_at')
+                    ->label('Absent Date')
+                    ->disabled()
+                    ->placeholder('No Date'),
+
+                Forms\Components\Textarea::make('description')
+                    ->disabled()
+                    ->placeholder('No Description')
+                    ->columnSpan(2),
             ]);
     }
 
@@ -109,7 +141,7 @@ class LibrarianAbsentReportResource extends Resource
 //                    ->default(Carbon::now()->format('Y-m-d'))
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
