@@ -11,7 +11,8 @@ class LibrarianAbsent extends Model
     use HasFactory;
 
     protected $fillable = [
-        'status'
+        'status',
+        'description'
     ];
 
     public function librarian(): BelongsTo

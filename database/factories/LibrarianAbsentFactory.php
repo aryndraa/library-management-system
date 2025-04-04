@@ -20,9 +20,14 @@ class LibrarianAbsentFactory extends Factory
      */
     public function definition(): array
     {
+
+        $status = fake()->randomElement(['presence', 'absent']);
+        $description = $status === 'absent' ? fake()->sentence(20) : "";
+
         return [
             "librarian_id" => Librarian::query()->inRandomOrder()->first()->id,
-            "status" => fake()->randomElement(['presence', 'absent']),
+            "status"       => $status,
+            "description"  => $description,
         ];
     }
 }
