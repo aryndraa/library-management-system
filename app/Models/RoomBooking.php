@@ -23,8 +23,8 @@ class RoomBooking extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function user(): BelongsTo
+    public function member(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Member::class);
     }
 }

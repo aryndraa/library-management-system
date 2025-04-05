@@ -119,6 +119,7 @@ class LibrarianResource extends Resource
                     ->sortable()
 
             ])
+            ->extremePaginationLinks()
             ->filters([
                 SelectFilter::make('library')
                     ->relationship('library', 'name')

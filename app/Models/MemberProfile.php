@@ -17,13 +17,12 @@ class MemberProfile extends Model
         'birthday',
         'gender',
         'address',
-        'address',
         'province',
         'city',
     ];
 
-    public function user(): BelongsTo
+    public function member(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Member::class);
     }
 }
