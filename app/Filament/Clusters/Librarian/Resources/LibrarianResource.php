@@ -39,63 +39,79 @@ class LibrarianResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('email')
-                    ->label('Email')
-                    ->email()
-                    ->unique(),
-                TextInput::make('password')
-                    ->label('Password')
-                    ->password()
-                    ->minLength(8),
-                Group::make()
-                    ->relationship('profile')
-                    ->schema([
-                        TextInput::make('first_name')
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('last_name')
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('phone')
-                            ->required()
-                            ->tel(),
-                        Select::make('gender')
-                            ->options([
-                                'male' => 'Male',
-                                'female' => 'Female',
-                            ])
-                            ->required(),
-                        TextInput::make('address'),
-                        TextInput::make('province'),
-                        TextInput::make('city'),
-                        DatePicker::make('birth_date')
-                    ])
-                ->columns(2)
-                ->columnSpan(2),
-                Repeater::make('shifts')
-                    ->relationship('shifts')
-                    ->schema([
-                        Select::make('day')
-                            ->options([
-                                'Monday' => 'Monday',
-                                'Tuesday' => 'Tuesday',
-                                'Wednesday' => 'Wednesday',
-                                'Thursday' => 'Thursday',
-                                'Friday' => 'Friday',
-                                'Saturday' => 'Saturday',
-                                'Sunday' => 'Sunday',
-                            ])
-                            ->required(),
-                        TimePicker::make('clock_in')
-                            ->required(),
-                        TimePicker::make('clock_out')
-                            ->required(),
-                    ])
-                    ->columns(3)
-                    ->label('Shifts')
-                    ->columnSpan(2)
 
-            ]);
+                Group::make()
+                    ->schema([
+
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->email()
+                            ->unique(),
+                        TextInput::make('password')
+                            ->label('Password')
+                            ->password()
+                            ->minLength(8),
+
+                        Group::make()
+                            ->relationship('profile')
+                            ->schema([
+                                TextInput::make('first_name')
+                                    ->required()
+                                    ->maxLength(255),
+                                TextInput::make('last_name')
+                                    ->required()
+                                    ->maxLength(255),
+                                TextInput::make('phone')
+                                    ->required()
+                                    ->tel(),
+                                Select::make('gender')
+                                    ->options([
+                                        'male' => 'Male',
+                                        'female' => 'Female',
+                                    ])
+                                    ->required(),
+                                TextInput::make('address'),
+                                TextInput::make('province'),
+                                TextInput::make('city'),
+                                DatePicker::make('birth_date')
+                            ])
+                        ->columns(2),
+                    ])->columnSpan(2),
+
+
+
+                Forms\Components\Section::make()
+                    ->schema([
+                        Select::make('library_id')
+                            ->relationship('library', 'name')
+                            ->required()
+                            ->searchable()
+                            ->preload(),
+                        Repeater::make('shifts')
+                            ->relationship('shifts')
+                            ->schema([
+                                Select::make('day')
+                                    ->options([
+                                        'Monday' => 'Monday',
+                                        'Tuesday' => 'Tuesday',
+                                        'Wednesday' => 'Wednesday',
+                                        'Thursday' => 'Thursday',
+                                        'Friday' => 'Friday',
+                                        'Saturday' => 'Saturday',
+                                        'Sunday' => 'Sunday',
+                                    ])
+                                    ->required(),
+                                TimePicker::make('clock_in')
+                                    ->required(),
+                                TimePicker::make('clock_out')
+                                    ->required(),
+                            ])
+                            ->label('Shifts')
+                    ])->columnSpan(['lg' => 1])
+
+
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -156,6 +172,7 @@ class LibrarianResource extends Resource
         return [
             'index' => Pages\ListLibrarians::route('/'),
             'create' => Pages\CreateLibrarian::route('/create'),
+            'view' => Pages\ViewLibrarian::route('/{record}}'),
             'edit' => Pages\EditLibrarian::route('/{record}/edit'),
         ];
     }

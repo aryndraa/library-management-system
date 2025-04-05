@@ -6,6 +6,7 @@ use App\Filament\Clusters\Librarian;
 use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\Pages;
 use App\Filament\Clusters\Librarian\Resources\LibrarianShiftResource\RelationManagers;
 use App\Models\LibrarianAbsent;
+use App\Models\LibrarianProfile;
 use App\Models\LibrarianShift;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -17,6 +18,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use PHPUnit\Metadata\Group;
 
 class LibrarianShiftResource extends Resource
 {
@@ -30,6 +32,10 @@ class LibrarianShiftResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Placeholder::make('borrowed_date')
+                    ->label('Librarian Name')
+                    ->content(fn (LibrarianShift $record): ?string => $record->librarian->profile->first_name . ' ' . $record->librarian->profile->last_name),
+
                 Select::make('day')
                     ->options([
                         'Monday' => 'Monday',
@@ -132,6 +138,9 @@ class LibrarianShiftResource extends Resource
 
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -151,8 +160,8 @@ class LibrarianShiftResource extends Resource
     {
         return [
             'index' => Pages\ListLibrarianShifts::route('/'),
-            'create' => Pages\CreateLibrarianShift::route('/create'),
-            'edit' => Pages\EditLibrarianShift::route('/{record}/edit'),
+//            'create' => Pages\CreateLibrarianShift::route('/create'),
+//            'edit' => Pages\EditLibrarianShift::route('/{record}/edit'),
         ];
     }
 }

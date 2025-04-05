@@ -113,6 +113,7 @@ class MemberResource extends Resource
     {
         return [
             RelationManagers\BorrowedBooksRelationManager::class,
+            RelationManagers\RoomBookingsRelationManager::class
         ];
     }
 
