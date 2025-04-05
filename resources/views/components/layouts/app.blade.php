@@ -21,13 +21,12 @@
     </style>
 
     @filamentStyles
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js' ])
 </head>
 
 <body class="antialiased">
 {{ $slot }}
 
 @filamentScripts
-@vite('resources/js/app.js')
 </body>
 </html>

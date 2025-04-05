@@ -15,11 +15,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LibrarianAbsentReportResource extends Resource
 {
@@ -51,13 +48,19 @@ class LibrarianAbsentReportResource extends Resource
                         ]),
 
                     TextInput::make('email')
-                        ->disabled()
+                        ->disabled(),
+
+                    Group::make()
+                        ->relationship('library')
+                        ->schema([
+                            TextInput::make('name')
+                                ->label('Library')
+                        ])
                 ])
                     ->columnSpan(2),
 
                 TextInput::make('status')
                     ->disabled(),
-
 
                 TextInput::make('created_at')
                     ->label('Absent Date')
@@ -160,9 +163,10 @@ class LibrarianAbsentReportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLibrarianAbsentReports::route('/'),
+            'index'  => Pages\ListLibrarianAbsentReports::route('/'),
             'create' => Pages\CreateLibrarianAbsentReport::route('/create'),
-            'edit' => Pages\EditLibrarianAbsentReport::route('/{record}/edit'),
+            'view'   => Pages\ViewLibrarianAbsentReport::route('/{record}'),
+            'edit'   => Pages\EditLibrarianAbsentReport::route('/{record}/edit'),
         ];
     }
 }
