@@ -42,8 +42,8 @@ class Library extends Model
         return $this->hasManyThrough(RoomBooking::class, Room::class);
     }
 
-    public function memberVisits(): BelongsToMany
+    public function memberVisits(): HasMany
     {
-        return $this->belongsToMany(Member::class, 'member_visits', 'library_id', 'member_id');
+        return $this->hasMany(MemberVisit::class);
     }
 }

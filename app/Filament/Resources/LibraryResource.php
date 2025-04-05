@@ -74,7 +74,8 @@ class LibraryResource extends Resource
         return [
             RelationManagers\BooksRelationManager::class,
             RelationManagers\LibrariansRelationManager::class,
-            RelationManagers\RoomsRelationManager::class
+            RelationManagers\RoomsRelationManager::class,
+            RelationManagers\MemberVisitsRelationManager::class
         ];
     }
 

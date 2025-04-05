@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Doctrine\DBAL\SQL\Parser\Visitor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,9 +48,9 @@ class Member extends Model
         return $this->hasMany(RoomBooking::class);
     }
 
-    public function visits(): BelongsToMany
+    public function visits(): HasMany
     {
-        return $this->belongsToMany(Library::class, 'member_visits', 'member_id', 'library_id');
+        return $this->hasMany(MemberVisit::class);
     }
 
 }
