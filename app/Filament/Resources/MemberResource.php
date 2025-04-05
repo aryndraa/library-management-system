@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
+use Faker\Provider\Text;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,7 +29,37 @@ class MemberResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('email'),
+
+                Forms\Components\Group::make()
+                    ->relationship('profile')
+                    ->schema([
+                        TextInput::make('first_name')
+                            ->label('First Name'),
+
+                        TextInput::make('last_name')
+                            ->label('Last Name'),
+
+                        TextInput::make('phone')
+                            ->label('Phone Number'),
+
+                        TextInput::make('birthday')
+                            ->label('Birthday'),
+
+                        TextInput::make('gender')
+                            ->label('Gender'),
+
+                        TextInput::make('address')
+                            ->label('Address'),
+
+                        TextInput::make('province')
+                            ->label('Province'),
+
+                        TextInput::make('city')
+                            ->label('City'),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(2),
             ]);
     }
 
@@ -68,11 +100,11 @@ class MemberResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -80,7 +112,7 @@ class MemberResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BorrowedBooksRelationManager::class,
         ];
     }
 
@@ -88,8 +120,7 @@ class MemberResource extends Resource
     {
         return [
             'index' => Pages\ListMembers::route('/'),
-            'create' => Pages\CreateMember::route('/create'),
-            'edit' => Pages\EditMember::route('/{record}/edit'),
+            'view' => Pages\ViewMember::route('/{record}'),
         ];
     }
 }
