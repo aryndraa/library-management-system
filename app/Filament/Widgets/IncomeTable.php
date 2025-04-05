@@ -2,6 +2,8 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\LibraryResource;
+use App\Filament\Resources\LibraryResource\Pages\ViewLibrary;
 use App\Models\Library;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -37,7 +39,20 @@ class IncomeTable extends BaseWidget
                     ->money('USD')
                     ->sortable()
                     ->default(fn ($record) => $record->total_income ?? 0),
+            ])
+            ->actions([
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record): string => LibraryResource::getUrl('view', ['record' => $record]))
+                    ->icon('heroicon-o-eye')
             ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'view' => ViewLibrary::route('/{recorde}'),
+        ];
     }
 
 }
