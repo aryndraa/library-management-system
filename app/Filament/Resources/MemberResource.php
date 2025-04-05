@@ -22,6 +22,8 @@ class MemberResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $recordTitleAttribute = 'email';
+
     protected static ?string $navigationGroup = "Users Management";
 
 
@@ -92,7 +94,7 @@ class MemberResource extends Resource
                 TextColumn::make("room_bookings_count")
                     ->label('Total Booked Rooms')
                     ->counts('roomBookings')
-                    ->searchable(),
+                    ->sortable(),
 
 
             ])

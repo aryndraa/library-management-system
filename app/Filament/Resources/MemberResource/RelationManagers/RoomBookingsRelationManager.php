@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -33,10 +34,33 @@ class RoomBookingsRelationManager extends RelationManager
                     ->searchable()
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('room.library.name')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('room.category.name')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('booking_date')
+                    ->date()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('total_price')
+                    ->money('USD')
+                    ->sortable(),
 
             ])
             ->filters([
-                //
+                SelectFilter::make('category')
+                    ->relationship('room.category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Category'),
+
+                Tables\Filters\SelectFilter::make('library')
+                    ->relationship('room.library', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Library'),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),

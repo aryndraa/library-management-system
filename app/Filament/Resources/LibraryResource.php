@@ -17,8 +17,9 @@ class LibraryResource extends Resource
 {
     protected static ?string $model = Library::class;
 
-
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationLabel = "Library Operations";
 

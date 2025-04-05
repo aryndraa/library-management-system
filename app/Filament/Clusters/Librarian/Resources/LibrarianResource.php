@@ -29,7 +29,7 @@ class LibrarianResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'email';
 
     protected static ?string $navigationLabel = 'Profiles';
 
