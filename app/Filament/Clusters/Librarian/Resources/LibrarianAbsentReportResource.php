@@ -60,7 +60,8 @@ class LibrarianAbsentReportResource extends Resource
                     ->columnSpan(2),
 
                 TextInput::make('status')
-                    ->disabled(),
+                    ->disabled()
+                    ->autocapitalize(),
 
                 TextInput::make('created_at')
                     ->label('Absent Date')
@@ -88,7 +89,12 @@ class LibrarianAbsentReportResource extends Resource
 
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
-                    ->sortable(),
+                    ->sortable()
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'presence' => 'success',
+                        'absent' => 'danger',
+                    }),
 
                 Tables\Columns\TextColumn::make('description')
                     ->label('Description')
@@ -98,7 +104,8 @@ class LibrarianAbsentReportResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal')
                     ->dateTime('d M Y')
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('Period')
@@ -123,6 +130,13 @@ class LibrarianAbsentReportResource extends Resource
                         };
                     })
                     ->default('today'),
+
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        "presence" => "Presence",
+                        "absent" => "Absent",
+                    ])
+                    ->label('Status')
 
 //                Tables\Filters\Filter::make('created_at')
 //                    ->form([
