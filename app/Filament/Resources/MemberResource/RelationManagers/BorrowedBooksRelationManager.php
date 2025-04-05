@@ -79,21 +79,42 @@ class BorrowedBooksRelationManager extends RelationManager
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('book.isbn')
-                    ->label('ISBN'),
+                    ->label('ISBN')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('book.library.name')
-                    ->label('Library'),
+                    ->label('Library')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('book.title')
-                    ->label('Title'),
+                    ->label('Title')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('book.category.name')
-                    ->label('Category'),
+                    ->label('Category')
+                    ->sortable(),
                 TextColumn::make('borrowed_date')
-                    ->date(),
+                    ->date()
+                    ->sortable(),
                 TextColumn::make('returned_date')
                     ->date()
+                    ->sortable()
 
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('book.category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Category'),
+
+                Tables\Filters\SelectFilter::make('library')
+                    ->relationship('book.library', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Library'),
+
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
