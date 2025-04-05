@@ -20,11 +20,12 @@ class TotalVisitorsTable extends BaseWidget
             ->query(
                 Library::query()
                     ->withCount('memberVisits')
-                    ->orderByDesc('member_visits_count')
             )
             ->defaultPaginationPageOption(5)
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Library Name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->label('Library Name'),
                 Tables\Columns\TextColumn::make('member_visits_count')
                     ->label('Visitors')
                     ->sortable(),
