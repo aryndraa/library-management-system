@@ -9,6 +9,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -26,7 +27,17 @@ class RoomsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 TextInput::make('price')
-                    ->required()
+                    ->mask(RawJs::make(<<<'JS'
+                        text => {
+                            let number = text.replace(/[^\d]/g, '');
+                                return new Intl.NumberFormat('id-ID', {
+                                    style: 'currency',
+                                            currency: 'IDR',
+                                            minimumFractionDigits: 0
+                                }).format(number);
+                            }
+                        JS))
+                    ->stripCharacters(',')
                     ->numeric(),
                 Select::make('room_category_id')
                     ->relationship('category', 'name')
@@ -40,7 +51,8 @@ class RoomsRelationManager extends RelationManager
                             ->required(),
                         TextInput::make('description'),
                     ])
-                    ->columns(2)
+                    ->grid(['lg' => 2])
+                    ->columnSpan(2)
 
             ]);
     }

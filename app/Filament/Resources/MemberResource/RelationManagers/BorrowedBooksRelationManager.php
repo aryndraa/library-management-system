@@ -113,16 +113,11 @@ class BorrowedBooksRelationManager extends RelationManager
                     ->searchable()
                     ->preload()
                     ->label('Library'),
-
-
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }
