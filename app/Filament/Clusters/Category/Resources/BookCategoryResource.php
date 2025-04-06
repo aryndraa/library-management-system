@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Filament\Clusters\Category\Resources;
+
+use App\Filament\Clusters\Category;
+use App\Filament\Clusters\Category\Resources\BookCategoryResource\Pages;
+use App\Filament\Clusters\Category\Resources\BookCategoryResource\RelationManagers;
+use App\Models\BookCategory;
+use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class BookCategoryResource extends Resource
+{
+    protected static ?string $model = \App\Models\Category::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+
+    protected static ?string $label = "Book Categories";
+
+    protected static ?string $cluster = Category::class;
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                //
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('name')
+                    ->label('Name')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('code')
+                    ->label('Code')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make("books_count")
+                    ->label('Total Books')
+                    ->counts('books')
+                    ->sortable(),
+
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListBookCategories::route('/'),
+            'create' => Pages\CreateBookCategory::route('/create'),
+            'edit' => Pages\EditBookCategory::route('/{record}/edit'),
+        ];
+    }
+}
