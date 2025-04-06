@@ -14,7 +14,8 @@ class Room extends Model
     protected $fillable = [
         'name',
         'room_category_id',
-        'price'
+        'price',
+        'status'
     ];
 
     public function category(): BelongsTo

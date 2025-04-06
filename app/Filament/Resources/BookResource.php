@@ -41,12 +41,14 @@ class BookResource extends Resource
                             ->relationship('category')
                             ->schema([
                                 TextInput::make('name')
+                                    ->label('Category'),
                             ]),
 
                         Forms\Components\Group::make()
                             ->relationship('library')
                             ->schema([
                                 TextInput::make('name')
+                                    ->label('Library')
                             ]),
 
                         TextInput::make('author'),
