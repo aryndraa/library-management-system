@@ -7,10 +7,12 @@ use App\Filament\Clusters\Category\Resources\RoomCategoryResource\Pages;
 use App\Filament\Clusters\Category\Resources\RoomCategoryResource\RelationManagers;
 use App\Models\RoomCategory;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -27,7 +29,16 @@ class RoomCategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->label('Name')
+                    ->string()
+                    ->required()
+                    ->unique('categories', 'name'),
+
+                TextInput::make('code')
+                    ->label('Code')
+                    ->minLength(8)
+                    ->unique('categories', 'code')
             ]);
     }
 
@@ -47,11 +58,15 @@ class RoomCategoryResource extends Resource
                     ->label('Total Rooms')
                     ->counts('rooms')
                     ->sortable(),
+
+
             ])
             ->filters([
-                //
+
+
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -64,7 +79,7 @@ class RoomCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\RoomsRelationManager::class
         ];
     }
 
@@ -72,6 +87,7 @@ class RoomCategoryResource extends Resource
     {
         return [
             'index' => Pages\ListRoomCategories::route('/'),
+            'view' => Pages\ViewRoomCategory::route('/{record}'),
             'create' => Pages\CreateRoomCategory::route('/create'),
             'edit' => Pages\EditRoomCategory::route('/{record}/edit'),
         ];

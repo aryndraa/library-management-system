@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -44,7 +46,10 @@ class BooksRelationManager extends RelationManager
                     ->numeric(),
                 DatePicker::make('publication_date')
                     ->required()
-                    ->date()
+                    ->date(),
+                Textarea::make('synopsis')
+                    ->label('Description')
+                    ->columnSpan(2)
             ]);
     }
 
@@ -58,11 +63,10 @@ class BooksRelationManager extends RelationManager
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('author')
-                    ->searchable(),
-                TextColumn::make('publisher')
-                    ->searchable(),
-                TextColumn::make('category.name'),
+                TextColumn::make('category.name')
+                    ->sortable(),
+                TextColumn::make('stock')
+                    ->sortable(),
                 TextColumn::make('publication_date')
                     ->sortable(),
             ])

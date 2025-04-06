@@ -103,10 +103,22 @@ class LibraryResource extends Resource
                     ->label('Library')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('address')
-                    ->limit(20),
-                TextColumn::make('email'),
-                TextColumn::make('phone')
+
+                TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('phone'),
+
+                TextColumn::make("books_count")
+                    ->label('Total Books')
+                    ->counts('books')
+                    ->sortable(),
+
+                TextColumn::make("rooms_count")
+                    ->label('Total Rooms')
+                    ->counts('rooms')
+                    ->sortable(),
             ])
             ->filters([
 

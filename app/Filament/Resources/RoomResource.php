@@ -137,8 +137,28 @@ class RoomResource extends Resource
                     ->money("USD")
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable()
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'booked' => 'warning',
+                        'available' => 'success',
+                        'maintenance' => 'danger',
+                    })
+                    ->extraAttributes([
+                        'class' => 'capitalize'
+                    ]),
+
             ])
             ->filters([
+                SelectFilter::make('status')
+                    ->options([
+                        'available' => 'Available',
+                        'booked' => 'Booked',
+                        'maintenance' => 'Maintenance',
+                    ]),
+
                 SelectFilter::make('category')
                     ->relationship('category', 'name')
                     ->label('Category')

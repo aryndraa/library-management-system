@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
+use App\Filament\Resources\RoomResource;
 use App\Models\RoomBooking;
 use App\Models\RoomCategory;
 use Filament\Forms;
@@ -73,6 +74,7 @@ class RoomsRelationManager extends RelationManager
                 TextColumn::make('price')
                     ->money('USD')
                     ->sortable(),
+
                 TextColumn::make('total_price')
                     ->label('Total Income')
                     ->getStateUsing(function ($record) {
@@ -80,19 +82,43 @@ class RoomsRelationManager extends RelationManager
                     })
                     ->money('USD')
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable()
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'booked' => 'warning',
+                        'available' => 'success',
+                        'maintenance' => 'danger',
+                    })
+                    ->extraAttributes([
+                        'class' => 'capitalize'
+                    ]),
             ])
             ->filters([
+                SelectFilter::make('status')
+                    ->options([
+                        'available' => 'Available',
+                        'booked' => 'Booked',
+                        'maintenance' => 'Maintenance',
+                    ]),
+
                 SelectFilter::make('category')
                     ->relationship('category', 'name')
                     ->searchable()
                     ->preload()
                     ->attribute('category.name'),
+
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record): string => RoomResource::getUrl('view', ['record' => $record]))
+                    ->icon('heroicon-o-eye'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
