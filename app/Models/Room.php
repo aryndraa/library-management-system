@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Room extends Model
 {
@@ -36,5 +37,10 @@ class Room extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(RoomBooking::class);
+    }
+
+    public function picture(): MorphOne
+    {
+        return $this->morphOne(File::class, 'related');
     }
 }

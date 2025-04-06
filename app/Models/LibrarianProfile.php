@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class LibrarianProfile extends Model
 {
@@ -26,5 +27,10 @@ class LibrarianProfile extends Model
     public function librarian(): BelongsTo
     {
         return $this->belongsTo(Librarian::class);
+    }
+
+    public function photoProfile(): MorphOne
+    {
+        return $this->morphOne(File::class, 'related');
     }
 }

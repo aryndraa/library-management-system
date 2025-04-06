@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Library extends Model
 {
@@ -45,5 +46,10 @@ class Library extends Model
     public function memberVisits(): HasMany
     {
         return $this->hasMany(MemberVisit::class);
+    }
+
+    public function picture(): MorphOne
+    {
+        return $this->morphOne(File::class, 'related');
     }
 }
