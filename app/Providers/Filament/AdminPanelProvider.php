@@ -59,8 +59,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->navigationGroups([
+                'User Management',
                 'Resources',
-                'Account'
             ])
             ->discoverClusters(app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->authMiddleware([
