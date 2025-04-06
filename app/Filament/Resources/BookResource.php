@@ -133,7 +133,7 @@ class BookResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BorrowingsRelationManager::class,
         ];
     }
 
