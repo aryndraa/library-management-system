@@ -70,7 +70,7 @@ class BookResource extends Resource
 
                         Forms\Components\Placeholder::make('total_likes')
                             ->label('Total Likes')
-                            ->content(fn ($record) => $record->userLikes()->count())
+                            ->content(fn ($record) => $record->likes()->count())
                             ->disabled(),
 
                         Forms\Components\Placeholder::make('total_reviews')
@@ -134,6 +134,7 @@ class BookResource extends Resource
     {
         return [
             RelationManagers\BorrowingsRelationManager::class,
+            RelationManagers\LikesRelationManager::class,
         ];
     }
 

@@ -39,7 +39,7 @@ class Book extends Model
         return $this->belongsTo(Library::class);
     }
 
-    public function userLikes(): BelongsToMany
+    public function likes(): BelongsToMany
     {
         return $this->belongsToMany(Member::class, 'member_book_likes', 'book_id', 'member_id');
     }
