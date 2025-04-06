@@ -56,7 +56,17 @@ class BookResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('category')
+                    ->label('Category')
+                    ->relationship('category', 'name')
+                    ->preload()
+                    ->searchable(),
+
+                Tables\Filters\SelectFilter::make('library')
+                    ->label('Library')
+                    ->relationship('library', 'name')
+                    ->preload()
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
