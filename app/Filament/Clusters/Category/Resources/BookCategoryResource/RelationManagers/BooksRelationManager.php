@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -37,27 +38,19 @@ class BooksRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('title')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(40),
 
                 Tables\Columns\TextColumn::make('library.name')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('author')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('publisher')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('pages')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('stock')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('publication_date')
+                TextColumn::make('publication_date')
+                    ->label('Publication Date')
                     ->date()
+                    ->searchable(),
 
             ])
             ->filters([

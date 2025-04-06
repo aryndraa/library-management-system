@@ -21,7 +21,7 @@ class BookFactory extends Factory
         return [
             "category_id"      => Category::query()->inRandomOrder()->first()->id,
             "library_id"       => Library::query()->inRandomOrder()->first()->id,
-            "title"            => fake()->title(),
+            "title"            => fake()->text(80),
             "isbn"             => fake()->currencyCode(),
             "author"           => fake()->name(),
             "synopsis"           => fake()->text(),

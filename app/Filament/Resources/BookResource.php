@@ -107,7 +107,8 @@ class BookResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label('Title')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(40),
 
                 TextColumn::make('library.name')
                     ->label('Library'),
