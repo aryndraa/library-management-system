@@ -32,10 +32,11 @@ class BookResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
 
+                        TextInput::make('title')
+                            ->columnSpan(2),
+
                         TextInput::make('isbn')
                             ->label('ISBN'),
-
-                        TextInput::make('title'),
 
                         Forms\Components\Group::make()
                             ->relationship('category')
@@ -59,6 +60,10 @@ class BookResource extends Resource
                         DatePicker::make('publication_date')
                             ->date(),
 
+                        Forms\Components\TextInput::make('stock')
+                            ->label('Current Stock')
+                            ->disabled(),
+
                         Textarea::make('synopsis')
                             ->columnSpan(2)
                             ->label('Description'),
@@ -70,8 +75,9 @@ class BookResource extends Resource
                 Forms\Components\Section::make('Book Stats')
                     ->label('Book Stats')
                     ->schema([
+
                         Forms\Components\Placeholder::make('total_borrowed')
-                            ->label('Total Borrowed')
+                            ->label('Total Borrowings')
                             ->content(fn ($record) => $record->borrowings()->count())
                             ->disabled(),
 

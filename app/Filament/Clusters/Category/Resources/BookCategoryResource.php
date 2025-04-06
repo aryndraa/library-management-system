@@ -30,7 +30,16 @@ class BookCategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->label('Name')
+                    ->string()
+                    ->required()
+                    ->unique('categories', 'name'),
+
+                TextInput::make('code')
+                    ->label('Code')
+                    ->minLength(8)
+                    ->unique('categories', 'code')
             ]);
     }
 
@@ -58,6 +67,7 @@ class BookCategoryResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -70,7 +80,7 @@ class BookCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BooksRelationManager::class
         ];
     }
 
@@ -79,6 +89,7 @@ class BookCategoryResource extends Resource
         return [
             'index' => Pages\ListBookCategories::route('/'),
             'create' => Pages\CreateBookCategory::route('/create'),
+            'view' => Pages\ViewBookCategory::route('/{record}'),
             'edit' => Pages\EditBookCategory::route('/{record}/edit'),
         ];
     }
