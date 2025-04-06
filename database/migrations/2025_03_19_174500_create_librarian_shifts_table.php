@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('librarian_shifts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('librarian_id')->constrained('librarians');
+            $table->foreignId('librarian_id')->constrained('librarians')->onDelete('cascade');
             $table->string('day');
             $table->time('clock_in');
             $table->time('clock_out');

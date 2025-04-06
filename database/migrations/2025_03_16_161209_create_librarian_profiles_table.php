@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('librarian_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('librarian_id')->constrained('librarians');
+            $table->foreignId('librarian_id')->constrained('librarians')->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone');

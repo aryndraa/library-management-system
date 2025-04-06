@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('librarian_absents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('librarian_id')->constrained('librarians');
+            $table->foreignId('librarian_id')->constrained('librarians')->onDelete('cascade');
             $table->string('status');
             $table->timestamps();
         });

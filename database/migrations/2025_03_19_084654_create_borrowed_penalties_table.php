@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('borrowed_penalties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('borrowed_book_id')->constrained('borrowed_books');
+            $table->foreignId('borrowed_book_id')->constrained('borrowed_books')->onDelete('cascade');
             $table->string('penalty');
             $table->text('message');
             $table->integer('charge');

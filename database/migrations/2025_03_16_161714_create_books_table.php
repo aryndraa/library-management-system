@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('library_id')->constrained('libraries');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->nullOnDelete();
+
+            $table->foreignId('library_id')->constrained('libraries')->onDelete('cascade');
             $table->string('title');
             $table->integer('stock');
             $table->string('isbn');

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('librarians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('library_id')->constrained('libraries')->onDelete('cascade');
+            $table->unsignedBigInteger('library_id')->nullable();
+
+            $table->foreign('library_id')->references('id')->on('libraries')->nullOnDelete();
+
             $table->string('email');
             $table->string('password');
             $table->timestamps();
