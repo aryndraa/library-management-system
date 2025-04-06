@@ -29,6 +29,11 @@ class Book extends Model
         return $this->belongsTo(Category::class);
     }
 
+    Public function borrowings(): HasMany
+    {
+        return $this->hasMany(BorrowedBook::class);
+    }
+
     public function library(): BelongsTo
     {
         return $this->belongsTo(Library::class);
@@ -36,7 +41,7 @@ class Book extends Model
 
     public function userLikes(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'member_book_likes', 'book_id', 'user_id');
+        return $this->belongsToMany(Member::class, 'member_book_likes', 'book_id', 'member_id');
     }
 
     public function bookComents (): HasMany

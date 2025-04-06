@@ -30,7 +30,7 @@ class Member extends Model
 
     public function bookLikes(): BelongsToMany
     {
-        return $this->belongsToMany(Book::class, 'member_book_likes', 'user_id', 'book_id');
+        return $this->belongsToMany(Book::class, 'member_book_likes', 'member_id', 'book_id');
     }
 
     public function bookComments(): HasMany

@@ -6,6 +6,8 @@ use App\Filament\Resources\BookResource\Pages;
 use App\Filament\Resources\BookResource\RelationManagers;
 use App\Models\Book;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,8 +28,58 @@ class BookResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Forms\Components\Group::make()
+                    ->schema([
+
+                        TextInput::make('isbn')
+                            ->label('ISBN'),
+
+                        TextInput::make('title'),
+
+                        Forms\Components\Group::make()
+                            ->relationship('category')
+                            ->schema([
+                                TextInput::make('name')
+                            ]),
+
+                        Forms\Components\Group::make()
+                            ->relationship('library')
+                            ->schema([
+                                TextInput::make('name')
+                            ]),
+
+                        TextInput::make('author'),
+                        TextInput::make('publisher'),
+                        TextInput::make('pages')
+                            ->label('Total Pages'),
+
+                        DatePicker::make('publication_date')
+                            ->date()
+                    ])
+                    ->columns(2)
+                ->columnSpan(2),
+
+
+                Forms\Components\Section::make('Book Stats')
+                    ->label('Book Stats')
+                    ->schema([
+                        Forms\Components\Placeholder::make('total_borrowed')
+                            ->label('Total Borrowed')
+                            ->content(fn ($record) => $record->borrowings()->count())
+                            ->disabled(),
+
+                        Forms\Components\Placeholder::make('total_likes')
+                            ->label('Total Likes')
+                            ->content(fn ($record) => $record->userLikes()->count())
+                            ->disabled(),
+
+                        Forms\Components\Placeholder::make('total_reviews')
+                            ->label('Total Comments')
+                            ->content(fn ($record) => $record->bookComents()->count())
+                            ->disabled(),
+                    ])->columnSpan(1)
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -69,7 +121,7 @@ class BookResource extends Resource
                     ->searchable(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -89,8 +141,7 @@ class BookResource extends Resource
     {
         return [
             'index' => Pages\ListBooks::route('/'),
-            'create' => Pages\CreateBook::route('/create'),
-            'edit' => Pages\EditBook::route('/{record}/edit'),
+            'view' => Pages\ViewBook::route('/{record}'),
         ];
     }
 }
