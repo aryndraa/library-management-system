@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('librarian_absents', function (Blueprint $table) {
-            $table->string('description')->nullable()->after('status');
+        Schema::table('books', function (Blueprint $table) {
+            $table->string('synopsis')->nullable()->after('isbn');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('librarian_absents', function (Blueprint $table) {
-            $table->dropColumn('description');
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn('synopsis');
         });
     }
 };

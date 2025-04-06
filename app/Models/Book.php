@@ -21,7 +21,9 @@ class Book extends Model
         'author',
         'publisher',
         'pages',
-        'publication_date'
+        'stock',
+        'publication_date',
+        'synopsis'
     ];
 
     public function category(): BelongsTo

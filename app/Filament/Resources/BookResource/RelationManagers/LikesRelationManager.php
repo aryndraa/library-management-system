@@ -16,6 +16,8 @@ class LikesRelationManager extends RelationManager
 {
     protected static string $relationship = 'likes';
 
+    protected static ?string $title = 'Book Likes';
+
     public function form(Form $form): Form
     {
         return $form
@@ -51,8 +53,6 @@ class LikesRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

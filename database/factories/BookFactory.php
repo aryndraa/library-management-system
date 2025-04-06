@@ -24,6 +24,7 @@ class BookFactory extends Factory
             "title"            => fake()->title(),
             "isbn"             => fake()->currencyCode(),
             "author"           => fake()->name(),
+            "synopsis"           => fake()->text(),
             "publisher"        => fake()->company(),
             "pages"            => fake()->numberBetween(50,200),
             "publication_date" => fake()->date(),

@@ -20,9 +20,9 @@ class BookComment extends Model
         return $this->belongsTo(Book::class);
     }
 
-    public function user(): BelongsTo
+    public function member(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Member::class);
     }
 
     public function replies(): HasMany

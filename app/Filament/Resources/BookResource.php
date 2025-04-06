@@ -135,6 +135,7 @@ class BookResource extends Resource
         return [
             RelationManagers\BorrowingsRelationManager::class,
             RelationManagers\LikesRelationManager::class,
+            RelationManagers\BookComentsRelationManager::class,
         ];
     }
 
