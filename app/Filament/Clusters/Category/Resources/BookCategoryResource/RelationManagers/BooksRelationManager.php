@@ -54,7 +54,11 @@ class BooksRelationManager extends RelationManager
 
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('library')
+                    ->relationship('library', 'name')
+                    ->preload()
+                    ->searchable()
+
             ])
             ->actions([
                 Tables\Actions\Action::make('view')
