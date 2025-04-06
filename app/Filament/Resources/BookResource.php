@@ -7,6 +7,7 @@ use App\Filament\Resources\BookResource\RelationManagers;
 use App\Models\Book;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -54,7 +55,11 @@ class BookResource extends Resource
                             ->label('Total Pages'),
 
                         DatePicker::make('publication_date')
-                            ->date()
+                            ->date(),
+
+                        Textarea::make('synopsis')
+                            ->columnSpan(2)
+                            ->label('Description'),
                     ])
                     ->columns(2)
                 ->columnSpan(2),
