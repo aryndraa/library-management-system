@@ -70,7 +70,8 @@ class RoomResource extends Resource
                                     ->label('Description'),
 
                             ])
-
+                            ->grid(2)
+                            ->columnSpan(2)
                     ])
                     ->columnSpan(2)
                     ->columns(2),
