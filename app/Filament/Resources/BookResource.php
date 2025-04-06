@@ -82,7 +82,7 @@ class BookResource extends Resource
                             ->label('Total Comments')
                             ->content(fn ($record) => $record->bookComents()->count())
                             ->disabled(),
-                    ])->columnSpan(1)
+                    ])->columnSpan(['lg' => 1])
             ])
             ->columns(3);
     }
