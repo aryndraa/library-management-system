@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -45,6 +46,7 @@ class RoomResource extends Resource
                 TextColumn::make('price')
                     ->money("USD")
                     ->sortable(),
+
             ])
             ->filters([
                 SelectFilter::make('category')
@@ -80,7 +82,6 @@ class RoomResource extends Resource
     {
         return [
             'index' => Pages\ListRooms::route('/'),
-            'create' => Pages\CreateRoom::route('/create'),
         ];
     }
 }
