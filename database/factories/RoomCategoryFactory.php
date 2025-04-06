@@ -18,7 +18,7 @@ class RoomCategoryFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'code' => fake()->unique()->sentence(),
+            'code' => fake()->unique()->currencyCode(),
         ];
     }
 }
