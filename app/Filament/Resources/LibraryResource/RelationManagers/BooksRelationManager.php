@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
+use App\Filament\Resources\BookResource;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
@@ -81,7 +82,10 @@ class BooksRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record): string => BookResource::getUrl('view', ['record' => $record]))
+                    ->icon('heroicon-o-eye'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

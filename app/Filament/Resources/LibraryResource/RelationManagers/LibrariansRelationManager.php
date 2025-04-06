@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\LibraryResource\RelationManagers;
 
+use App\Filament\Clusters\Librarian\Resources\LibrarianResource;
+use App\Filament\Resources\RoomResource;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
@@ -81,7 +83,10 @@ class LibrariansRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record): string => LibrarianResource::getUrl('view', ['record' => $record]))
+                    ->icon('heroicon-o-eye'),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

@@ -45,8 +45,8 @@ class LibrarianResource extends Resource
 
                         TextInput::make('email')
                             ->label('Email')
-                            ->email()
-                            ->unique(),
+                            ->email(),
+
                         TextInput::make('password')
                             ->label('Password')
                             ->password()
@@ -76,7 +76,7 @@ class LibrarianResource extends Resource
                                 DatePicker::make('birth_date')
                             ])
                         ->columns(2),
-                    ])->columnSpan(2),
+                    ])->columnSpan(3),
 
 
 
@@ -86,7 +86,8 @@ class LibrarianResource extends Resource
                             ->relationship('library', 'name')
                             ->required()
                             ->searchable()
-                            ->preload(),
+                            ->preload()
+                            ->columnSpan(2),
                         Repeater::make('shifts')
                             ->relationship('shifts')
                             ->schema([
@@ -107,7 +108,9 @@ class LibrarianResource extends Resource
                                     ->required(),
                             ])
                             ->label('Shifts')
-                    ])->columnSpan(['lg' => 1])
+                            ->grid(3)
+                            ->columnSpan(2)
+                    ])->columns(2)
 
 
             ])
