@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,10 +43,21 @@ class RoomResource extends Resource
                 TextColumn::make('library.name')
                     ->sortable(),
                 TextColumn::make('price')
+                    ->money("USD")
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('category')
+                    ->relationship('category', 'name')
+                    ->label('Category')
+                    ->preload()
+                    ->searchable(),
+
+                SelectFilter::make('library')
+                    ->relationship('library', 'name')
+                    ->label('Library')
+                    ->preload()
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
