@@ -26,9 +26,11 @@ class BookBorrowingResource extends Resource
 {
     protected static ?string $model = BorrowedBook::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bookmark';
+    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
 
-    protected static ?string $label = 'Borrowing Books';
+    protected static ?string $label = 'Borrowed Books';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $cluster = BookBorrowing::class;
 
@@ -147,7 +149,7 @@ class BookBorrowingResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('book.title')
-                    ->limit('30')
+                    ->limit('25')
                     ->sortable()
                     ->searchable(),
 
