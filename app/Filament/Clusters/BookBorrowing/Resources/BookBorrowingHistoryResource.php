@@ -3,15 +3,13 @@
 namespace App\Filament\Clusters\BookBorrowing\Resources;
 
 use App\Filament\Clusters\BookBorrowing;
-use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource\Pages;
-use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource\RelationManagers;
+use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingHistoryResource\Pages;
+use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingHistoryResource\RelationManagers;
 use App\Filament\Resources\BookResource;
+use App\Models\BookBorrowingHistory;
 use App\Models\BorrowedBook;
-use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
@@ -22,15 +20,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BookBorrowingResource extends Resource
+class BookBorrowingHistoryResource extends Resource
 {
     protected static ?string $model = BorrowedBook::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
-    protected static ?string $label = 'Borrowed Books';
+    protected static ?string $label = "Borrowed History";
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $cluster = BookBorrowing::class;
 
@@ -137,11 +135,6 @@ class BookBorrowingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(
-                BorrowedBook::query()
-                    ->where('status', 'borrowed')
-                    ->where('library_id', Filament::auth()->user()->library_id)
-            )
             ->columns([
                 TextColumn::make('code')
                     ->limit('30')
@@ -175,7 +168,6 @@ class BookBorrowingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -191,15 +183,12 @@ class BookBorrowingResource extends Resource
         ];
     }
 
-
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBookBorrowings::route('/'),
-            'create' => Pages\CreateBookBorrowing::route('/create'),
-            'view' => Pages\ViewBookBorrowing::route('/{record}'),
-            'edit' => Pages\EditBookBorrowing::route('/{record}/edit'),
+            'index' => Pages\ListBookBorrowingHistories::route('/'),
+            'create' => Pages\CreateBookBorrowingHistory::route('/create'),
+            'edit' => Pages\EditBookBorrowingHistory::route('/{record}/edit'),
         ];
     }
 }
