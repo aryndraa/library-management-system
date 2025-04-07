@@ -7,10 +7,12 @@ use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
 use Faker\Provider\Text;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,44 +33,60 @@ class MemberResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('email'),
+                SpatieMediaLibraryFileUpload::make('picture')
+                    ->collection('member')
+                    ->columnSpan(1),
 
                 Forms\Components\Group::make()
-                    ->relationship('profile')
                     ->schema([
-                        TextInput::make('first_name')
-                            ->label('First Name'),
 
-                        TextInput::make('last_name')
-                            ->label('Last Name'),
+                        TextInput::make('email'),
 
-                        TextInput::make('phone')
-                            ->label('Phone Number'),
+                        Forms\Components\Group::make()
+                            ->relationship('profile')
+                            ->schema([
+                                TextInput::make('first_name')
+                                    ->label('First Name'),
 
-                        TextInput::make('birthday')
-                            ->label('Birthday'),
+                                TextInput::make('last_name')
+                                    ->label('Last Name'),
 
-                        TextInput::make('gender')
-                            ->label('Gender'),
+                                TextInput::make('phone')
+                                    ->label('Phone Number'),
 
-                        TextInput::make('address')
-                            ->label('Address'),
+                                TextInput::make('birthday')
+                                    ->label('Birthday'),
 
-                        TextInput::make('province')
-                            ->label('Province'),
+                                TextInput::make('gender')
+                                    ->label('Gender'),
 
-                        TextInput::make('city')
-                            ->label('City'),
-                    ])
-                    ->columns(2)
-                    ->columnSpan(2),
-            ]);
+                                TextInput::make('address')
+                                    ->label('Address'),
+
+                                TextInput::make('province')
+                                    ->label('Province'),
+
+                                TextInput::make('city')
+                                    ->label('City'),
+                            ])
+                            ->columns(2)
+                            ->columnSpan(2),
+                    ])->columnSpan(2),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+
+                SpatieMediaLibraryImageColumn::make('member')
+                    ->label('Picture')
+                    ->collection('member')
+                    ->height(50)
+                    ->width(50),
+
                 TextColumn::make('profile.first_name')
                     ->label('Name')
                     ->getStateUsing(function ($record) {
