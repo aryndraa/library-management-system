@@ -29,7 +29,7 @@ class CreateBook extends CreateRecord
             Notification::make()
                 ->title('New Book')
                 ->icon('heroicon-o-book-open')
-                ->body("Book {$book->title} has been created in library {$book->library?->name}")
+                ->body("Book **{$book->title}** from library **{$book->library?->name}** has been created.")
                 ->duration(10)
                 ->sendToDatabase($admin);
 

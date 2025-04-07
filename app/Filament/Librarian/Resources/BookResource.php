@@ -4,6 +4,7 @@ namespace App\Filament\Librarian\Resources;
 
 use App\Filament\Librarian\Resources\BookResource\Pages;
 use App\Filament\Librarian\Resources\BookResource\RelationManagers;
+use App\Models\Admin;
 use App\Models\Book;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -12,6 +13,8 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Events\DatabaseNotificationsSent;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
@@ -160,7 +163,20 @@ class BookResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->before(function ($records) {
+                            foreach ($records as $record) {
+                                $admins = Admin::all();
+
+                                foreach ($admins as $admin) {
+                                    Notification::make()
+                                        ->title('Book Deleted')
+                                        ->icon('heroicon-o-trash')
+                                        ->body("Book **{$record->title}** from library **{$record->library?->name}** has been deleted.")
+                                        ->sendToDatabase($admin);
+                                }
+                            }
+                        }),
                 ]),
             ]);
     }
