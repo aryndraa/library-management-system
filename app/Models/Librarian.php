@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use phpDocumentor\Reflection\DocBlock\Tags\Implements_;
 use Spatie\MediaLibrary\HasMedia;
@@ -18,7 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Librarian extends Authenticatable Implements HasMedia, HasName
 {
-    use HasApiTokens, HasFactory, InteractsWithMedia ;
+    use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable ;
 
     protected $fillable = [
         'library_id',

@@ -46,6 +46,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn () => view('filament.app.logo', [
                 'title' => 'Admin',
             ]))
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('15s')
             ->brandLogoHeight('2rem')
             ->middleware([
                 EncryptCookies::class,
