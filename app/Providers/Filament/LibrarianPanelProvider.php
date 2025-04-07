@@ -20,7 +20,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class LibrarianPanelProvider extends PanelProvider
 {
-    
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -32,7 +32,9 @@ class LibrarianPanelProvider extends PanelProvider
                 'secondary' => "#FFD25D",
             ])
             ->font('"Outfit", sans-serif')
-            ->brandLogo(fn () => view('filament.app.logo'))
+            ->brandLogo(fn () => view('filament.app.logo', [
+                'title' => 'Librarian',
+            ]))
             ->discoverResources(in: app_path('Filament/Librarian/Resources'), for: 'App\\Filament\\Librarian\\Resources')
             ->discoverPages(in: app_path('Filament/Librarian/Pages'), for: 'App\\Filament\\Librarian\\Pages')
             ->pages([

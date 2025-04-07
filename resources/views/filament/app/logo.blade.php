@@ -14,6 +14,6 @@
         </defs>
     </svg>
     <h1 class="text-xl font-semibold">
-        GrandLibrary
+        {{$title}} Grand Library
     </h1>
 </div>
