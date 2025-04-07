@@ -35,6 +35,7 @@ class LibrarianPanelProvider extends PanelProvider
             ->brandLogo(fn () => view('filament.app.logo', [
                 'title' => 'Librarian',
             ]))
+            ->discoverClusters(app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverResources(in: app_path('Filament/Librarian/Resources'), for: 'App\\Filament\\Librarian\\Resources')
             ->discoverPages(in: app_path('Filament/Librarian/Pages'), for: 'App\\Filament\\Librarian\\Pages')
             ->pages([

@@ -28,6 +28,7 @@ class BorrowedBookFactory extends Factory
         return [
             "book_id"       => $book->id,
             "member_id"     => Member::query()->inRandomOrder()->first()->id,
+            "status"        => fake()->randomElement(['borrowed', 'returned', 'penalty']),
             "library_id"    => $bookLibrary,
             "borrowed_date" => $borrowedDate,
             "due_date"      => $dueDate,

@@ -13,6 +13,7 @@ class BorrowedBook extends Model
     protected $fillable = [
         'borrowed_date',
         'due_date',
+        'status',
         'returned_date',
         'code'
     ];

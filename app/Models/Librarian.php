@@ -27,10 +27,6 @@ class Librarian extends Authenticatable Implements HasMedia, HasName
         'password'
     ];
 
-    protected $hidden = [
-        'password',
-    ];
-
     public function getFilamentName(): string
     {
         return $this->profile->first_name . ' ' . $this->profile->last_name ?? 'Librarian';
