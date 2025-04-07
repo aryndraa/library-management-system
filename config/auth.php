@@ -49,7 +49,7 @@ return [
             'provider' => 'admins',
         ],
         'librarian' => [
-            'driver' => 'sanctum',
+            'driver' => 'session',
             'provider' => 'librarians',
         ]
     ],

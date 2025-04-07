@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,16 +13,27 @@ use Laravel\Sanctum\HasApiTokens;
 use phpDocumentor\Reflection\DocBlock\Tags\Implements_;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Librarian extends Model Implements HasMedia
+
+class Librarian extends Authenticatable Implements HasMedia, HasName
 {
-    use HasApiTokens, HasFactory, InteractsWithMedia;
+    use HasApiTokens, HasFactory, InteractsWithMedia ;
 
     protected $fillable = [
         'library_id',
         'email',
         'password'
     ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    public function getFilamentName(): string
+    {
+        return $this->profile->first_name . ' ' . $this->profile->last_name ?? 'Librarian';
+    }
 
     protected static function boot()
     {
