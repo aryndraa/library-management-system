@@ -21,4 +21,6 @@ class ViewBookCategory extends ViewRecord
     {
         return $this->record->name;
     }
+
+
 }

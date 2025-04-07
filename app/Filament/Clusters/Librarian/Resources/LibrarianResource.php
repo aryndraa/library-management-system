@@ -191,7 +191,7 @@ class LibrarianResource extends Resource
         return [
             'index' => Pages\ListLibrarians::route('/'),
             'create' => Pages\CreateLibrarian::route('/create'),
-            'view' => Pages\ViewLibrarian::route('/{record}}'),
+            'view' => Pages\ViewLibrarian::route('/{record}'),
             'edit' => Pages\EditLibrarian::route('/{record}/edit'),
         ];
     }

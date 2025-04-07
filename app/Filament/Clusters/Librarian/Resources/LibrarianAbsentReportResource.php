@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Librarian\Resources;
 
+use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource;
 use App\Filament\Clusters\Librarian;
 use App\Filament\Clusters\Librarian\Resources\LibrarianAbsentReportResource\Pages;
 use App\Filament\Clusters\Librarian\Resources\LibrarianAbsentReportResource\RelationManagers;
@@ -166,7 +167,11 @@ class LibrarianAbsentReportResource extends Resource
 //                    ->default(Carbon::now()->format('Y-m-d'))
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record) => LibrarianResource::getUrl('view', ['record' => $record->librarian->id]))
+                    ->icon('heroicon-o-eye')
+                    ->color('primary'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
