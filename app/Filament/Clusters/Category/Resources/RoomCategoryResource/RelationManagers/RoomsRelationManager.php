@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -34,7 +35,12 @@ class RoomsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                SpatieMediaLibraryImageColumn::make('room')
+                    ->label('Picture')
+                    ->collection('room')
+                    ->height(50)
+                    ->width(50),
+
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
