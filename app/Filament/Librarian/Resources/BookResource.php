@@ -99,7 +99,7 @@ class BookResource extends Resource
 
                                 Forms\Components\Placeholder::make('total_reviews')
                                     ->label('Total Comments')
-                                    ->content(fn ($record) => $record?->bookComents()?->count() ?? 0)
+                                    ->content(fn ($record) => $record?->bookComments()?->count() ?? 0)
                                     ->disabled(),
                             ])
                     ])->columnSpan(['lg' => 1])
@@ -186,6 +186,7 @@ class BookResource extends Resource
         return [
             RelationManagers\BorrowingsRelationManager::class,
             RelationManagers\LikesRelationManager::class,
+            RelationManagers\BookCommentsRelationManager::class
         ];
     }
 

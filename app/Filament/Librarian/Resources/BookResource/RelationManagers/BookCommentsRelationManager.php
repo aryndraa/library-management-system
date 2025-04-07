@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\BookResource\RelationManagers;
+namespace App\Filament\Librarian\Resources\BookResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
@@ -83,7 +83,6 @@ class BookCommentsRelationManager extends RelationManager
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ViewAction::make(),
-
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

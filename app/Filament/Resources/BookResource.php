@@ -94,7 +94,7 @@ class BookResource extends Resource
 
                                 Forms\Components\Placeholder::make('total_reviews')
                                     ->label('Total Comments')
-                                    ->content(fn ($record) => $record->bookComents()->count())
+                                    ->content(fn ($record) => $record->bookComments()->count())
                                     ->disabled(),
                             ])
                     ])->columnSpan(['lg' => 1])

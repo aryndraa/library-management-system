@@ -49,7 +49,7 @@ class Book extends Model implements HasMedia
         return $this->belongsToMany(Member::class, 'member_book_likes', 'book_id', 'member_id');
     }
 
-    public function bookComents (): HasMany
+    public function bookComments (): HasMany
     {
         return $this->hasMany(BookComment::class);
     }
