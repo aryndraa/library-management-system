@@ -7,6 +7,7 @@ use App\Filament\Resources\BookResource\RelationManagers;
 use App\Models\Book;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -31,7 +32,6 @@ class BookResource extends Resource
             ->schema([
                 Forms\Components\Group::make()
                     ->schema([
-
                         TextInput::make('title')
                             ->columnSpan(2),
 
@@ -71,25 +71,31 @@ class BookResource extends Resource
                     ->columns(2)
                 ->columnSpan(2),
 
-
-                Forms\Components\Section::make('Book Stats')
-                    ->label('Book Stats')
+                Forms\Components\Group::make()
                     ->schema([
+                        SpatieMediaLibraryFileUpload::make('cover')
+                            ->collection('book')
+                            ->columnSpan(2),
 
-                        Forms\Components\Placeholder::make('total_borrowed')
-                            ->label('Total Borrowings')
-                            ->content(fn ($record) => $record->borrowings()->count())
-                            ->disabled(),
+                        Forms\Components\Section::make('Book Stats')
+                            ->label('Book Stats')
+                            ->schema([
 
-                        Forms\Components\Placeholder::make('total_likes')
-                            ->label('Total Likes')
-                            ->content(fn ($record) => $record->likes()->count())
-                            ->disabled(),
+                                Forms\Components\Placeholder::make('total_borrowed')
+                                    ->label('Total Borrowings')
+                                    ->content(fn ($record) => $record->borrowings()->count())
+                                    ->disabled(),
 
-                        Forms\Components\Placeholder::make('total_reviews')
-                            ->label('Total Comments')
-                            ->content(fn ($record) => $record->bookComents()->count())
-                            ->disabled(),
+                                Forms\Components\Placeholder::make('total_likes')
+                                    ->label('Total Likes')
+                                    ->content(fn ($record) => $record->likes()->count())
+                                    ->disabled(),
+
+                                Forms\Components\Placeholder::make('total_reviews')
+                                    ->label('Total Comments')
+                                    ->content(fn ($record) => $record->bookComents()->count())
+                                    ->disabled(),
+                            ])
                     ])->columnSpan(['lg' => 1])
             ])
             ->columns(3);
