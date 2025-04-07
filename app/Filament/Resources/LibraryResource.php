@@ -5,16 +5,22 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LibraryResource\Pages;
 use App\Filament\Resources\LibraryResource\RelationManagers;
 use App\Models\Library;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class LibraryResource extends Resource
 {
@@ -30,9 +36,13 @@ class LibraryResource extends Resource
     {
         return $form
             ->schema([
-
                 Group::make()
                     ->schema([
+
+                        SpatieMediaLibraryFileUpload::make('picture')
+                            ->collection('library')
+                            ->columnSpan(2),
+
                         TextInput::make('name')
                             ->required(),
                         TextInput::make('address')
@@ -99,6 +109,12 @@ class LibraryResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('library')
+                    ->label('Picture')
+                    ->collection('library')
+                    ->height(50)
+                    ->width(50),
+
                 TextColumn::make('name')
                     ->label('Library')
                     ->searchable()
@@ -106,7 +122,8 @@ class LibraryResource extends Resource
 
                 TextColumn::make('email')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->limit(20),
 
                 TextColumn::make('phone'),
 
@@ -152,5 +169,23 @@ class LibraryResource extends Resource
             'view' => Pages\ViewLibrary::route('/{record}'),
             'edit' => Pages\EditLibrary::route('/{record}/edit'),
         ];
+    }
+
+    protected static function savePicture(?Model $record, UploadedFile $file): void
+    {
+        if (!$record) return;
+
+        if ($record->picture) {
+            Storage::disk('public')->delete($record->picture->file_path);
+            $record->picture->delete();
+        }
+
+        $filePath = $file->store('library/', 'public');
+
+        $record->picture()->create([
+            'file_name' => $file->getClientOriginalName(),
+            'file_path' => $filePath,
+            'file_type' => $file->getMimeType(),
+        ]);
     }
 }
