@@ -13,6 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -105,6 +106,12 @@ class BookResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('library')
+                    ->label('Picture')
+                    ->collection('library')
+                    ->height(50)
+                    ->width(50),
+
                 Tables\Columns\TextColumn::make('isbn')
                     ->label('ISBN')
                     ->sortable()
@@ -114,7 +121,7 @@ class BookResource extends Resource
                     ->label('Title')
                     ->sortable()
                     ->searchable()
-                    ->limit(40),
+                    ->limit(30),
 
                 TextColumn::make('library.name')
                     ->label('Library'),
