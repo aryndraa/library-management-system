@@ -184,7 +184,8 @@ class BookResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\BorrowingsRelationManager::class
+            RelationManagers\BorrowingsRelationManager::class,
+            RelationManagers\LikesRelationManager::class,
         ];
     }
 
