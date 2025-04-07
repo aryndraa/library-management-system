@@ -148,7 +148,11 @@ class BookResource extends Resource
 
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('category', 'name')
+                    ->label('category')
+                    ->preload()
+                    ->searchable()
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
