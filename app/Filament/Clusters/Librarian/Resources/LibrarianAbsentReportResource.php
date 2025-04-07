@@ -14,6 +14,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -79,6 +80,13 @@ class LibrarianAbsentReportResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('librarian.librarian')
+                    ->label('Picture')
+                    ->collection('librarian')
+                    ->height(50)
+                    ->width(50)
+                    ->rounded(),
+
                 TextColumn::make('librarian.profile.first_name')
                     ->label('Name')
                     ->getStateUsing(function ($record) {

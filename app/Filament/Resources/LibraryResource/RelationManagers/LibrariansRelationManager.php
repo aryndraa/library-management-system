@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -66,6 +67,13 @@ class LibrariansRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('email')
             ->columns([
+                SpatieMediaLibraryImageColumn::make('librarian')
+                    ->label('Picture')
+                    ->collection('librarian')
+                    ->height(50)
+                    ->width(50)
+                    ->rounded(),
+
                 TextColumn::make('email'),
                 TextColumn::make('profile.firstname')
                     ->label('Full Name')

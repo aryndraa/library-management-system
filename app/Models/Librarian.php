@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Sanctum\HasApiTokens;
+use phpDocumentor\Reflection\DocBlock\Tags\Implements_;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Librarian extends Model
+class Librarian extends Model Implements HasMedia
 {
-    use HasApiTokens, HasFactory;
+    use HasApiTokens, HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'library_id',

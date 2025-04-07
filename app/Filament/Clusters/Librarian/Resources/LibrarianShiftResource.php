@@ -15,6 +15,7 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -67,6 +68,13 @@ class LibrarianShiftResource extends Resource
 
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('librarian.librarian')
+                    ->label('Picture')
+                    ->collection('librarian')
+                    ->height(50)
+                    ->width(50)
+                    ->rounded(),
+
                 TextColumn::make('librarian.profile.first_name')
                     ->label('Name')
                     ->getStateUsing(function ($record) {
@@ -76,7 +84,6 @@ class LibrarianShiftResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('librarian.library.name'),
-
 
                 TextColumn::make('status')
                     ->label('Presence Status')

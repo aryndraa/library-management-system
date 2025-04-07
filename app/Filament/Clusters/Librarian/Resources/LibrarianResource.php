@@ -10,11 +10,13 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -42,41 +44,49 @@ class LibrarianResource extends Resource
 
                 Group::make()
                     ->schema([
-
-                        TextInput::make('email')
-                            ->label('Email')
-                            ->email(),
-
-                        TextInput::make('password')
-                            ->label('Password')
-                            ->password()
-                            ->minLength(8),
-
+                        SpatieMediaLibraryFileUpload::make('picture')
+                            ->collection('librarian')
+                            ->columnSpan(1),
                         Group::make()
-                            ->relationship('profile')
                             ->schema([
-                                TextInput::make('first_name')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('last_name')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('phone')
-                                    ->required()
-                                    ->tel(),
-                                Select::make('gender')
-                                    ->options([
-                                        'male' => 'Male',
-                                        'female' => 'Female',
+                                TextInput::make('email')
+                                    ->label('Email')
+                                    ->email(),
+
+                                TextInput::make('password')
+                                    ->label('Password')
+                                    ->password()
+                                    ->minLength(8),
+
+                                Group::make()
+                                    ->relationship('profile')
+                                    ->schema([
+                                        TextInput::make('first_name')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('last_name')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('phone')
+                                            ->required()
+                                            ->tel(),
+                                        Select::make('gender')
+                                            ->options([
+                                                'male' => 'Male',
+                                                'female' => 'Female',
+                                            ])
+                                            ->required(),
+                                        TextInput::make('address'),
+                                        TextInput::make('province'),
+                                        TextInput::make('city'),
+                                        DatePicker::make('birth_date')
                                     ])
-                                    ->required(),
-                                TextInput::make('address'),
-                                TextInput::make('province'),
-                                TextInput::make('city'),
-                                DatePicker::make('birth_date')
+                                ->columns(2),
                             ])
-                        ->columns(2),
-                    ])->columnSpan(3),
+                            ->columnSpan(2),
+                    ])
+                        ->columns(3)
+                        ->columnSpan(3),
 
 
 
@@ -121,6 +131,12 @@ class LibrarianResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('librarian')
+                    ->label('Picture')
+                    ->collection('librarian')
+                    ->height(50)
+                    ->width(50)
+                    ->rounded(),
                 TextColumn::make('profile.first_name')
                     ->label('Name')
                     ->getStateUsing(function ($record) {
