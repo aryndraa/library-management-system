@@ -106,9 +106,9 @@ class BookResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('library')
-                    ->label('Picture')
-                    ->collection('library')
+                SpatieMediaLibraryImageColumn::make('cover')
+                    ->label('Cover')
+                    ->collection('book')
                     ->height(50)
                     ->width(50),
 

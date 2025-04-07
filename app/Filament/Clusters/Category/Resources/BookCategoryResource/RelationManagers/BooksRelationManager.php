@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,6 +32,12 @@ class BooksRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
+                SpatieMediaLibraryImageColumn::make('cover')
+                    ->label('Cover')
+                    ->collection('book')
+                    ->height(50)
+                    ->width(50),
+
                 Tables\Columns\TextColumn::make('isbn')
                     ->sortable()
                     ->label('ISBN')
@@ -39,7 +46,7 @@ class BooksRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('title')
                     ->sortable()
                     ->searchable()
-                    ->limit(40),
+                    ->limit(30),
 
                 Tables\Columns\TextColumn::make('library.name')
                     ->sortable(),

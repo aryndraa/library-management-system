@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -82,14 +83,18 @@ class BorrowedBooksRelationManager extends RelationManager
                     ->label('ISBN')
                     ->sortable()
                     ->searchable(),
+
                 TextColumn::make('book.library.name')
                     ->label('Library')
                     ->sortable()
                     ->searchable(),
+
                 TextColumn::make('book.title')
                     ->label('Title')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(25),
+
                 TextColumn::make('book.category.name')
                     ->label('Category')
                     ->sortable(),

@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -59,11 +60,19 @@ class BooksRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
+                SpatieMediaLibraryImageColumn::make('cover')
+                    ->label('Cover')
+                    ->collection('book')
+                    ->height(50)
+                    ->width(50),
+
                 TextColumn::make('isbn')
                     ->sortable(),
+
                 TextColumn::make('title')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->limit(30),
                 TextColumn::make('category.name')
                     ->sortable(),
                 TextColumn::make('stock')
