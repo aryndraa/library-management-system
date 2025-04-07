@@ -5,7 +5,9 @@ namespace App\Filament\Clusters\BookBorrowing\Resources;
 use App\Filament\Clusters\BookBorrowing;
 use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingPenaltyResource\Pages;
 use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingPenaltyResource\RelationManagers;
+use App\Filament\Resources\BookResource;
 use App\Models\BorrowedBook;
+use Filament\Actions\ViewAction;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -76,7 +78,12 @@ class BookBorrowingPenaltyResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record) => BookBorrowingResource::getUrl('view', ['record' => $record->id]))
+                    ->icon('heroicon-o-eye')
+                    ->color('primary')
+                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
