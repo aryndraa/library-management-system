@@ -5,8 +5,15 @@ namespace App\Filament\Clusters\BookBorrowing\Resources;
 use App\Filament\Clusters\BookBorrowing;
 use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource\Pages;
 use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource\RelationManagers;
+use App\Filament\Resources\BookResource;
 use App\Models\BorrowedBook;
+use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -29,7 +36,99 @@ class BookBorrowingResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('code')
+                    ->minLength(6),
+
+                ToggleButtons::make('status')
+                    ->inline()
+                    ->options([
+                        'borrowed' => 'Borrowed',
+                        'returned' => 'Returned',
+                        'penalty'  => 'Penalty',
+                    ])
+                    ->colors([
+                        'borrowed' => 'warning',
+                        'returned' => 'success',
+                        'penalty'  => 'danger',
+                    ])
+                    ->required(),
+
+                Forms\Components\Group::make()
+                    ->schema([
+                        DatePicker::make('borrowed_date')
+                            ->label('Borrowed Date')
+                            ->date(),
+
+                        DatePicker::make('due_date')
+                            ->label('Due Date')
+                            ->date(),
+                    ])
+                    ->columns(2),
+
+                DatePicker::make('returned_date')
+                    ->label('Returned Date')
+                    ->date()
+                    ->nullable(),
+
+                Forms\Components\Section::make('Member Profile')
+                    ->relationship('member')
+                    ->schema([
+
+                        TextInput::make('email')
+                            ->columnSpan(2),
+
+                        Forms\Components\Group::make()
+                            ->relationship('profile')
+                            ->schema([
+                                TextInput::make('first_name')
+                                    ->label('Name'),
+
+                                TextInput::make('phone')
+                                    ->label('Phone'),
+
+
+                            ])
+                            ->columnSpan(2)
+                            ->columns(2)
+                    ])
+                    ->disabled()
+                    ->headerActions([
+//                        Forms\Components\Actions\Action::make('view_member')
+//                            ->label('View Book')
+//                            ->url(fn ($get) => BookResource::getUrl('view', ['record' => $get('book_id')]))
+//                            ->icon('heroicon-o-eye')
+//                            ->color('primary'),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(1),
+
+                Forms\Components\Section::make('Book')
+                    ->relationship('book')
+                    ->schema([
+                        TextInput::make('title')
+                            ->columnSpan(2),
+
+                        TextInput::make('isbn')
+                            ->label('ISBN'),
+
+                        Forms\Components\Group::make()
+                            ->relationship('category')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Category'),
+                            ])
+                    ])
+                    ->disabled()
+                    ->headerActions([
+                        Forms\Components\Actions\Action::make('view_book')
+                            ->label('View Book')
+                            ->url(fn ($get) => BookResource::getUrl('view', ['record' => $get('book_id')]))
+                            ->icon('heroicon-o-eye')
+                            ->color('primary'),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(1),
+
             ]);
     }
 
@@ -37,7 +136,9 @@ class BookBorrowingResource extends Resource
     {
         return $table
             ->query(
-                BorrowedBook::query()->where('status', 'borrowed')
+                BorrowedBook::query()
+                    ->where('status', 'borrowed')
+                    ->where('library_id', Filament::auth()->user()->library_id)
             )
             ->columns([
                 TextColumn::make('code')
@@ -68,6 +169,7 @@ class BookBorrowingResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -84,11 +186,14 @@ class BookBorrowingResource extends Resource
         ];
     }
 
+
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListBookBorrowings::route('/'),
             'create' => Pages\CreateBookBorrowing::route('/create'),
+            'view' => Pages\ViewBookBorrowing::route('/{record}'),
             'edit' => Pages\EditBookBorrowing::route('/{record}/edit'),
         ];
     }
