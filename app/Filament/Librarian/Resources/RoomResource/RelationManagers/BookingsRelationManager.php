@@ -29,7 +29,7 @@ class BookingsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('room.name')
             ->columns([
-                Tables\Columns\TextColumn::make('member..profile.first_name')
+                Tables\Columns\TextColumn::make('member.profile.first_name')
                     ->getStateUsing(function ($record) {
                         return $record->member->profile->first_name . ' ' . $record->member->profile->last_name;
                     })

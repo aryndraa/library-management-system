@@ -175,6 +175,12 @@ class RoomResource extends Resource
                         'class' => 'capitalize'
                     ]),
 
+
+                TextColumn::make('bookings_count')
+                    ->counts('bookings')
+                    ->label('Total Bookings')
+                    ->sortable(),
+
             ])
             ->filters([
                 SelectFilter::make('status')

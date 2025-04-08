@@ -2,6 +2,8 @@
 
 namespace App\Filament\Clusters;
 
+use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource;
+use App\Filament\Clusters\RoomBooking\Resources\RoomBookingResource;
 use Filament\Clusters\Cluster;
 use Filament\Facades\Filament;
 
@@ -20,5 +22,12 @@ class RoomBooking extends Cluster
     public static function shouldRegisterNavigation(): bool
     {
         return Filament::getCurrentPanel()?->getId() === 'librarian';
+    }
+
+    public static function getResources(): array
+    {
+        return [
+            RoomBookingResource::class,
+        ];
     }
 }

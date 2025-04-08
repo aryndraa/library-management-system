@@ -5,6 +5,8 @@ namespace App\Filament\Clusters\RoomBooking\Resources;
 use App\Filament\Clusters\RoomBooking;
 use App\Filament\Clusters\RoomBooking\Resources\RoomBookingResource\Pages;
 use App\Filament\Clusters\RoomBooking\Resources\RoomBookingResource\RelationManagers;
+use App\Models\Room;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,8 +34,38 @@ class RoomBookingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(
+                \App\Models\RoomBooking::query()
+                    ->whereHas('room', function ($query) {
+                        $query->where('library_id', Filament::auth()->user()->library_id);
+                    })
+                    ->whereNot('status', 'check out')
+            )
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('member.profile.first_name')
+                    ->getStateUsing(function ($record) {
+                        return $record->member->profile->first_name . ' ' . $record->member->profile->last_name;
+                    })
+                    ->label('Member')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('room.name')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('booking_date')
+                    ->date()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'check out' => 'gray',
+                        'check in' => 'success',
+                        'pending' => 'warning',
+                        'rejected' => 'danger',
+                    })
             ])
             ->filters([
                 //
