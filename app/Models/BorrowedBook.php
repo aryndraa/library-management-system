@@ -11,11 +11,14 @@ class BorrowedBook extends Model
     use HasFactory;
 
     protected $fillable = [
+        'book_id',
+        'member_id',
+        'library_id',
         'borrowed_date',
         'due_date',
         'status',
+        'code',
         'returned_date',
-        'code'
     ];
 
     public function book(): BelongsTo
@@ -26,6 +29,11 @@ class BorrowedBook extends Model
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class);
+    }
+
+    public function library(): BelongsTo
+    {
+        return $this->belongsTo(Library::class);
     }
 
 }

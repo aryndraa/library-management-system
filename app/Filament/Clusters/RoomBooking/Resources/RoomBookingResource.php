@@ -28,7 +28,7 @@ class RoomBookingResource extends Resource
 {
     protected static ?string $model = \App\Models\RoomBooking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
 
     protected static ?string $cluster = RoomBooking::class;
 
@@ -176,6 +176,10 @@ class RoomBookingResource extends Resource
                     ->whereNot('status', 'check out')
             )
             ->columns([
+                Tables\Columns\TextColumn::make('room.name')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('member.profile.first_name')
                     ->getStateUsing(function ($record) {
                         return $record->member->profile->first_name . ' ' . $record->member->profile->last_name;
@@ -183,10 +187,6 @@ class RoomBookingResource extends Resource
                     ->label('Member')
                     ->sortable()
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('room.name')
-                    ->searchable()
-                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('booking_date')
                     ->date()
