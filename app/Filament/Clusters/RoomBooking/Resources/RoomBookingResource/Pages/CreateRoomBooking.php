@@ -54,9 +54,9 @@ class CreateRoomBooking extends CreateRecord
                             ->inline()
                             ->options([
                                 'pending' => 'Pending',
+                                'schedule'  => 'Schedule',
                                 'check in' => 'Check In',
                                 'check out'  => 'Check Out',
-                                'schedule'  => 'Schedule',
                                 'cancel' => 'Cancel',
                             ])
                             ->colors([
