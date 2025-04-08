@@ -191,6 +191,7 @@ class RoomResource extends Resource
                     ->searchable(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -203,7 +204,7 @@ class RoomResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BookingsRelationManager::class
         ];
     }
 
@@ -213,6 +214,7 @@ class RoomResource extends Resource
             'index' => Pages\ListRooms::route('/'),
             'create' => Pages\CreateRoom::route('/create'),
             'edit' => Pages\EditRoom::route('/{record}/edit'),
+            'view' => Pages\ViewRoom::route('/{record}'),
         ];
     }
 }
