@@ -114,7 +114,7 @@ class RoomBookingsRelationManager extends RelationManager
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('total_price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable(),
 
             ])

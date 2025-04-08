@@ -51,7 +51,7 @@ class BookingsRelationManager extends RelationManager
                     ->time(),
 
                 Tables\Columns\TextColumn::make('total_price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')

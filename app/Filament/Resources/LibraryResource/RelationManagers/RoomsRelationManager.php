@@ -79,7 +79,7 @@ class RoomsRelationManager extends RelationManager
                         return RoomCategory::query()->where('id', $record->room_category_id)->first()->name;
                     }),
                 TextColumn::make('price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable(),
 
                 TextColumn::make('total_price')
@@ -87,7 +87,7 @@ class RoomsRelationManager extends RelationManager
                     ->getStateUsing(function ($record) {
                         return RoomBooking::query()->where('room_id', $record->id)->sum('total_price');
                     })
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')

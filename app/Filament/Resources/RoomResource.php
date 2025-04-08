@@ -148,7 +148,7 @@ class RoomResource extends Resource
                 TextColumn::make('library.name')
                     ->sortable(),
                 TextColumn::make('price')
-                    ->money("USD")
+                    ->money("IDR")
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')

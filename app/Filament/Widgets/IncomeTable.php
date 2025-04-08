@@ -36,7 +36,7 @@ class IncomeTable extends BaseWidget
 
                 Tables\Columns\TextColumn::make('total_income')
                     ->label('Total Income')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable()
                     ->default(fn ($record) => $record->total_income ?? 0),
             ])

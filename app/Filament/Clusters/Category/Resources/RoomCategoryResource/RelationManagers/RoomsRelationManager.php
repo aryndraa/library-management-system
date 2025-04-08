@@ -62,7 +62,7 @@ class RoomsRelationManager extends RelationManager
                     ]),
 
                 TextColumn::make('price')
-                    ->money("USD")
+                    ->money("IDR")
                     ->sortable(),
 
 
