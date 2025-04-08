@@ -16,4 +16,14 @@ class EditBookBorrowing extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        $record = $this->record;
+
+        if ($record->status === 'returned') {
+            $book = $record->book;
+            $book->increment('stock');
+        }
+    }
 }

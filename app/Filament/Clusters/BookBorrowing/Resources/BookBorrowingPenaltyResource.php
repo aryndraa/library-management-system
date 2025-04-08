@@ -83,7 +83,6 @@ class BookBorrowingPenaltyResource extends Resource
                     ->url(fn ($record) => BookBorrowingResource::getUrl('view', ['record' => $record->id]))
                     ->icon('heroicon-o-eye')
                     ->color('primary')
-                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

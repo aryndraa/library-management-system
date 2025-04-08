@@ -32,6 +32,8 @@ class RoomBookingResource extends Resource
 
     protected static ?string $cluster = RoomBooking::class;
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -174,6 +176,7 @@ class RoomBookingResource extends Resource
                         $query->where('library_id', Filament::auth()->user()->library_id);
                     })
                     ->whereNot('status', 'check out')
+                    ->whereNot('status', 'pending')
             )
             ->columns([
                 Tables\Columns\TextColumn::make('room.name')
