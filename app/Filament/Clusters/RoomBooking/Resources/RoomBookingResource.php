@@ -199,13 +199,15 @@ class RoomBookingResource extends Resource
                         'check out' => 'gray',
                         'check in' => 'success',
                         'pending' => 'warning',
-                        'rejected' => 'danger',
+                        'canceled' => 'danger',
+                        'schedule' => 'primary',
                     })
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -227,6 +229,7 @@ class RoomBookingResource extends Resource
         return [
             'index' => Pages\ListRoomBookings::route('/'),
             'create' => Pages\CreateRoomBooking::route('/create'),
+            'view' => Pages\ViewRoomBooking::route('/{record}'),
             'edit' => Pages\EditRoomBooking::route('/{record}/edit'),
         ];
     }

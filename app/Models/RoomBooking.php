@@ -11,6 +11,8 @@ class RoomBooking extends Model
     use HasFactory;
 
     protected $fillable = [
+        'member_id',
+        'room_id',
         'booking_date',
         'started_time',
         'finished_time',
