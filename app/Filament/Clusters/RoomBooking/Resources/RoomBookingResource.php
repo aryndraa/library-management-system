@@ -226,7 +226,7 @@ class RoomBookingResource extends Resource
                 Tables\Filters\Filter::make('booking_date')
                     ->form([
                         DatePicker::make('booking_date')
-                            ->label('Tanggal Booking'),
+                            ->label('Booking Date'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

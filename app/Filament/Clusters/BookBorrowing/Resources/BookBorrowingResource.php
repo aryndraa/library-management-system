@@ -162,6 +162,14 @@ class BookBorrowingResource extends Resource
                     ->sortable()
                     ->searchable(),
 
+                TextColumn::make('borrowed_date')
+                    ->date()
+                    ->sortable(),
+
+                TextColumn::make('due_date')
+                    ->date()
+                    ->sortable(),
+
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -171,7 +179,34 @@ class BookBorrowingResource extends Resource
                     }),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'borrowed' => 'Borrowed',
+                        'returned' => 'Returned',
+                        'penalty'  => 'Penalty',
+                    ]),
+
+                Tables\Filters\Filter::make('borrowed_date')
+                    ->form([
+                        DatePicker::make('borrowed_date')
+                            ->label('Borrowed Date'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['borrowed_date'], fn ($query, $date) =>
+                            $query->whereDate('borrowed_date', $date));
+                    }),
+
+                Tables\Filters\Filter::make('due_date')
+                    ->form([
+                        DatePicker::make('due_date')
+                            ->label('Due Date'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['due_date'], fn ($query, $date) =>
+                            $query->whereDate('due_date', $date));
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

@@ -111,7 +111,7 @@ class LibrarianAbsentReportResource extends Resource
                     ->default("-///-"),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Tanggal')
+                    ->label('Date')
                     ->dateTime('d M Y')
                     ->sortable()
                     ->searchable(),

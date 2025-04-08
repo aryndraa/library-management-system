@@ -8,6 +8,7 @@ use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingHistoryResource\R
 use App\Filament\Resources\BookResource;
 use App\Models\BookBorrowingHistory;
 use App\Models\BorrowedBook;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
@@ -135,6 +136,10 @@ class BookBorrowingHistoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(
+                BorrowedBook::query()
+                    ->where('library_id', Filament::auth()->user()->library_id)
+            )
             ->columns([
                 TextColumn::make('code')
                     ->limit('30')
@@ -155,6 +160,18 @@ class BookBorrowingHistoryResource extends Resource
                     ->sortable()
                     ->searchable(),
 
+                TextColumn::make('borrowed_date')
+                    ->date()
+                    ->sortable(),
+
+                TextColumn::make('due_date')
+                    ->date()
+                    ->sortable(),
+
+                TextColumn::make('returned_date')
+                    ->date()
+                    ->sortable(),
+
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -164,7 +181,34 @@ class BookBorrowingHistoryResource extends Resource
                     }),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'borrowed' => 'Borrowed',
+                        'returned' => 'Returned',
+                        'penalty'  => 'Penalty',
+                    ]),
+
+                Tables\Filters\Filter::make('borrowed_date')
+                    ->form([
+                        DatePicker::make('borrowed_date')
+                            ->label('Borrowed Date'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['borrowed_date'], fn ($query, $date) =>
+                            $query->whereDate('borrowed_date', $date));
+                    }),
+
+                Tables\Filters\Filter::make('due_date')
+                    ->form([
+                        DatePicker::make('due_date')
+                            ->label('Due Date'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['due_date'], fn ($query, $date) =>
+                            $query->whereDate('due_date', $date));
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
