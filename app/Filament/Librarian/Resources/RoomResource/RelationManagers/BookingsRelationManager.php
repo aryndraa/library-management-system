@@ -3,6 +3,7 @@
 namespace App\Filament\Librarian\Resources\RoomResource\RelationManagers;
 
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -58,11 +59,31 @@ class BookingsRelationManager extends RelationManager
                         'check out' => 'gray',
                         'check in' => 'success',
                         'pending' => 'warning',
-                        'rejected' => 'danger',
+                        'canceled' => 'danger',
+                        'schedule' => 'primary',
                     })
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'check in' => 'Check In',
+                        'check out'  => 'Check Out',
+                        'schedule'  => 'Schedule',
+                        'cancel' => 'Cancel',
+                    ]),
+
+                Tables\Filters\Filter::make('booking_date')
+                    ->form([
+                        DatePicker::make('booking_date')
+                            ->label('Tanggal Booking'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['booking_date'], fn ($query, $date) =>
+                            $query->whereDate('booking_date', $date));
+                    }),
+
             ])
             ->headerActions([
             ])
