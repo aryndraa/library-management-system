@@ -17,6 +17,7 @@ class Room extends Model implements HasMedia
     protected $fillable = [
         'name',
         'room_category_id',
+        'library_id',
         'price',
         'status'
     ];
