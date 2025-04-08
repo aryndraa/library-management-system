@@ -20,7 +20,6 @@ class StatsOverview extends BaseWidget
 
     protected static ?int $sort = 0;
 
-
     protected function getStats(): array
     {
         $filter = $this->filters['time_range'] ?? 'today';
