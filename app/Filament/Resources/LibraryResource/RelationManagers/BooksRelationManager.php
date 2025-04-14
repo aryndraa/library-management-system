@@ -87,9 +87,7 @@ class BooksRelationManager extends RelationManager
                     ->preload()
                     ->attribute('category.name'),
             ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
+
             ->actions([
                 Tables\Actions\Action::make('view')
                     ->label('View')

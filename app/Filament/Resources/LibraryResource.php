@@ -64,22 +64,22 @@ class LibraryResource extends Resource
                     ->schema([
                         Placeholder::make('total_books')
                             ->label('Total Books')
-                            ->content(fn ($record) => $record->books()->count())
+                            ->content(fn ($record) => $record?->books()->count())
                             ->disabled(),
 
                         Placeholder::make('total_librarians')
                             ->label('Total Librarians')
-                            ->content(fn ($record) => $record->librarians()->count())
+                            ->content(fn ($record) => $record?->librarians()->count())
                             ->disabled(),
 
                         Placeholder::make('total_rooms')
                             ->label('Total Rooms')
-                            ->content(fn ($record) => $record->rooms()->count())
+                            ->content(fn ($record) => $record?->rooms()->count())
                             ->disabled(),
 
                         Placeholder::make('total_visits')
                             ->label('Total Visits')
-                            ->content(fn ($record) => $record->memberVisits()->count())
+                            ->content(fn ($record) => $record?->memberVisits()->count())
                         ,
 
                         Placeholder::make('total_income')
@@ -87,8 +87,10 @@ class LibraryResource extends Resource
                             ->content(function ($record) {
                                 $total = 0;
 
-                                foreach ($record->rooms as $room) {
-                                    $total += $room->bookings->sum('total_price');
+                                if($record?->rooms) {
+                                    foreach ($record->rooms as $room) {
+                                        $total += $room->bookings?->sum('total_price');
+                                    }
                                 }
 
                                 return 'Rp ' . number_format($total, 0, ',', '.');

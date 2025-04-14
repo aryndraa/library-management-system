@@ -28,6 +28,7 @@ class LibrarianPanelProvider extends PanelProvider
             ->id('librarian')
             ->path('librarian')
             ->login()
+            ->spa()
             ->colors([
                 'primary' => "#704FE6",
                 'secondary' => "#FFD25D",
@@ -44,8 +45,6 @@ class LibrarianPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Librarian/Widgets'), for: 'App\\Filament\\Librarian\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

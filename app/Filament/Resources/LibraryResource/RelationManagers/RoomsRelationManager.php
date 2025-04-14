@@ -118,9 +118,6 @@ class RoomsRelationManager extends RelationManager
                     ->attribute('category.name'),
 
             ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
                 Tables\Actions\Action::make('view')
                     ->label('View')
