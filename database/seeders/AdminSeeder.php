@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
 
     public function run(): void
     {
-        $admins = Admin::factory()->count(50)->make();
+        $admins = Admin::factory()->count(1)->make();
         Admin::query()->insert($admins->toArray());
     }
 
