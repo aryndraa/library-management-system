@@ -14,6 +14,7 @@ class LibrarianShift extends Model
         'day',
         "clock_in",
         "clock_out",
+        'librarian_id'
     ];
 
     public function librarian(): BelongsTo

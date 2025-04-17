@@ -19,11 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminSeeder::class,
-            LibrarySeeder::class,
-            LibrarianSeeder::class,
             LibrarianProfileSeeder::class,
-            CategorySeeder::class,
             BookSeeder::class,
             MemberSeeder::class,
             MemberProfileSeeder::class,
@@ -31,10 +27,6 @@ class DatabaseSeeder extends Seeder
             BorrowedPenaltySeeder::class,
             BookCommentSeeder::class,
             BookReplyCommentSeeder::class,
-            RoomCategorySeeder::class,
-            RoomSeeder::class,
-            RoomFacilitySeeder::class,
-            RoomBookingSeeder::class,
             LibrarianShiftSeeder::class,
             LibrarianAbsentSeeder::class,
             MemberVisitSeeder::class,

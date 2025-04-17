@@ -10,10 +10,4 @@ class ListLibrarianShifts extends ListRecords
 {
     protected static string $resource = LibrarianShiftResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
 }

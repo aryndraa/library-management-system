@@ -101,8 +101,10 @@ class LibrarianAbsentReportResource extends Resource
                     ->sortable()
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'presence' => 'success',
-                        'absent' => 'danger',
+                        'not yet come' => 'gray',
+                        'not presence' => 'danger',
+                        'presence'     => 'success',
+                        'absent'       => 'warning',
                     }),
 
                 Tables\Columns\TextColumn::make('description')

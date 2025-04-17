@@ -31,40 +31,23 @@ class LibrarianShiftResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+        $today = Carbon::today()->format('l');
+        $todayDate = Carbon::today()->toDateString();
+        $currentTime = Carbon::now()->format('H:i:s');
+
         return $form
             ->schema([
-                Forms\Components\Placeholder::make('borrowed_date')
-                    ->label('Librarian Name')
-                    ->content(fn (LibrarianShift $record): ?string => $record->librarian->profile->first_name . ' ' . $record->librarian->profile->last_name),
-
-                Select::make('day')
-                    ->options([
-                        'Monday' => 'Monday',
-                        'Tuesday' => 'Tuesday',
-                        'Wednesday' => 'Wednesday',
-                        'Thursday' => 'Thursday',
-                        'Friday' => 'Friday',
-                        'Saturday' => 'Saturday',
-                        'Sunday' => 'Sunday',
-                    ])
-                    ->required(),
-                TimePicker::make('clock_in')
-                    ->time()
-                    ->required(),
-                TimePicker::make('clock_out')
-                    ->time()
-                    ->required(),
-
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        $today = Carbon::today()->format('l');
 
         $today = Carbon::today()->format('l');
         $todayDate = Carbon::today()->toDateString();
         $currentTime = Carbon::now()->format('H:i:s');
+
 
         return $table
             ->columns([
@@ -83,7 +66,8 @@ class LibrarianShiftResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('librarian.library.name'),
+                TextColumn::make('librarian.library.name')
+                    ->limit(20),
 
                 TextColumn::make('status')
                     ->label('Presence Status')
@@ -145,9 +129,10 @@ class LibrarianShiftResource extends Resource
 
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->url(fn ($record): string => LibrarianResource::getUrl('view', ['record' => $record]))
+                    ->icon('heroicon-o-eye'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
