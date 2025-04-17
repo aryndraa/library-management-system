@@ -42,3 +42,12 @@
 .fi-sidebar-item-active .fi-sidebar-item-label {
     @apply text-white;
 }
+
+/* gap layout */
+/* .grid.flex-1.auto-cols-fr.gap-y-8 {
+    @apply gap-4;
+}
+
+.fi-section-content {
+    @apply border-0;
+} */

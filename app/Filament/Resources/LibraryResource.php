@@ -38,10 +38,10 @@ class LibraryResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
-
                         SpatieMediaLibraryFileUpload::make('picture')
                             ->collection('library')
-                            ->columnSpan(2),
+                            ->columnSpan(2)
+                            ->multiple(),
 
                         TextInput::make('name')
                             ->required(),

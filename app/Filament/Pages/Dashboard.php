@@ -8,13 +8,23 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Pages\Dashboard as BaseDashboard;
+use Filament\Widgets\AccountWidget;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
+use Illuminate\Contracts\View\View;
 
 class Dashboard extends BaseDashboard
 {
     use BaseDashboard\Concerns\HasFiltersForm;
 
     use InteractsWithPageFilters;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            AccountWidget::class,
+        ];
+    }
+    
 
     public function filtersForm(Form $form): Form
     {
@@ -33,7 +43,9 @@ class Dashboard extends BaseDashboard
                             ->placeholder('-')
                             ->label('Filter by Time Range'),
                     ])
-                    ->columns(2),
+                    ,
             ]);
     }
+
+
 }
