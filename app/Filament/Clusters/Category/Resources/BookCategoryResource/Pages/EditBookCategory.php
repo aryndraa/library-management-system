@@ -16,4 +16,9 @@ class EditBookCategory extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string
+    {
+        return 'Edit ' . $this->record->name;
+    }
 }

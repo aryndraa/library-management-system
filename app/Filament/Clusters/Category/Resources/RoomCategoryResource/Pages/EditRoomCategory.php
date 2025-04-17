@@ -10,6 +10,11 @@ class EditRoomCategory extends EditRecord
 {
     protected static string $resource = RoomCategoryResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Edit ' . $this->record->name;
+    }
+
     protected function getHeaderActions(): array
     {
         return [

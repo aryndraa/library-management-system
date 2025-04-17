@@ -34,12 +34,13 @@ class BookCategoryResource extends Resource
                     ->label('Name')
                     ->string()
                     ->required()
-                    ->unique('categories', 'name'),
+                    ->unique('categories', 'name')
+                    ->autocapitalize(),
 
                 TextInput::make('code')
                     ->label('Code')
-                    ->minLength(8)
-                    ->unique('categories', 'code')
+                    ->minLength(4)
+                    ->unique('categories', 'code', null, true)
             ]);
     }
 

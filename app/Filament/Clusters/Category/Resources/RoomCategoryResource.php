@@ -37,8 +37,9 @@ class RoomCategoryResource extends Resource
 
                 TextInput::make('code')
                     ->label('Code')
-                    ->minLength(8)
-                    ->unique('categories', 'code')
+                    ->minLength(4)
+                    ->unique('room_categories', 'code', null, true)
+                    ->required()
             ]);
     }
 
@@ -88,8 +89,8 @@ class RoomCategoryResource extends Resource
     {
         return [
             'index' => Pages\ListRoomCategories::route('/'),
-            'view' => Pages\ViewRoomCategory::route('/{record}'),
             'create' => Pages\CreateRoomCategory::route('/create'),
+            'view' => Pages\ViewRoomCategory::route('/{record}'),
             'edit' => Pages\EditRoomCategory::route('/{record}/edit'),
         ];
     }

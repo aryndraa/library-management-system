@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateRoomCategory extends CreateRecord
 {
     protected static string $resource = RoomCategoryResource::class;
+
 }
