@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
@@ -47,18 +48,29 @@ class LibrarianResource extends Resource
                         SpatieMediaLibraryFileUpload::make('picture')
                             ->collection('librarian')
                             ->columnSpan(1),
+
                         Group::make()
                             ->schema([
-                                TextInput::make('email')
-                                    ->label('Email')
-                                    ->email(),
+                                Section::make("Account")
+                                    ->schema([
+                                        TextInput::make('email')
+                                            ->label('Email')
+                                            ->required()
+                                            ->unique('admins', 'email')
+                                            ->email(),
 
-                                TextInput::make('password')
-                                    ->label('Password')
-                                    ->password()
-                                    ->minLength(8),
+                                        TextInput::make('password')
+                                            ->label('Password')
+                                            ->password()
+                                            ->minLength(8)
+                                            ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord)
+                                            ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
+                                            ->dehydrated(fn ($state) => filled($state))
+                                            ->placeholder(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord ? '••••••••' : null)
+                                    ]),
 
-                                Group::make()
+
+                                Section::make('Librarian Profile')
                                     ->relationship('profile')
                                     ->schema([
                                         TextInput::make('first_name')
@@ -152,6 +164,7 @@ class LibrarianResource extends Resource
                 TextColumn::make('library.name')
                     ->label('Library')
                     ->sortable()
+                    ->limit(20)
 
             ])
             ->extremePaginationLinks()
