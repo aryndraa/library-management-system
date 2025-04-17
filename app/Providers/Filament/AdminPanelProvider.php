@@ -30,8 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->spa()
             ->colors([
-                'primary' => "#704FE6",
-                'secondary' => "#FFD25D",
+                'primary' => "#6678C3",
             ])
             ->font('"Outfit", sans-serif')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -67,6 +66,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->authGuard('admin');
+            ->authGuard('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->darkMode(false);
     }
 }

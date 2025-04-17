@@ -1,13 +1,15 @@
-/** @type {import('tailwindcss').Config} */
+import preset from "../../../../vendor/filament/filament/tailwind.config.preset";
+
 export default {
+    presets: [preset],
     content: [
+        "./app/Filament/C:laragonwwwlibrary-appappFilamentClustersBookBorrowing**/*.php",
         "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
+        "./resources/views/filament/c:laragonwwwlibrary-appapp-filament-clusters-book-borrowing**/*.blade.php",
         "./vendor/filament/**/*.blade.php",
     ],
     theme: {
-        extend: {
+        extends: {
             colors: {
                 primary: {
                     100: "#6678C3",
@@ -18,5 +20,4 @@ export default {
             },
         },
     },
-    plugins: [],
 };

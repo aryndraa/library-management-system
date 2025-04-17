@@ -30,8 +30,7 @@ class LibrarianPanelProvider extends PanelProvider
             ->login()
             ->spa()
             ->colors([
-                'primary' => "#704FE6",
-                'secondary' => "#FFD25D",
+                'primary' => "#6678C3",
             ])
             ->font('"Outfit", sans-serif')
             ->brandLogo(fn () => view('filament.app.logo', [

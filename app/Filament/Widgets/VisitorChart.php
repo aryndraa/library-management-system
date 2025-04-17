@@ -37,10 +37,10 @@ class VisitorChart extends ChartWidget
                 [
                     'label' => 'Total Visits',
                     'data' => $data->map(fn ($item) => $item->aggregate)->toArray(),
-                    'backgroundColor' => 'rgba(255, 210, 93, 0.05)',
+                    'backgroundColor' => 'rgba(102, 120, 195, 0.05)',
                     'fill' => true,
                     'tension' => 0.5,
-                    'borderColor' => 'rgba(255, 210, 93, 1)',
+                    'borderColor' => 'rgba(102, 120, 195, 1)',
                 ],
             ],
             'labels' => $data->map(fn ($item) => \Carbon\Carbon::parse($item->date)->translatedFormat('M'))->toArray(),

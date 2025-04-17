@@ -1,0 +1,44 @@
+@import "/vendor/filament/filament/resources/css/theme.css";
+
+@config 'tailwind.config.js';
+
+/* sidebar */
+.fi-sidebar-nav {
+    @apply bg-white border-t;
+}
+
+/* sidebar item */
+.fi-sidebar-item-active a {
+    @apply rounded-lg bg-[#6678C3];
+}
+
+.fi-sidebar-item-active a {
+    &:hover {
+        @apply bg-[#6678C3];
+    }
+}
+
+/* table */
+
+.fi-ta-table tr th {
+    @apply bg-gray-50;
+}
+
+.fi-ta-table tr th span {
+    @apply text-[#7B7E82];
+}
+
+/* .fi-sidebar-item,
+.fi-sidebar-item a {
+    &:hover {
+        @apply bg-gray-100;
+    }
+} */
+
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    @apply text-white;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-label {
+    @apply text-white;
+}

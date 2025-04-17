@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\RoomBooking;
 use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
+use RoundingMode;
 
 class IncomeRecordChart extends ChartWidget
 {
@@ -35,10 +36,11 @@ class IncomeRecordChart extends ChartWidget
                 [
                     'label' => 'Total Income',
                     'data' => $incomePerMonth,
-                    'backgroundColor' => 'rgba(255, 210, 93, 0.2)',
-                    'borderColor' => 'rgba(255, 210, 93, 1)',
+                    'backgroundColor' => 'rgba(102, 120, 195, 1)',
+                    'borderColor' => 'rgba(102, 120, 195, 1)',
                     'borderWidth' => 2,
                     'fill' => true,
+                    
                 ],
             ],
             'labels' => $labels,
