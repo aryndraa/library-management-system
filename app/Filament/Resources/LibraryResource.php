@@ -13,6 +13,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
@@ -38,73 +39,92 @@ class LibraryResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
-                        SpatieMediaLibraryFileUpload::make('picture')
-                            ->collection('library')
-                            ->columnSpan(2)
-                            ->multiple(),
+                        Section::make()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->required(),
+                                TextInput::make('address')
+                                    ->required(),
+                                TextInput::make('email')
+                                    ->required(),
+                                TextInput::make('phone')
+                                    ->required(),
+                                TimePicker::make('opening_time')
+                                    ->required(),
+                                TimePicker::make('closing_time')
+                                    ->required(),
+                            ])
+                            ->columns(2),
 
-                        TextInput::make('name')
-                            ->required(),
-                        TextInput::make('address')
-                            ->required(),
-                        TextInput::make('email')
-                            ->required(),
-                        TextInput::make('phone')
-                            ->required(),
-                        TimePicker::make('opening_time')
-                            ->required(),
-                        TimePicker::make('closing_time')
-                            ->required(),
+
+                        Section::make('Library Stats')
+                            ->schema([
+                                Placeholder::make('total_books')
+                                    ->label('Total Books')
+                                    ->content(fn ($record) => $record?->books()->count() ?? 0)
+                                    ->disabled(),
+
+                                Placeholder::make('total_librarians')
+                                    ->label('Total Librarians')
+                                    ->content(fn ($record) => $record?->librarians()->count() ?? 0)
+                                    ->disabled(),
+
+                                Placeholder::make('total_rooms')
+                                    ->label('Total Rooms')
+                                    ->content(fn ($record) => $record?->rooms()->count() ?? 0)
+                                    ->disabled(),
+
+                                Placeholder::make('total_visits')
+                                    ->label('Total Visits')
+                                    ->content(fn ($record) => $record?->memberVisits()->count() ?? 0)
+                                ,
+
+                                Placeholder::make('total_income')
+                                    ->label('Total Income')
+                                    ->content(function ($record) {
+                                        $total = 0;
+
+                                        if($record?->rooms) {
+                                            foreach ($record->rooms as $room) {
+                                                $total += $room->bookings?->sum('total_price');
+                                            }
+                                        }
+
+                                        return 'Rp ' . number_format($total, 0, ',', '.');
+                                    })
+                                    ->disabled()
+                                    ->columnSpan(2),
+                            ])
                     ])
                     ->columns(2)
-                    ->columnSpan(2)
-                ,
+                    ->columnSpan(2),
 
-                Section::make('Library Stats')
+                Section::make('Library Pictures')
                     ->schema([
-                        Placeholder::make('total_books')
-                            ->label('Total Books')
-                            ->content(fn ($record) => $record?->books()->count())
-                            ->disabled(),
 
-                        Placeholder::make('total_librarians')
-                            ->label('Total Librarians')
-                            ->content(fn ($record) => $record?->librarians()->count())
-                            ->disabled(),
-
-                        Placeholder::make('total_rooms')
-                            ->label('Total Rooms')
-                            ->content(fn ($record) => $record?->rooms()->count())
-                            ->disabled(),
-
-                        Placeholder::make('total_visits')
-                            ->label('Total Visits')
-                            ->content(fn ($record) => $record?->memberVisits()->count())
-                        ,
-
-                        Placeholder::make('total_income')
-                            ->label('Total Income')
-                            ->content(function ($record) {
-                                $total = 0;
-
-                                if($record?->rooms) {
-                                    foreach ($record->rooms as $room) {
-                                        $total += $room->bookings?->sum('total_price');
-                                    }
-                                }
-
-                                return 'Rp ' . number_format($total, 0, ',', '.');
-                            })
-                            ->disabled()
-                            ->columnSpan(2)
-
+                         SpatieMediaLibraryFileUpload::make('picture')
+                             ->collection('library')
+                             ->columnSpan(3)
+                             ->multiple()
+                             ->imagePreviewHeight(100)
+                             ->imageCropAspectRatio('16:9')
+                             ->maxParallelUploads(4)
+                             ->maxParallelUploads(4)
+                             ->maxFiles(4),
 
                     ])
                     ->columnSpan(['lg' => 1]),
+
+
             ])
             ->columns(3);
 
 
+    }
+
+    public static function view(ViewRecord $view)
+    {
+        return $view->view('filament.resources.library-gallery');
     }
 
     public static function table(Table $table): Table
@@ -115,7 +135,8 @@ class LibraryResource extends Resource
                     ->label('Picture')
                     ->collection('library')
                     ->height(50)
-                    ->width(50),
+                    ->width(50)
+                    ->limit(1),
 
                 TextColumn::make('name')
                     ->label('Library')

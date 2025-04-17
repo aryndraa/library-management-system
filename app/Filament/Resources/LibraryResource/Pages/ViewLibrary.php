@@ -4,6 +4,7 @@ namespace App\Filament\Resources\LibraryResource\Pages;
 
 use App\Filament\Resources\LibraryResource;
 use Filament\Actions;
+use Filament\Infolists\Components\View;
 use Filament\Resources\Pages\Concerns\HasRelationManagers;
 use Filament\Resources\Pages\ViewRecord;
 
