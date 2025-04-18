@@ -37,7 +37,7 @@ class MemberResource extends Resource
                     ->collection('member')
                     ->columnSpan(1),
 
-                Forms\Components\Group::make()
+                Forms\Components\Section::make()
                     ->schema([
 
                         TextInput::make('email'),
