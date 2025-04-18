@@ -131,7 +131,7 @@ class LibrarianShiftResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('view')
                     ->label('View')
-                    ->url(fn ($record): string => LibrarianResource::getUrl('view', ['record' => $record]))
+                    ->url(fn ($record): string => LibrarianResource::getUrl('view', ['record' => $record->librarian_id]))
                     ->icon('heroicon-o-eye'),
             ])
             ->bulkActions([
