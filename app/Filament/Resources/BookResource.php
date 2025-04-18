@@ -31,7 +31,7 @@ class BookResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Group::make()
+                Forms\Components\Section::make()
                     ->schema([
                         TextInput::make('title')
                             ->columnSpan(2),
@@ -97,6 +97,7 @@ class BookResource extends Resource
                                     ->content(fn ($record) => $record->bookComments()->count())
                                     ->disabled(),
                             ])
+                            ->columnSpan(2)
                     ])->columnSpan(['lg' => 1])
             ])
             ->columns(3);
