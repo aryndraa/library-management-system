@@ -22,9 +22,10 @@ class Dashboard extends BaseDashboard
     {
         return [
             AccountWidget::class,
+
         ];
     }
-    
+
 
     public function filtersForm(Form $form): Form
     {
@@ -43,7 +44,7 @@ class Dashboard extends BaseDashboard
                             ->placeholder('-')
                             ->label('Filter by Time Range'),
                     ])
-                    ,
+                    ->columns(2),
             ]);
     }
 

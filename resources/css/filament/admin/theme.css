@@ -2,21 +2,107 @@
 
 @config 'tailwind.config.js';
 
+
+/* header */
+.fi-topbar {
+    @apply  relative flex  justify-end;
+}
+
+.fi-topbar nav{
+    @apply bg-white m-5 rounded-full relative  shadow-none w-fit mb-0;
+}
+
+.fi-main section {
+    @apply pt-0;
+}
+
+.grid.flex-1.auto-cols-fr.gap-y-8 {
+    @apply gap-y-4;
+}
+
 /* sidebar */
 .fi-sidebar-nav {
-    @apply bg-white border-t;
+    @apply bg-[#2E3969] px-8;
+}
+
+/* sidebar header */
+.fi-sidebar-header {
+    @apply bg-[#2E3969]  rounded-tr-[80px] px-8 py-14 pb-8 ;
 }
 
 /* sidebar item */
-.fi-sidebar-item-active a {
-    @apply rounded-lg bg-[#6678C3];
+
+/* item active */
+.fi-sidebar-item.fi-active a {
+    @apply  bg-white   ;
 }
 
-.fi-sidebar-item-active a {
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+    @apply text-[#37447D];
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-label {
+    @apply text-[#37447D] font-semibold;
+}
+
+.fi-sidebar-item.fi-active a {
     &:hover {
-        @apply bg-[#6678C3];
+        @apply bg-[#fff];
     }
 }
+
+/* item disable */
+
+.fi-sidebar-item a  {
+    @apply text-white  px-4 py-3 rounded-full;
+}
+
+.fi-sidebar-item a {
+    &:hover {
+        @apply bg-[#fff]/10;
+    }
+}
+
+.fi-sidebar-item a span {
+    @apply text-white ;
+}
+
+.fi-sidebar-item .fi-sidebar-item-icon {
+    @apply text-white ;
+}
+
+/* sidebar group */
+
+.fi-sidebar-group-button span,
+.fi-sidebar-group-button button {
+    @apply text-gray-400 ;
+
+}
+
+/* sub navigation */
+.fi-page-sub-navigation-sidebar .fi-sidebar-group .fi-sidebar-group-items .fi-sidebar-item a span,
+.fi-page-sub-navigation-sidebar .fi-sidebar-group .fi-sidebar-group-items .fi-sidebar-item a svg {
+    @apply text-black ;
+
+}
+
+/* sub nav item active */
+
+.fi-page-sub-navigation-sidebar .fi-sidebar-group .fi-sidebar-group-items .fi-sidebar-item.fi-active a {
+    @apply bg-[#6678C3];
+}
+
+.fi-page-sub-navigation-sidebar .fi-sidebar-group .fi-sidebar-group-items .fi-sidebar-item.fi-active a span,
+.fi-page-sub-navigation-sidebar .fi-sidebar-group .fi-sidebar-group-items .fi-sidebar-item.fi-active a svg {
+    @apply text-white ;
+
+}
+
+/* title */
+.fi-header-heading {
+    @apply text-[#37447D]
+}
+
 
 /* table */
 
@@ -28,20 +114,35 @@
     @apply text-[#7B7E82];
 }
 
-/* .fi-sidebar-item,
-.fi-sidebar-item a {
+/* stats */
+.fi-wi-stats-overview-stat {
+
+   & {
+       @apply transition
+   }
+
     &:hover {
-        @apply bg-gray-100;
+        @apply bg-[#6678C3] ;
+
+        .fi-wi-stats-overview-stat-label {
+            @apply text-white
+        }
+
+        .fi-wi-stats-overview-stat-value {
+            @apply text-white
+        }
+
+        .fi-wi-stats-overview-stat-description {
+            @apply text-white
+        }
     }
-} */
 
-.fi-sidebar-item-active .fi-sidebar-item-icon {
-    @apply text-white;
+
 }
 
-.fi-sidebar-item-active .fi-sidebar-item-label {
-    @apply text-white;
-}
+
+
+
 
 /* gap layout */
 /* .grid.flex-1.auto-cols-fr.gap-y-8 {
