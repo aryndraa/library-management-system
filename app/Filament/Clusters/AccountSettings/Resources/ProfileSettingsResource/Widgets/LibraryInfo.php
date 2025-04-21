@@ -2,22 +2,24 @@
 
 namespace App\Filament\Clusters\AccountSettings\Resources\ProfileSettingsResource\Widgets;
 
+use App\Filament\Resources\BookResource;
 use App\Models\Library;
+use Filament\Actions\Action;
 use Filament\Widgets\Widget;
 
 class LibraryInfo extends Widget
 {
     protected static string $view = 'filament.clusters.account-settings.resources.profile-settings-resource.widgets.library-info';
 
-    public ?int $libraryId = null;
 
-    public function mount(): void
-    {
-        $this->libraryId = auth()->user()->library_id;
-    }
+    protected int | string | array $columnSpan = 2;
+
 
     public function getLibraryInfo()
     {
-        return Library::find($this->libraryId);
+        return Library::find(auth()->user()->library_id);
     }
+
+
+
 }
