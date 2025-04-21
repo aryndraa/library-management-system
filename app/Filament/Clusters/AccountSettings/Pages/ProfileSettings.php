@@ -4,9 +4,12 @@ namespace App\Filament\Clusters\AccountSettings\Pages;
 
 use App\Filament\Clusters\AccountSettings;
 use Filament\Actions\Action;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -32,22 +35,56 @@ class ProfileSettings extends Page
     {
         return $form
             ->schema([
-                Section::make()
+                Section::make('Personal Information')
                     ->schema([
-                        SpatieMediaLibraryFileUpload::make('picture')
-                            ->collection('librarian')
-                            ->columnSpan(1),
+                        group::make()
+                            ->schema([
+                                SpatieMediaLibraryFileUpload::make('picture')
+                                    ->collection('librarian')
+                                    ->columnSpan(1)
+                                    ->panelAspectRatio("1:1")
+                                    ->previewable()
+                            ])
+                            ->columns(3)
+                            ->columnSpan(2),
 
-                        Select::make('library_id')
-                            ->relationship('library', 'name')
-                            ->disabled()
+                        Group::make()
+                            ->relationship('profile')
+                            ->schema([
+                                TextInput::make('first_name')
+                                    ->required(),
+                                TextInput::make('last_name')
+                                    ->required(),
+                                Select::make('gender')
+                                    ->options([
+                                        'male' => 'Male',
+                                        'female' => 'Female',
+                                    ])
+                                    ->required(),
+                                TextInput::make('address'),
+                                TextInput::make('province'),
+                                TextInput::make('city'),
+                                DatePicker::make('birth_date'),
+                            ])
+                            ->columns(2),
+                    ]),
+
+                Section::make("Contact Information")
+                    ->schema([
+                        TextInput::make('email')
+                            ->email()
+                            ->required(),
+
+                        Group::make()
+                            ->relationship('profile')
+                            ->schema([
+                                TextInput::make('phone')
+                                    ->required(),
+                            ])
                     ])
-                    ->columnSpan(1),
-
-
+                    ->columns(2)
 
             ])
-            ->columns(3)
             ->statePath('data')
             ->model(auth()->user());
     }
