@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Clusters\AccountSettings;
 use App\Filament\Librarian\Pages\Dashboard;
 use App\Filament\Librarian\Pages\Profile;
 use Filament\Http\Middleware\Authenticate;
@@ -32,9 +33,9 @@ class LibrarianPanelProvider extends PanelProvider
             ->login()
             ->userMenuItems([
                 MenuItem::make()
-                    ->label('Profile')
-                    ->url(fn (): string => Profile::getUrl())
-                    ->icon('heroicon-o-user'),
+                    ->label('Account Settings')
+                    ->url(fn (): string => AccountSettings::getUrl())
+                    ->icon('heroicon-o-cog-8-tooth'),
             ])
             ->spa()
             ->colors([
