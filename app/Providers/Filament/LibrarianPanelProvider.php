@@ -3,10 +3,12 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Librarian\Pages\Dashboard;
+use App\Filament\Librarian\Pages\Profile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -28,6 +30,12 @@ class LibrarianPanelProvider extends PanelProvider
             ->id('librarian')
             ->path('librarian')
             ->login()
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Profile')
+                    ->url(fn (): string => Profile::getUrl())
+                    ->icon('heroicon-o-user'),
+            ])
             ->spa()
             ->colors([
                 'primary' => "#6678C3",
