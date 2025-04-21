@@ -64,7 +64,6 @@ class LibrarianResource extends Resource
                                             ->password()
                                             ->minLength(8)
                                             ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord)
-                                            ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
                                             ->dehydrated(fn ($state) => filled($state))
                                             ->placeholder(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord ? '••••••••' : null)
                                     ]),
