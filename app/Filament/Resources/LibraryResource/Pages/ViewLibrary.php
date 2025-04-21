@@ -16,6 +16,14 @@ class ViewLibrary extends ViewRecord
     protected static string $resource = LibraryResource::class;
 
 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+          LibraryResource\Widgets\MemberQrCode::class,
+          LibraryResource\Widgets\MemberQrCode::class,
+        ];
+    }
+
     public function getTitle(): string
     {
         return $this->record->name;
