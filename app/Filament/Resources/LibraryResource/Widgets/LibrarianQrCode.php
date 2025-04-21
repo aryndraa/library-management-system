@@ -6,15 +6,14 @@ use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class MemberQrCode extends Widget
+class LibrarianQrCode extends Widget
 {
-    protected static string $view = 'filament.resources.library-resource.widgets.member-qr-code';
+    protected static string $view = 'filament.resources.library-resource.widgets.librarian-qr-code';
 
     public ?Model $record = null;
 
-
     protected function getQrCode(): string
     {
-        return QrCode::size(200)->generate('http://library-app.test/attendance/' . $this->record->id);
+        return QrCode::size(200)->generate('http://library-app.test/librarian/presence/' . $this->record->id);
     }
 }
