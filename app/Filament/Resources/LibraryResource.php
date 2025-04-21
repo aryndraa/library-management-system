@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LibraryResource\Pages;
 use App\Filament\Resources\LibraryResource\RelationManagers;
-use App\Filament\Widgets\QrCodeWidget;
 use App\Models\Library;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
@@ -19,7 +18,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
