@@ -3,6 +3,7 @@
 namespace App\Filament\Clusters\AccountSettings\Pages;
 
 use App\Filament\Clusters\AccountSettings;
+use App\Filament\Clusters\AccountSettings\Resources\ProfileSettingsResource\Widgets\LibraryInfo;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
@@ -13,6 +14,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Illuminate\Contracts\View\View;
 
 class ProfileSettings extends Page
 {
@@ -30,6 +32,14 @@ class ProfileSettings extends Page
             auth()->user()->attributesToArray()
         );
     }
+
+    protected function getHeaderWidgets(): array
+    {
+       return [
+         LibraryInfo::class
+       ];
+    }
+
 
     public function form(Form $form): Form
     {
