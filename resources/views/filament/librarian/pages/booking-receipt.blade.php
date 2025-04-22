@@ -23,8 +23,9 @@
                     />
                     <div class="w-full h-full ">
                         <div class="mb-4">
-                            <h3 class="text-lg font-medium mb-1">{{$roomBooking->room->name}}</h3>
-                            <p class="text-sm mb-1">{{$roomBooking->room->category->name}}</p>
+                            <h3 class="text-xl font-medium mb-1">{{$roomBooking->room->name}}</h3>
+                            <p class="mb-1">{{$roomBooking->room->category->name}}</p>
+                            <p class="text-sm mb-1">Rp {{ number_format($roomBooking->room->price, 0, ',', '.') }}/ Hours</p>
                         </div>
                         <div>
                             <a href="" class="text-xs rounded-xl px-3 py-2 bg-primary-500 text-white font-semibold">Room Detail</a>
@@ -32,8 +33,8 @@
                     </div>
                 </div>
 
-                <div class="w-full mb-10">
-                    <h2 class="font-medium text-gray-400 text-sm mb-4">Borrow Detail</h2>
+                <div class="w-full mb-4">
+                    <h2 class="font-medium text-gray-400 text-sm mb-4">Booking Detail</h2>
                     <div class="flex flex-col gap-4  py-4 px-2 border-y">
                         <div class="grid grid-cols-4 font-medium text-gray-500   ">
                             <h3>Code</h3>
@@ -54,6 +55,22 @@
                             <h3>Finish Time</h3>
                             <span class="text-center">:</span>
                             <p class="col-span-2 flex justify-end">{{\Carbon\Carbon::parse($roomBooking->finished_time)->translatedFormat('H:i:s')}} WITA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full mb-10">
+                    <h2 class="font-medium text-gray-400 text-sm mb-4">Payment Detail</h2>
+                    <div class="flex flex-col gap-4  py-4 px-2 border-y">
+                        <div class="grid grid-cols-4 font-medium text-gray-500   ">
+                            <h3>Total Price</h3>
+                            <span class="text-center">:</span>
+                            <p class="col-span-2 flex justify-end">Rp. {{ number_format($roomBooking->total_price, 0, ',', '.') }}</p>
+                        </div>
+                        <div class="grid grid-cols-4 font-medium text-gray-500   ">
+                            <h3>Payment </h3>
+                            <span class="text-center">:</span>
+                            <p class="col-span-2 flex justify-end">DANA</p>
                         </div>
                     </div>
                 </div>
