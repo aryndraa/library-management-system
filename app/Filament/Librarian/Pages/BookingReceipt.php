@@ -21,7 +21,7 @@ class BookingReceipt extends Page
 
     protected static ?int $navigationSort= 3;
 
-    public ?string $code = 'BRW-20250504-MGCU';
+    public ?string $code = '';
 
     public $roomBooking;
 
