@@ -3,11 +3,13 @@
 namespace App\Filament\Librarian\Pages;
 
 use App\Models\RoomBooking;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BookingReceipt extends Page
 {
@@ -64,5 +66,29 @@ class BookingReceipt extends Page
             ->send();
     }
 
+    public function printPdf(): StreamedResponse
+    {
+        if (! $this->roomBooking) {
+            Notification::make()
+                ->title('No room booking record to print.')
+                ->danger()
+                ->send();
+
+            return back();
+        }
+
+        $pdf = Pdf::loadView('exports.booking-receipt', [
+            'roomBooking' => $this->roomBooking,
+        ]);
+
+        Notification::make()
+            ->title('Receipt print!')
+            ->success()
+            ->send();
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'borrowing-receipt.pdf');
+    }
 
 }
