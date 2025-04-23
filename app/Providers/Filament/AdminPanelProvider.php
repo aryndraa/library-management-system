@@ -49,7 +49,7 @@ class AdminPanelProvider extends PanelProvider
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
                 AuthenticateSession::class,
-                ShareErrorsFromSession::class,  
+                ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
@@ -65,6 +65,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authGuard('admin')
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->darkMode(false);
+            ->darkMode(false)
+            ->sidebarCollapsibleOnDesktop();
     }
 }

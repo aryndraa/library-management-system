@@ -68,6 +68,9 @@ class LibrarianPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->authGuard('librarian');
+            ->authGuard('librarian')
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->darkMode(false)
+            ->sidebarCollapsibleOnDesktop();
     }
 }
