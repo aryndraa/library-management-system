@@ -54,6 +54,7 @@ class ProfileSettings extends Page
                                     ->columnSpan(1)
                                     ->panelAspectRatio("1:1")
                                     ->previewable()
+                                    ->image()
                             ])
                             ->columns(3)
                             ->columnSpan(2),
