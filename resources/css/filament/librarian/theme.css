@@ -74,8 +74,9 @@
 /* sidebar group */
 
 .fi-sidebar-group-button span,
-.fi-sidebar-group-button button {
-    @apply text-gray-400;
+.fi-sidebar-group-button button,
+.fi-sidebar-group-icon {
+    @apply text-white;
 }
 
 /* sub navigation */

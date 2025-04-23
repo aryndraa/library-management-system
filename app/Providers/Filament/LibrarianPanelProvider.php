@@ -10,6 +10,7 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -69,8 +70,14 @@ class LibrarianPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->authGuard('librarian')
-            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->viteTheme('resources/css/filament/librarian/theme.css')
             ->darkMode(false)
-            ->sidebarCollapsibleOnDesktop();
+            ->sidebarCollapsibleOnDesktop()
+            ->navigationGroups([
+                NavigationGroup::make('Book Management')
+                    ->icon('heroicon-o-book-open'),
+                NavigationGroup::make('Room Management')
+                    ->icon('heroicon-o-rectangle-stack'),
+            ]);
     }
 }
