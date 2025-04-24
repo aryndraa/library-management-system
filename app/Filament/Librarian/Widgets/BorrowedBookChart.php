@@ -80,14 +80,14 @@ class BorrowedBookChart extends ChartWidget
                     'data' => $borrowedData->map(fn ($item) => $item->aggregate)->toArray(),
                     'backgroundColor' => 'rgba(102, 120, 195, 1)',
                     'borderColor' => 'rgba(102, 120, 195, 1)',
-                    'borderRadius' => 10,
+                    'borderRadius' => 50,
                 ],
                 [
                     'label' => 'Penalty',
                     'data' => $penaltyData->map(fn ($item) => $item->aggregate)->toArray(),
                     'backgroundColor' => 'rgba(255, 99, 132, 0.8)', // Red
                     'borderColor' => 'rgba(255, 99, 132, 1)',
-                    'borderRadius' => 10,
+                    'borderRadius' => 50,
                 ],
             ],
             'labels' => $borrowedData->map($labelFormatter)->toArray(),
