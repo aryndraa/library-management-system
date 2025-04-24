@@ -59,14 +59,19 @@ class BorrowedBookChart extends ChartWidget
             ];
         }
 
-        $borrowedData = Trend::model(BorrowedBook::class)
+        $borrowedData =Trend::query(
+            BorrowedBook::query()
+                ->where('library_id', auth()->user()->library_id)
+        )
             ->dateColumn('borrowed_date')
             ->between(start: $rangeStart, end: $rangeEnd)
             ->{$interval}()
             ->count();
 
         $penaltyData = Trend::query(
-            BorrowedBook::query()->where('status', 'penalty')
+            BorrowedBook::query()
+                ->where('status', 'penalty')
+                ->where('library_id', auth()->user()->library_id)
         )
             ->dateColumn('borrowed_date')
             ->between(start: $rangeStart, end: $rangeEnd)
