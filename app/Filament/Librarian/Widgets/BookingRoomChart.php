@@ -13,7 +13,7 @@ class BookingRoomChart extends ChartWidget
 
     public ?string $filter = 'year';
 
-    protected int | string | array $columnSpan = 2;
+    protected int | string | array $columnSpan = 4;
 
     protected static ?int $sort = 4;
 
