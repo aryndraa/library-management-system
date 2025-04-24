@@ -2,6 +2,7 @@
 
 namespace App\Filament\Librarian\Pages;
 
+use App\Models\Librarian;
 use App\Models\Library;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
@@ -15,10 +16,17 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
+use Filament\Widgets\Concerns\InteractsWithPageTable;
 
-class LibraryDetail extends Page implements HasForms
+class LibraryDetail extends Page implements HasTable
 {
-    use InteractsWithForms;
+
+    use InteractsWithTable;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
@@ -41,24 +49,33 @@ class LibraryDetail extends Page implements HasForms
         );
     }
 
-    public function form(Form $form): Form
+    public function table(Table $table): Table
     {
-        return $form
-            ->schema([
-                Group::make()
-                    ->relationship('library')
-                    ->schema([
-                        TextInput::make('name'),
+        return $table
+            ->query(
+                Librarian::query()->where('library_id', $this->library->id)
+            )
+            ->columns([
+                SpatieMediaLibraryImageColumn::make('librarian')
+                    ->label('Picture')
+                    ->collection('librarian')
+                    ->height(50)
+                    ->width(50)
+                    ->rounded(),
 
-                        SpatieMediaLibraryFileUpload::make('picture')
-                            ->collection('library')
-                            ->image()
-                            ->disabled() // jika hanya ingin preview
-                    ])
-            ])
-            ->statePath('data')
-            ->model(auth()->user());
+                TextColumn::make('profile.first_name')
+                    ->label('Name')
+                    ->getStateUsing(function ($record) {
+                        return $record->profile->first_name . ' ' . $record->profile->last_name;
+                    })
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('profile.phone')
+
+            ]);
     }
+
 
 
 

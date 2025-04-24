@@ -5,6 +5,7 @@ export default {
     content: [
         './app/Filament/C:\laragon\www\library-app\app\Filament\Clusters\AccountSettings\**/*.php',
         './resources/views/filament/c:\laragon\www\library-app\app\-filament\-clusters\-account-settings\**/*.blade.php',
+        './resources/views/filament/librarian/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],
 }
