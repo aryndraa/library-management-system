@@ -34,42 +34,24 @@ class BorrowedBookChart extends ChartWidget
     {
         $activeFilter = $this->filter;
 
-        if ($activeFilter == 'year') {
-            $data = Trend::model(BorrowedBook::class)
-                ->dateColumn("borrowed_date")
-                ->between(
-                    start: now()->startOfYear(),
-                    end: now()->endOfYear()
-                )
-                ->perMonth()
-                ->count();
-
-            $labels = $data->map(fn ($item) => Carbon::parse($item->date)->translatedFormat('M'))->toArray();
-        } elseif ($activeFilter == 'month') {
-            $data = Trend::model(BorrowedBook::class)
-                ->dateColumn("borrowed_date")
-                ->between(
-                    start: now()->startOfMonth(),
-                    end: now()->endOfMonth()
-                )
-                ->perWeek()
-                ->count();
-
-            $labels = $data->map(function ($item) {
+        if ($activeFilter === 'year') {
+            $rangeStart = now()->startOfYear();
+            $rangeEnd = now()->endOfYear();
+            $interval = 'perMonth';
+            $labelFormatter = fn ($item) => Carbon::parse($item->date)->translatedFormat('M');
+        } elseif ($activeFilter === 'month') {
+            $rangeStart = now()->startOfMonth();
+            $rangeEnd = now()->endOfMonth();
+            $interval = 'perWeek';
+            $labelFormatter = function ($item) {
                 [$year, $week] = explode('-', $item->date);
                 return Carbon::now()->setISODate($year, $week, 1)->translatedFormat('d M');
-            })->toArray();
-        } elseif ($activeFilter == 'week') {
-            $data = Trend::model(BorrowedBook::class)
-                ->dateColumn("borrowed_date")
-                ->between(
-                    start: now()->subDays(6)->startOfDay(),
-                    end: now()->endOfDay()
-                )
-                ->perDay()
-                ->count();
-
-            $labels = $data->map(fn ($item) => Carbon::parse($item->date)->translatedFormat('d M'))->toArray();
+            };
+        } elseif ($activeFilter === 'week') {
+            $rangeStart = now()->subDays(6)->startOfDay();
+            $rangeEnd = now()->endOfDay();
+            $interval = 'perDay';
+            $labelFormatter = fn ($item) => Carbon::parse($item->date)->translatedFormat('d M');
         } else {
             return [
                 'datasets' => [],
@@ -77,18 +59,38 @@ class BorrowedBookChart extends ChartWidget
             ];
         }
 
+        $borrowedData = Trend::model(BorrowedBook::class)
+            ->dateColumn('borrowed_date')
+            ->between(start: $rangeStart, end: $rangeEnd)
+            ->{$interval}()
+            ->count();
+
+        $penaltyData = Trend::query(
+            BorrowedBook::query()->where('status', 'penalty')
+        )
+            ->dateColumn('borrowed_date')
+            ->between(start: $rangeStart, end: $rangeEnd)
+            ->{$interval}()
+            ->count();
+
         return [
             'datasets' => [
                 [
                     'label' => 'Borrowed Books',
-                    'data' => $data->map(fn ($item) => $item->aggregate)->toArray(),
-                    'tension' => 0.5,
+                    'data' => $borrowedData->map(fn ($item) => $item->aggregate)->toArray(),
                     'backgroundColor' => 'rgba(102, 120, 195, 1)',
-                    'fill' => true,
                     'borderColor' => 'rgba(102, 120, 195, 1)',
+                    'borderRadius' => 10,
+                ],
+                [
+                    'label' => 'Penalty',
+                    'data' => $penaltyData->map(fn ($item) => $item->aggregate)->toArray(),
+                    'backgroundColor' => 'rgba(255, 99, 132, 0.8)', // Red
+                    'borderColor' => 'rgba(255, 99, 132, 1)',
+                    'borderRadius' => 10,
                 ],
             ],
-            'labels' => $labels,
+            'labels' => $borrowedData->map($labelFormatter)->toArray(),
         ];
     }
 
