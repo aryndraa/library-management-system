@@ -16,7 +16,7 @@ class BorrowedBookChart extends ChartWidget
 
     protected static string $color = "primary";
 
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
 
     public ?string $filter = 'year';
 

@@ -13,7 +13,7 @@ class RoomBookingSeeder extends Seeder
      */
     public function run(): void
     {
-        $roomBooking = RoomBooking::factory()->count(20)->make();
+        $roomBooking = RoomBooking::factory()->count(100)->make();
 
         RoomBooking::query()->insert($roomBooking->toArray());
     }

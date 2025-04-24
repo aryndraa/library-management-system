@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             LibrarianShiftSeeder::class,
             LibrarianAbsentSeeder::class,
             MemberVisitSeeder::class,
+            RoomBookingSeeder::class,
         ]);
     }
 }
