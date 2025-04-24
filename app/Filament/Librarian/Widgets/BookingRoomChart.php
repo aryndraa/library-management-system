@@ -9,11 +9,11 @@ use Flowframe\Trend\Trend;
 
 class BookingRoomChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Room Bookings Chart';
 
     public ?string $filter = 'year';
 
-    protected int | string | array $columnSpan = 4;
+    protected int | string | array $columnSpan = 2;
 
     protected static ?int $sort = 4;
 
