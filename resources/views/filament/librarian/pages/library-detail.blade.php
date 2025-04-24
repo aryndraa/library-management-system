@@ -8,24 +8,24 @@
                 </div>
             @endforeach
         </div>
-        <div class="grid grid-cols-5">
-            <div class="col-span-3">
-                <div class="mb-6 bg-white rounded-xl p-4 shadow-sm">
-                    <h1 class="text-2xl font-semibold  mb-2">{{$this->library->name}}</h1>
-                    <p class="flex gap-2 items-center fomed">
+        <div class="grid grid-cols-5 gap-4">
+            <div class="col-span-3 flex flex-col justify-between">
+                <div class="mb-8  rounded-xl ">
+                    <h1 class="text-3xl font-semibold  mb-3">{{$this->library->name}}</h1>
+                    <p class="flex gap-2 items-center ">
                         <span><x-heroicon-m-map-pin class="w-5 h-5 text-primary-500" /></span>
                         {{$this->library->address}}
                     </p>
                 </div>
-                <div class="p-4 bg-white rounded-xl shadow-sm">
+                <div class="">
                     <h2 class="font-medium text-gray-500  mb-6 ">All Librarian</h2>
                     <div>
                         {{$this->table}}
                     </div>
                 </div>
             </div>
-            <div class="stats">
-
+            <div class="bg-white shadow col-span-2 rounded-xl p-6">
+                {{$this->form}}
             </div>
         </div>
     </section>

@@ -7,6 +7,7 @@ use App\Models\Library;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -20,6 +21,7 @@ use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
 
@@ -37,8 +39,9 @@ class LibraryDetail extends Page implements HasTable
         return false;
     }
 
-
     public ?Library $library = null;
+
+    public ?array $data = [];
 
     public function mount(): void
     {
@@ -47,6 +50,56 @@ class LibraryDetail extends Page implements HasTable
         $this->form->fill(
             $this->library->toArray()
         );
+    }
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('email'),
+                TextInput::make('phone'),
+                Group::make()
+                    ->schema([
+                        Placeholder::make('total_books')
+                            ->label('Total Books')
+                            ->content(fn ($record) => $record?->books()->count() ?? 0)
+                            ->disabled(),
+
+                        Placeholder::make('total_librarians')
+                            ->label('Total Librarians')
+                            ->content(fn ($record) => $record?->librarians()->count() ?? 0)
+                            ->disabled(),
+
+                        Placeholder::make('total_rooms')
+                            ->label('Total Rooms')
+                            ->content(fn ($record) => $record?->rooms()->count() ?? 0)
+                            ->disabled(),
+
+                        Placeholder::make('total_visits')
+                            ->label('Total Visits')
+                            ->content(fn ($record) => $record?->memberVisits()->count() ?? 0)
+                        ,
+
+                        Placeholder::make('total_income')
+                            ->label('Total Income')
+                            ->content(function ($record) {
+                                $total = 0;
+
+                                if($record?->rooms) {
+                                    foreach ($record->rooms as $room) {
+                                        $total += $room->bookings?->sum('total_price');
+                                    }
+                                }
+
+                                return 'Rp ' . number_format($total, 0, ',', '.');
+                            })
+                            ->disabled()
+                            ->columnSpan(2),
+                    ]),
+            ])
+            ->disabled()
+            ->statePath('data')
+            ->model($this->library);
     }
 
     public function table(Table $table): Table
@@ -72,8 +125,10 @@ class LibraryDetail extends Page implements HasTable
                     ->sortable(),
 
                 TextColumn::make('profile.phone')
+                    ->label('Phone')
 
-            ]);
+            ])
+            ->paginated(false);
     }
 
 
