@@ -71,13 +71,6 @@ class LibrarianPanelProvider extends PanelProvider
             ])
             ->authGuard('librarian')
             ->viteTheme('resources/css/filament/librarian/theme.css')
-            ->darkMode(false)
-            ->sidebarCollapsibleOnDesktop()
-            ->navigationGroups([
-                NavigationGroup::make('Book Management')
-                    ->icon('heroicon-o-book-open'),
-                NavigationGroup::make('Room Management')
-                    ->icon('heroicon-o-rectangle-stack'),
-            ]);
+            ->darkMode(false);
     }
 }
