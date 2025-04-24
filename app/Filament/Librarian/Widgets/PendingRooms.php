@@ -8,7 +8,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
-class PendingRoomBookingNotifications extends BaseWidget
+class PendingRooms extends BaseWidget
 {
 
     protected static ?int $sort = 4;
