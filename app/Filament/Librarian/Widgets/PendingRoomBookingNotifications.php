@@ -46,6 +46,9 @@ class PendingRoomBookingNotifications extends BaseWidget
                     ->getStateUsing(fn ($record) => $record->started_time . ' - ' . $record->finished_time )
 
             ])
-            ->paginated(false);
+            ->paginated(false)
+            ->recordUrl(
+                fn (RoomBooking $record) => route('filament.librarian.room-booking.resources.room-bookings.view', ['record' => $record])
+            );
     }
 }
