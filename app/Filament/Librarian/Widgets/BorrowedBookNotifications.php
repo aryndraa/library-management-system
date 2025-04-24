@@ -41,6 +41,9 @@ class BorrowedBookNotifications extends BaseWidget
 
                 TextColumn::make('code'),
             ])
-            ->paginated(false);
+            ->paginated(false)
+            ->recordUrl(
+                fn (BorrowedBook $record) => route('filament.librarian.book-borrowing.resources.book-borrowings.view', ['record' => $record])
+            );
     }
 }
