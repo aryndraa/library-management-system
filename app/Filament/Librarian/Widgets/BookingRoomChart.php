@@ -13,7 +13,7 @@ class BookingRoomChart extends ChartWidget
 
     public ?string $filter = 'year';
 
-    protected int | string | array $columnSpan = 4;
+    protected int | string | array $columnSpan = 4  ;
 
     protected static ?int $sort = 4;
 
@@ -36,7 +36,12 @@ class BookingRoomChart extends ChartWidget
         $activeFilter = $this->filter;
 
         if ($activeFilter == 'year') {
-            $data = Trend::model(RoomBooking::class)
+            $data = Trend::query(
+                RoomBooking::query()
+                    ->whereHas('room', function ($query) {
+                        $query->where('library_id', auth()->user()->library_id);
+                    })
+            )
                 ->dateColumn("booking_date")
                 ->between(
                     start: now()->startOfYear(),

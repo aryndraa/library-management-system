@@ -59,7 +59,7 @@ class BorrowedBookChart extends ChartWidget
             ];
         }
 
-        $borrowedData =Trend::query(
+        $borrowedData = Trend::query(
             BorrowedBook::query()
                 ->where('library_id', auth()->user()->library_id)
         )
