@@ -10,7 +10,7 @@
         </div>
         <div class="grid grid-cols-5 gap-4">
             <div class="col-span-3 flex flex-col justify-between">
-                <div class="mb-8  rounded-xl ">
+                <div class="mb-8">
                     <h1 class="text-3xl font-semibold  mb-3">{{$this->library->name}}</h1>
                     <p class="flex gap-2 items-center ">
                         <span><x-heroicon-m-map-pin class="w-5 h-5 text-primary-500" /></span>
