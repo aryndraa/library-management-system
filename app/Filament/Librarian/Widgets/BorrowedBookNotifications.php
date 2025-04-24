@@ -38,18 +38,6 @@ class BorrowedBookNotifications extends BaseWidget
                 TextColumn::make('book.title')
                     ->limit(20),
 
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                            'borrowed' => 'primary',
-                        'returned' => 'success',
-                        'penalty'  => 'danger',
-                    }),
-
-                TextColumn::make('borrowed_date')
-                    ->date('d M')
-                    ->label('date')
-                    ->sortable(),
 
                 TextColumn::make('code'),
             ])
