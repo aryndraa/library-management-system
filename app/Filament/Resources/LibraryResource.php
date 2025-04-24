@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LibraryResource\Pages;
 use App\Filament\Resources\LibraryResource\RelationManagers;
+use App\Filament\Resources\LibraryResource\Widgets\LibrarianQrCode;
 use App\Models\Library;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
@@ -11,6 +12,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components\View;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
@@ -18,10 +20,13 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class LibraryResource extends Resource
 {
@@ -57,60 +62,95 @@ class LibraryResource extends Resource
                             ->columns(2)
                             ->columnSpan(2),
 
-                                SpatieMediaLibraryFileUpload::make('picture')
-                                    ->collection('library')
-                                    ->multiple()
-                                    ->imagePreviewHeight(100)
-                                    ->imageCropAspectRatio('16:9')
-                                    ->maxParallelUploads(4)
-                                    ->maxParallelUploads(4)
-                                    ->panelLayout('grid')
-                                    ->maxFiles(4)
-                                    ->columnSpan(2)
-                                    ->label("Library Images"),
+                        SpatieMediaLibraryFileUpload::make('picture')
+                            ->collection('library')
+                            ->multiple()
+                            ->imagePreviewHeight(100)
+                            ->imageCropAspectRatio('16:9')
+                            ->maxParallelUploads(3)
+                            ->panelLayout('grid')
+                            ->maxFiles(3)
+                            ->columnSpan(2)
+                            ->label("Library Images"),
+
                     ])
                     ->columnSpan(2),
 
 
-                Section::make('Library Stats')
+                Group::make()
                     ->schema([
-                        Placeholder::make('total_books')
-                            ->label('Total Books')
-                            ->content(fn ($record) => $record?->books()->count() ?? 0)
-                            ->disabled(),
 
-                        Placeholder::make('total_librarians')
-                            ->label('Total Librarians')
-                            ->content(fn ($record) => $record?->librarians()->count() ?? 0)
-                            ->disabled(),
+                        Section::make('Library Stats')
+                            ->schema([
+                                Placeholder::make('total_books')
+                                    ->label('Total Books')
+                                    ->content(fn ($record) => $record?->books()->count() ?? 0)
+                                    ->disabled(),
 
-                        Placeholder::make('total_rooms')
-                            ->label('Total Rooms')
-                            ->content(fn ($record) => $record?->rooms()->count() ?? 0)
-                            ->disabled(),
+                                Placeholder::make('total_librarians')
+                                    ->label('Total Librarians')
+                                    ->content(fn ($record) => $record?->librarians()->count() ?? 0)
+                                    ->disabled(),
 
-                        Placeholder::make('total_visits')
-                            ->label('Total Visits')
-                            ->content(fn ($record) => $record?->memberVisits()->count() ?? 0)
-                        ,
+                                Placeholder::make('total_rooms')
+                                    ->label('Total Rooms')
+                                    ->content(fn ($record) => $record?->rooms()->count() ?? 0)
+                                    ->disabled(),
 
-                        Placeholder::make('total_income')
-                            ->label('Total Income')
-                            ->content(function ($record) {
-                                $total = 0;
+                                Placeholder::make('total_visits')
+                                    ->label('Total Visits')
+                                    ->content(fn ($record) => $record?->memberVisits()->count() ?? 0)
+                                ,
 
-                                if($record?->rooms) {
-                                    foreach ($record->rooms as $room) {
-                                        $total += $room->bookings?->sum('total_price');
-                                    }
-                                }
+                                Placeholder::make('total_income')
+                                    ->label('Total Income')
+                                    ->content(function ($record) {
+                                        $total = 0;
 
-                                return 'Rp ' . number_format($total, 0, ',', '.');
-                            })
-                            ->disabled()
-                            ->columnSpan(2),
+                                        if($record?->rooms) {
+                                            foreach ($record->rooms as $room) {
+                                                $total += $room->bookings?->sum('total_price');
+                                            }
+                                        }
+
+                                        return 'Rp ' . number_format($total, 0, ',', '.');
+                                    })
+                                    ->disabled()
+                                    ->columnSpan(2),
+                            ]),
+
+                        Section::make('Librarian Absent')
+                            ->schema([
+
+                                Placeholder::make('qr_code')
+                                    ->label('')
+                                    ->content(function ($record) {
+                                        $qr = QrCode::size(105)->generate(url('/librarian/presence/' . $record->id));
+                                        return new HtmlString($qr);
+                                    })
+
+                            ])
+                            ->columnSpan(1),
+
+                        Section::make('Member Attendance')
+                            ->schema([
+
+                                Placeholder::make('qr_code')
+                                    ->label('')
+                                    ->content(function ($record) {
+                                        $qr = QrCode::size(105)->generate(url('http://library-app.test/attendance/' . $record->id));
+                                        return new HtmlString($qr);
+                                    })
+                            ])
+                            ->columnSpan(1)
                     ])
-                    ->columnSpan(1),
+                    ->columnSpan(1)
+                    ->columns(2),
+
+
+
+
+
             ])
             ->columns(3);
 

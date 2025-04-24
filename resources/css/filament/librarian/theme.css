@@ -158,6 +158,21 @@ svg {
     }
 }
 
+
+/* page library detail */
+.library-detail .images {
+    @apply grid grid-cols-5 gap-4
+}
+
+.library-detail .images .img img {
+    @apply h-[50vh] w-full object-cover rounded-xl
+}
+
+.library-detail .images .img:first-child {
+    @apply col-span-3
+}
+
+
 /* gap layout */
 /* .grid.flex-1.auto-cols-fr.gap-y-8 {
     @apply gap-4;

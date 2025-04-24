@@ -3,10 +3,14 @@
 namespace App\Filament\Resources\LibraryResource\Pages;
 
 use App\Filament\Resources\LibraryResource;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Infolists\Components\View;
 use Filament\Resources\Pages\Concerns\HasRelationManagers;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Response;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ViewLibrary extends ViewRecord
 {
@@ -15,13 +19,6 @@ class ViewLibrary extends ViewRecord
 
     protected static string $resource = LibraryResource::class;
 
-    protected function getHeaderWidgets(): array
-    {
-        return [
-          LibraryResource\Widgets\MemberQrCode::class,
-          LibraryResource\Widgets\LibrarianQrCode::class,
-        ];
-    }
 
     public function getTitle(): string
     {
@@ -35,5 +32,4 @@ class ViewLibrary extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
-
 }
