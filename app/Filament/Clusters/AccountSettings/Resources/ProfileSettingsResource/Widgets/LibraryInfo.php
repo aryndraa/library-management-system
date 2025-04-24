@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\AccountSettings\Resources\ProfileSettingsResource\Widgets;
 
+use App\Filament\Librarian\Pages\LibraryDetail;
 use App\Filament\Resources\BookResource;
 use App\Models\Library;
 use Filament\Actions\Action;
@@ -20,6 +21,11 @@ class LibraryInfo extends Widget
         return Library::find(auth()->user()->library_id);
     }
 
-
+    public function getActions(): Action
+    {
+        return Action::make('View Library Detail')
+                ->icon('heroicon-o-eye')
+                ->url(fn () => LibraryDetail::getUrl());
+    }
 
 }
