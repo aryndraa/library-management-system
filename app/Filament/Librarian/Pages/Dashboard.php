@@ -2,6 +2,7 @@
 
 namespace App\Filament\Librarian\Pages;
 
+use App\Filament\Librarian\Widgets\BorrowedBookNotifications;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -16,6 +17,11 @@ class Dashboard extends BaseDashboard
     use BaseDashboard\Concerns\HasFiltersForm;
 
     use InteractsWithPageFilters;
+
+    public function getColumns(): int|string|array
+    {
+        return 3;
+    }
 
     public function filtersForm(Form $form): Form
     {
@@ -37,4 +43,5 @@ class Dashboard extends BaseDashboard
                     ->columns(2),
             ]);
     }
+
 }
