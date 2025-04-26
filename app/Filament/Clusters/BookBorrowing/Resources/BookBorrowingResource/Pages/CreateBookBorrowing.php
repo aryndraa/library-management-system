@@ -28,55 +28,54 @@ class CreateBookBorrowing extends CreateRecord
     {
         return $form
             ->schema([
-
-                Select::make('member_id')
-                    ->label('Member')
-                    ->relationship('member', 'email')
-                    ->preload()
-                    ->searchable()
-                    ->required(),
-
-                Select::make('book_id')
-                    ->label('Book')
-                    ->options(function () {
-                        $libraryId = Filament::auth()->user()->library_id;
-                        return Book::query()
-                            ->where('library_id', $libraryId)
-                            ->where('stock', '!=', 0)
-                            ->pluck('title', 'id');
-                    })
-                    ->preload()
-                    ->searchable()
-                    ->reactive()
-                    ->required(),
-
-                Hidden::make('library_id')
-                    ->default(
-                        Filament::auth()->user()->library_id
-                    ),
-
-                TextInput::make('code')
-                    ->minLength(6)
-                    ->default(strtoupper(Str::random(6)))
-                    ->dehydrated(),
-
-                ToggleButtons::make('status')
-                    ->inline()
-                    ->options([
-                        'borrowed' => 'Borrowed',
-                        'returned' => 'Returned',
-                        'penalty'  => 'Penalty',
-                    ])
-                    ->colors([
-                        'borrowed' => 'warning',
-                        'returned' => 'success',
-                        'penalty'  => 'danger',
-                    ])
-                    ->required()
-                    ->required(),
-
-                Group::make()
+                Section::make()
                     ->schema([
+                        Select::make('member_id')
+                            ->label('Member')
+                            ->relationship('member', 'email')
+                            ->preload()
+                            ->searchable()
+                            ->required(),
+
+                        Select::make('book_id')
+                            ->label('Book')
+                            ->options(function () {
+                                $libraryId = Filament::auth()->user()->library_id;
+                                return Book::query()
+                                    ->where('library_id', $libraryId)
+                                    ->where('stock', '!=', 0)
+                                    ->pluck('title', 'id');
+                            })
+                            ->preload()
+                            ->searchable()
+                            ->reactive()
+                            ->required(),
+
+                        Hidden::make('library_id')
+                            ->default(
+                                Filament::auth()->user()->library_id
+                            ),
+
+                        TextInput::make('code')
+                            ->minLength(6)
+                            ->default(strtoupper(Str::random(6)))
+                            ->dehydrated(),
+
+                        ToggleButtons::make('status')
+                            ->inline()
+                            ->options([
+                                'borrowed' => 'Borrowed',
+                                'returned' => 'Returned',
+                                'penalty'  => 'Penalty',
+                            ])
+                            ->colors([
+                                'borrowed' => 'warning',
+                                'returned' => 'success',
+                                'penalty'  => 'danger',
+                            ])
+                            ->required()
+                            ->required(),
+
                         DatePicker::make('borrowed_date')
                             ->label('Borrowed Date')
                             ->date()
@@ -86,13 +85,10 @@ class CreateBookBorrowing extends CreateRecord
                             ->label('Due Date')
                             ->date()
                             ->required(),
-                    ])
-                    ->columns(2),
 
-                DatePicker::make('returned_date')
-                    ->label('Returned Date')
-                    ->date()
-                    ->nullable(),
+
+                    ])
+                ->columns(2)
             ]);
 
     }

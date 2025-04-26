@@ -29,7 +29,7 @@ class BookResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make()
+                Forms\Components\Section::make('Book Detail')
                     ->schema([
                         TextInput::make('title')
                             ->columnSpan(2),
@@ -65,7 +65,8 @@ class BookResource extends Resource
 
                         Textarea::make('synopsis')
                             ->columnSpan(2)
-                            ->label('Description'),
+                            ->label('Description')
+                            ->autosize(),
                     ])
                     ->columns(2)
                 ->columnSpan(2),
