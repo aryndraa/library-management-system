@@ -162,14 +162,6 @@ class BookBorrowingResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('borrowed_date')
-                    ->date()
-                    ->sortable(),
-
-                TextColumn::make('due_date')
-                    ->date()
-                    ->sortable(),
-
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {

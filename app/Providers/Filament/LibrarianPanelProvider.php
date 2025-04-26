@@ -27,6 +27,7 @@ class LibrarianPanelProvider extends PanelProvider
     {
         return $panel
             ->id('librarian')
+            ->sidebarCollapsibleOnDesktop()
             ->path('librarian')
             ->login()
             ->userMenuItems([
