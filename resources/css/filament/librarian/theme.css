@@ -51,6 +51,16 @@
     }
 }
 
+.fi-badge {
+    @apply !rounded-full
+}
+
+
+/* sidebar badge */
+.fi-sidebar-item-button .fi-badge span .truncate {
+    @apply !text-[#37447D]
+}
+
 /* item disable */
 
 .fi-sidebar-item a {
