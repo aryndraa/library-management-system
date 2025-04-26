@@ -7,6 +7,7 @@ use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingPenaltyResource\P
 use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingPenaltyResource\RelationManagers;
 use App\Filament\Resources\BookResource;
 use App\Models\BorrowedBook;
+use Carbon\Carbon;
 use Filament\Actions\ViewAction;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -16,6 +17,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BookBorrowingPenaltyResource extends Resource
@@ -105,5 +107,13 @@ class BookBorrowingPenaltyResource extends Resource
             'create' => Pages\CreateBookBorrowingPenalty::route('/create'),
             'edit' => Pages\EditBookBorrowingPenalty::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        /** @var class-string<Model> $modelClass */
+        $modelClass = static::$model;
+
+        return (string) $modelClass::whereDate('due_date', '<', Carbon::now())->count();
     }
 }

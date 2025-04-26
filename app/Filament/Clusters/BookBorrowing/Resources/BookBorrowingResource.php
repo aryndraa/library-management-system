@@ -145,12 +145,10 @@ class BookBorrowingResource extends Resource
             ->columns([
                 TextColumn::make('code')
                     ->limit('30')
-                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('book.title')
                     ->limit('25')
-                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('member.first_name')
@@ -159,7 +157,6 @@ class BookBorrowingResource extends Resource
                         ' '
                         . $record->member->profile->last_name
                     )
-                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('status')

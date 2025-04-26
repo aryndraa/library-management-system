@@ -54,6 +54,8 @@ class LibrarianPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('15s')
             ->discoverWidgets(in: app_path('Filament/Librarian/Widgets'), for: 'App\\Filament\\Librarian\\Widgets')
             ->widgets([
             ])
