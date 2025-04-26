@@ -117,14 +117,36 @@ class BookResource extends Resource
                     ->where('library_id', $librarian->library_id);
             })
             ->columns([
-                Tables\Columns\Layout\Stack::make([
-                    Tables\Columns\TextColumn::make('title')
-                ])
+                SpatieMediaLibraryImageColumn::make('cover')
+                    ->collection('book')
+                    ->width(40)
+                    ->height(60),
 
-            ])
-            ->contentGrid([
-                'md' => 2,
-                'xl' => 3,
+                TextColumn::make('title')
+                    ->label('Title')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(30),
+
+                TextColumn::make('isbn')
+                    ->label('ISBN')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('category.name')
+                    ->label('Category')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('author')
+                    ->label('Author')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('stock')
+                    ->label('Stock')
+                    ->sortable(),
+
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('category')
