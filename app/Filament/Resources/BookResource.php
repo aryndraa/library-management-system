@@ -128,10 +128,6 @@ class BookResource extends Resource
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category'),
 
-                Tables\Columns\TextColumn::make('publication_date')
-                    ->label('Publication Date')
-                    ->date()
-                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('category')

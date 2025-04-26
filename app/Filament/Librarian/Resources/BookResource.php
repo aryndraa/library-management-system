@@ -35,7 +35,7 @@ class BookResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Group::make()
+                Forms\Components\Section::make('Book Detail')
                     ->schema([
                         TextInput::make('title')
                             ->columnSpan(2)
@@ -60,7 +60,9 @@ class BookResource extends Resource
                             ->dehydrated(),
 
                         TextInput::make('author'),
+
                         TextInput::make('publisher'),
+
                         TextInput::make('pages')
                             ->label('Total Pages'),
 
@@ -73,7 +75,8 @@ class BookResource extends Resource
 
                         Textarea::make('synopsis')
                             ->columnSpan(2)
-                            ->label('Description'),
+                            ->label('Description')
+                            ->autosize(),
                     ])
                     ->columns(2)
                     ->columnSpan(2),
@@ -102,6 +105,7 @@ class BookResource extends Resource
                                     ->content(fn ($record) => $record?->bookComments()?->count() ?? 0)
                                     ->disabled(),
                             ])
+                            ->columnSpan(2),
                     ])->columnSpan(['lg' => 1])
             ])
             ->columns(3);
