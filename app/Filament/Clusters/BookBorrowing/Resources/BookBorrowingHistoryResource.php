@@ -164,21 +164,6 @@ class BookBorrowingHistoryResource extends Resource
                     ->date()
                     ->sortable(),
 
-                TextColumn::make('due_date')
-                    ->date()
-                    ->sortable(),
-
-                TextColumn::make('returned_date')
-                    ->date()
-                    ->sortable(),
-
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'borrowed' => 'warning',
-                        'returned' => 'success',
-                        'penalty'  => 'danger',
-                    }),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')

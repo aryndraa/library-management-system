@@ -139,7 +139,6 @@ class BookBorrowingResource extends Resource
         return $table
             ->query(
                 BorrowedBook::query()
-                    ->where('status', 'borrowed')
                     ->where('library_id', Filament::auth()->user()->library_id)
             )
             ->columns([
