@@ -3,6 +3,7 @@
 namespace App\Filament\Librarian\Pages;
 
 use App\Models\BorrowedBook;
+use DesignTheBox\BarcodeField\Forms\Components\BarcodeInput;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Contracts\HasForms;
@@ -25,6 +26,14 @@ class BorrowingReceipt extends Page implements HasForms
 
     public $borrowedBook;
 
+    public function __construct()
+    {
+        $this->borrowedBook = BorrowedBook::query()
+            ->where('code', 'DSQGFG')
+            ->where('library_id', Filament::auth()->user()->library_id)
+            ->first();
+    }
+
     public function form(Form $form): Form
     {
         return $form
@@ -32,7 +41,8 @@ class BorrowingReceipt extends Page implements HasForms
                 TextInput::make('code')
                     ->label('Enter code to get borrowing receipt')
                     ->placeholder('Enter Code')
-                    ->required()
+                    ->required(),
+
             ]);
     }
 
@@ -43,7 +53,7 @@ class BorrowingReceipt extends Page implements HasForms
         ]);
 
         $this->borrowedBook = BorrowedBook::query()
-            ->where('code', $this->code)
+            ->where('code', 'DSQGFG')
             ->where('library_id', Filament::auth()->user()->library_id)
             ->first();
 
