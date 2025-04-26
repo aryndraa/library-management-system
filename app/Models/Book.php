@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -28,6 +30,11 @@ class Book extends Model implements HasMedia
         'publication_date',
         'synopsis'
     ];
+
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = Str::title($title);
+    }
 
     public function category(): BelongsTo
     {

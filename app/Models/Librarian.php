@@ -32,7 +32,6 @@ class Librarian extends Authenticatable Implements HasMedia, HasName
 
     public function setPasswordAttribute($password)
     {
-
         $this->attributes['password'] = Hash::make($password);
     }
 

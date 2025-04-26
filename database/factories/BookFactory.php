@@ -22,7 +22,7 @@ class BookFactory extends Factory
             "category_id"      => Category::query()->inRandomOrder()->first()->id,
             "library_id"       => Library::query()->inRandomOrder()->first()->id,
             "title"            => fake()->text(80),
-            "isbn"             => fake()->currencyCode(),
+            "isbn"             => fake()->randomNumber(13),
             "author"           => fake()->name(),
             "synopsis"         => fake()->text(),
             "publisher"        => fake()->company(),
