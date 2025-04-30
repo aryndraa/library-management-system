@@ -46,6 +46,7 @@ class BookBorrowingPenaltyResource extends Resource
                 BorrowedBook::query()
                     ->where('library_id', Filament::auth()->user()->library_id)
                     ->whereDate('due_date', '<=', now())
+                    ->whereNot('status', 'returned')
                     ->havingNull('returned_date')
             )
             ->columns([
@@ -114,6 +115,9 @@ class BookBorrowingPenaltyResource extends Resource
         /** @var class-string<Model> $modelClass */
         $modelClass = static::$model;
 
-        return (string) $modelClass::whereDate('due_date', '<', Carbon::now())->count();
+        return (string) $modelClass::query()
+            ->whereDate('due_date', '<', Carbon::now())
+            ->whereNot('status', 'returned')
+            ->count();
     }
 }

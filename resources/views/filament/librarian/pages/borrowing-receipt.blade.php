@@ -15,7 +15,7 @@
             <div class=" p-6 bg-white shadow rounded-lg flex-1">
                 @if ($borrowedBook)
                     <h1 class="font-bold text-2xl text-[#2E3969] mb-6">Receipt Book : {{$borrowedBook->code}}</h1>
-                    <div class="flex items-stretch gap-6">
+                    <div class="flex items-stretch gap-6 mb-6">
                         <img
                             src="{{$borrowedBook->book->getFirstMediaUrl('book')}}"
                             alt=""
@@ -32,6 +32,27 @@
                             <div>
                                 <a href="" class="text-sm rounded-xl px-3 py-2 bg-primary-500 text-white font-semibold">More Detail</a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <h2 class="font-medium text-gray-400 text-sm mb-4">Borrow Detail</h2>
+                        <div class="flex flex-col gap-4  py-4 px-2 border-y">
+                            <div class="grid grid-cols-4 font-medium text-gray-500   ">
+                                <h3>Code</h3>
+                                <span class="text-center">:</span>
+                                <p class="col-span-2 flex justify-end">{{$borrowedBook->code}}</p>
+                            </div>
+                            <div class="grid grid-cols-4 font-medium text-gray-500   ">
+                                <h3>Borrowed Date</h3>
+                                <span class="text-center">:</span>
+                                <p class="col-span-2 flex justify-end">{{\Carbon\Carbon::parse($borrowedBook->borrowed_date)->translatedFormat('d M Y')}}</p>
+                            </div>
+                            <div class="grid grid-cols-4 font-medium text-gray-500   ">
+                                <h3>Due Date</h3>
+                                <span class="text-center">:</span>
+                                <p class="col-span-2 flex justify-end">{{\Carbon\Carbon::parse($borrowedBook->due_date)->translatedFormat('d M Y')}}</p>
+                            </div>
+
                         </div>
                     </div>
                  @endif
