@@ -6,6 +6,7 @@ use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource;
 use App\Filament\Resources\BookResource;
 use App\Models\Book;
 use App\Models\Room;
+use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
@@ -51,46 +52,27 @@ class CreateBookBorrowing extends CreateRecord
                             ->reactive()
                             ->required(),
 
-                        Hidden::make('library_id')
-                            ->default(
-                                Filament::auth()->user()->library_id
-                            ),
-
-                        TextInput::make('code')
-                            ->minLength(6)
-                            ->default(strtoupper(Str::random(6)))
-                            ->dehydrated(),
-
-                        ToggleButtons::make('status')
-                            ->inline()
-                            ->options([
-                                'borrowed' => 'Borrowed',
-                                'returned' => 'Returned',
-                                'penalty'  => 'Penalty',
-                            ])
-                            ->colors([
-                                'borrowed' => 'warning',
-                                'returned' => 'success',
-                                'penalty'  => 'danger',
-                            ])
-                            ->required()
-                            ->required(),
-
                         DatePicker::make('borrowed_date')
                             ->label('Borrowed Date')
                             ->date()
-                            ->required(),
-
-                        DatePicker::make('due_date')
-                            ->label('Due Date')
-                            ->date()
-                            ->required(),
-
+                            ->required()
+                            ->columnSpan(2),
 
                     ])
                 ->columns(2)
+                ->columnSpan(2)
             ]);
 
+    }
+
+    public function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['code'] = 'BRW-' . now()->format('Ymd') . '-' . Str::upper(Str::random(4));
+        $data['library_id'] = Filament::auth()->user()->library_id;
+        $data['due_date'] = Carbon::parse($data['borrowed_date'])->addDays(5);
+        $data['status'] = 'pending';
+
+        return $data;
     }
 
     protected function afterCreate(): void

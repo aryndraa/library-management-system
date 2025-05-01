@@ -44,11 +44,13 @@ class BookBorrowingResource extends Resource
                 ToggleButtons::make('status')
                     ->inline()
                     ->options([
+                        'pending' => 'Pending',
                         'borrowed' => 'Borrowed',
                         'returned' => 'Returned',
                         'penalty'  => 'Penalty',
                     ])
                     ->colors([
+                        'pending'  => 'info',
                         'borrowed' => 'warning',
                         'returned' => 'success',
                         'penalty'  => 'danger',
@@ -143,7 +145,7 @@ class BookBorrowingResource extends Resource
             )
             ->columns([
                 TextColumn::make('code')
-                    ->limit('30')
+                    ->limit('8')
                     ->searchable(),
 
                 TextColumn::make('book.title')
@@ -161,6 +163,7 @@ class BookBorrowingResource extends Resource
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
+                        'pending'  => 'info',
                         'borrowed' => 'warning',
                         'returned' => 'success',
                         'penalty'  => 'danger',
