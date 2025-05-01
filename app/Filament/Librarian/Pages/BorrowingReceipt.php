@@ -25,16 +25,7 @@ class BorrowingReceipt extends Page implements HasForms
 
     public ?string $code = '';
 
-
     public $borrowedBook;
-
-    public function __construct()
-    {
-        $this->borrowedBook = BorrowedBook::query()
-            ->where('code', 'DSQGFG')
-            ->where('library_id', Filament::auth()->user()->library_id)
-            ->first();
-    }
 
     public function form(Form $form): Form
     {
@@ -55,7 +46,7 @@ class BorrowingReceipt extends Page implements HasForms
         ]);
 
         $this->borrowedBook = BorrowedBook::query()
-            ->where('code', 'DSQGFG')
+            ->where('code', $this->code)
             ->where('library_id', Filament::auth()->user()->library_id)
             ->first();
 
