@@ -80,6 +80,15 @@ class BorrowingReceipt extends Page implements HasForms
             'borrowedBook' => $this->borrowedBook,
         ]);
 
+        $this->borrowedBook->status = 'borrowed';
+
+        $this->borrowedBook->save();
+
+        Notification::make()
+            ->title('Book borrowed!')
+            ->success()
+            ->send();
+
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
         }, 'borrowing-receipt.pdf');
