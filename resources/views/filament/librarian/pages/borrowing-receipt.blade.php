@@ -22,7 +22,7 @@
                             class="w-[140px] h-[180px] object-cover"
                         />
                         <div class="w-full h-full ">
-                            <h2 class="text-sm text-gray-400 font-semibold pb-2 mb-2 border-gray-300 border-b">Book Detail</h2>
+                            <h2 class="font-semibold pb-2 mb-2 border-gray-300 border-b">Book Detail</h2>
 
                             <div class="mb-6">
                                 <h3 class="text-lg font-medium mb-1">{{$borrowedBook->book->title}}</h3>
@@ -59,20 +59,22 @@
                     <div class="flex justify-between items-center mb-2 ">
                         <div class="flex items-center gap-3   ">
                             @if(!$borrowedBook->member->getFirstMediaUrl('member'))
-                                <x-heroicon-s-user class="w-8 h-8 p-2 text-white bg-primary-700 rounded-full"  />
+                                <x-heroicon-s-user class="w-10 h-10 p-2 text-white bg-primary-700 rounded-full"  />
                             @else
                                 <img src="{{$borrowedBook->member->getFirstMediaUrl('member')}}" alt="">
                             @endif
                             <div >
-                                <h3 class="text-sm font-medium">{{$borrowedBook->member->profile->first_name . ' ' . $borrowedBook->member->profile->last_name}}</h3>
-                                <p class="text-xs">{{$borrowedBook->member->email}}</p>
+                                <h3 class="font-medium">{{$borrowedBook->member->profile->first_name . ' ' . $borrowedBook->member->profile->last_name}}</h3>
+                                <p class="text-sm">{{$borrowedBook->member->email}}</p>
                             </div>
                         </div>
 
                         <form wire:submit.prevent="printPdf">
-                            <x-filament::button type="submit"  class="text-sm text-white px-3 py-2 flex items-center gap-2 bg-primary-500 rounded-xl font-semibold">
-                                <x-heroicon-s-document-text class="w-5 h-5"/>
-                                Print Receipt
+                            <x-filament::button type="submit"  class="text-sm text-white px-3 py-2 bg-primary-500 rounded-xl font-semibold">
+                                <span class="flex items-center gap-2 ">
+                                    <x-heroicon-s-document-text class="w-5 h-5"/>
+                                    Print Receipt
+                                </span>
                             </x-filament::button>
                         </form>
                     </div>
