@@ -69,10 +69,12 @@
                             </div>
                         </div>
 
-                        <button class="text-sm text-white px-3 py-2 flex items-center gap-2 bg-primary-500 rounded-xl font-semibold">
-                            <x-heroicon-s-document-text class="w-5 h-5"/>
-                            Get Receipt
-                        </button>
+                        <form wire:submit.prevent="printPdf">
+                            <x-filament::button type="submit"  class="text-sm text-white px-3 py-2 flex items-center gap-2 bg-primary-500 rounded-xl font-semibold">
+                                <x-heroicon-s-document-text class="w-5 h-5"/>
+                                Print Receipt
+                            </x-filament::button>
+                        </form>
                     </div>
                  @endif
             </div>

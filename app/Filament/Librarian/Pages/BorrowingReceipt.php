@@ -3,6 +3,7 @@
 namespace App\Filament\Librarian\Pages;
 
 use App\Models\BorrowedBook;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DesignTheBox\BarcodeField\Forms\Components\BarcodeInput;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
@@ -10,6 +11,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BorrowingReceipt extends Page implements HasForms
 {
@@ -70,6 +72,26 @@ class BorrowingReceipt extends Page implements HasForms
             ->title('Borrowing receipt found!')
             ->success()
             ->send();
+    }
+
+    public function printPdf(): StreamedResponse
+    {
+        if (! $this->borrowedBook) {
+            Notification::make()
+                ->title('No borrowing record to print.')
+                ->danger()
+                ->send();
+
+            return back();
+        }
+
+        $pdf = Pdf::loadView('exports.borrowing-receipt', [
+            'borrowedBook' => $this->borrowedBook,
+        ]);
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'borrowing-receipt.pdf');
     }
 
 
