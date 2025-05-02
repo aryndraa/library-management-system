@@ -15,6 +15,10 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Actions;
+use Filament\Infolists\Components\Actions\Action;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -43,12 +47,12 @@ class BookBorrowingResource extends Resource
 
                 ToggleButtons::make('status')
                     ->inline()
-                    ->options([
-                        'pending' => 'Pending',
+                    ->options(fn ($get) => array_filter([
+                        'pending' => $get('status') === 'borrowed' ? null : 'Pending',
                         'borrowed' => 'Borrowed',
                         'returned' => 'Returned',
                         'penalty'  => 'Penalty',
-                    ])
+                    ]))
                     ->colors([
                         'pending'  => 'info',
                         'borrowed' => 'warning',
@@ -133,6 +137,7 @@ class BookBorrowingResource extends Resource
                     ->columns(2)
                     ->columnSpan(1),
 
+
             ]);
     }
 
@@ -142,6 +147,7 @@ class BookBorrowingResource extends Resource
             ->query(
                 BorrowedBook::query()
                     ->where('library_id', Filament::auth()->user()->library_id)
+                    ->whereNot('status', 'returned')
             )
             ->columns([
                 TextColumn::make('code')
@@ -216,8 +222,6 @@ class BookBorrowingResource extends Resource
             //
         ];
     }
-
-
 
     public static function getPages(): array
     {

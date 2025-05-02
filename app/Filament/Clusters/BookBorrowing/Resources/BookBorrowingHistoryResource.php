@@ -142,7 +142,7 @@ class BookBorrowingHistoryResource extends Resource
             )
             ->columns([
                 TextColumn::make('code')
-                    ->limit('30')
+                    ->limit('8')
                     ->sortable()
                     ->searchable(),
 

@@ -10,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Notifications\Notification;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,6 +22,32 @@ class ViewBookBorrowing extends ViewRecord
     {
         return [
             Actions\EditAction::make(),
+
+//            Actions\Action::make('changeStatus')
+//                ->label('Change borrow status')
+//                ->modalHeading('Change Borrow Status')
+//                ->form([
+//                    Select::make('status')
+//                        ->label('Status Baru')
+//                        ->options([
+//                            'returned' => 'Returned',
+//                            'penalty' => 'Penalty',
+//                        ])
+//                        ->required(),
+//                ])
+//                ->action(function (array $data, $record): void {
+//                    $record->status = $data['status'];
+//                    $record->save();
+//
+//                    if ($data['status'] === 'returned') {
+//                        $record->book->increment('stock');
+//                    }
+//
+//                })
+//                ->color('primary')
+//                ->icon('heroicon-m-pencil-square')
+//                ->requiresConfirmation()
+//                ->visible(fn ($record) => $record->status === 'borrowed'),
 
             Actions\Action::make('Send Email')
                 ->label('Send Email Report')
