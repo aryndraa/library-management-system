@@ -148,7 +148,7 @@ class RoomResource extends Resource
                                             ->label('Description'),
 
                                     ])
-                                    ->grid(2)
+                                    ->grid(3)
                                     ->columnSpan(2),
                             ])
             ])
