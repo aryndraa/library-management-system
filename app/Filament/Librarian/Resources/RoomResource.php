@@ -35,60 +35,43 @@ class RoomResource extends Resource
             ->schema([
                 Forms\Components\Group::make()
                     ->schema([
-                        TextInput::make('name')
-                            ->required(),
-
-                        Forms\Components\Select::make('room_category_id')
-                            ->relationship('category', 'name')
-                            ->searchable()
-                            ->preload(),
-
-                        Forms\Components\Select::make('library_id')
-                            ->relationship('library', 'name')
-                            ->searchable()
-                            ->default(fn() => Filament::auth()->user()->library_id)
-                            ->preload()
-                            ->disabled()
-                            ->dehydrated(),
-
-                        TextInput::make('price')
-                            ->label('Price')
-                            ->mask(RawJs::make(<<<'JS'
-                                    text => {
-                                        let number = text.replace(/[^\d]/g, '');
-                                        return new Intl.NumberFormat('id-ID', {
-                                            style: 'currency',
-                                            currency: 'IDR',
-                                            minimumFractionDigits: 0
-                                        }).format(number);
-                                    }
-                                JS))
-                            ->dehydrateStateUsing(fn ($state) => (int) preg_replace('/[^\d]/', '', $state))
-                            ->formatStateUsing(fn ($state) => $state ? 'Rp ' . number_format($state, 0, ',', '.') : null) ,
-
-                        Forms\Components\Repeater::make('facilities')
-                            ->relationship('facilities')
+                        Forms\Components\Section::make('Room Detail')
                             ->schema([
-                                TextInput::make('facility')
-                                    ->label('Name'),
+                                TextInput::make('name')
+                                    ->required(),
 
-                                Forms\Components\Textarea::make('description')
-                                    ->label('Description'),
+                                Forms\Components\Select::make('room_category_id')
+                                    ->relationship('category', 'name')
+                                    ->searchable()
+                                    ->preload(),
 
+                                Forms\Components\Select::make('library_id')
+                                    ->relationship('library', 'name')
+                                    ->searchable()
+                                    ->default(fn() => Filament::auth()->user()->library_id)
+                                    ->preload()
+                                    ->disabled()
+                                    ->dehydrated(),
+
+                                TextInput::make('price')
+                                    ->label('Price')
+                                    ->mask(RawJs::make(<<<'JS'
+                                        text => {
+                                            let number = text.replace(/[^\d]/g, '');
+                                            return new Intl.NumberFormat('id-ID', {
+                                                style: 'currency',
+                                                currency: 'IDR',
+                                                minimumFractionDigits: 0
+                                            }).format(number);
+                                        }
+                                        JS))
+                                    ->dehydrateStateUsing(fn ($state) => (int) preg_replace('/[^\d]/', '', $state))
+                                    ->formatStateUsing(fn ($state) => $state ? 'Rp ' . number_format($state, 0, ',', '.') : null) ,
                             ])
-                            ->grid(2)
-                            ->columnSpan(2)
-                    ])
-                    ->columnSpan(2)
-                    ->columns(2),
-
-                Forms\Components\Group::make()
-                    ->schema([
-                        SpatieMediaLibraryFileUpload::make('picture')
-                            ->collection('room')
+                            ->columns(2)
                             ->columnSpan(2),
 
-                        Forms\Components\Section::make()
+                        Forms\Components\Section::make('Room Stats')
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label('Status')
@@ -113,7 +96,8 @@ class RoomResource extends Resource
                                             'maintenance' => 'danger',
                                             default => 'gray',
                                         };
-                                    }),
+                                    })
+                                    ->columnSpan(2),
 
                                 Forms\Components\Placeholder::make('total_bookings')
                                     ->label('Total Bookings')
@@ -124,16 +108,49 @@ class RoomResource extends Resource
                                     ->label('Total Income')
                                     ->content(function ($record) {
                                         if (!$record) return 'Rp 0';
-
                                         $totalBooking = $record->bookings()->count();
                                         $price = $record->price ?? 0;
                                         $totalIncome = $totalBooking * $price;
-
                                         return 'Rp ' . number_format($totalIncome, 0, ',', '.');
                                     })
                                     ->disabled(),
+
                             ])
-                    ])->columnSpan(['lg' => 1])
+                            ->columnSpan(1)
+                            ->columns(2),
+
+                        Forms\Components\Section::make('Room Pictures')
+                            ->schema([
+                                SpatieMediaLibraryFileUpload::make('picture')
+                                    ->label(" ")
+                                    ->collection('room')
+                                    ->columnSpan(3)
+                                    ->multiple()
+                                    ->panelLayout('grid')
+                                    ->maxFiles(3)
+                                    ->maxParallelUploads(3),
+                            ])
+                        ])
+                        ->columnSpan(3)
+                        ->columns(3),
+
+
+                        Forms\Components\Section::make('Facilities')
+                            ->schema([
+                                Forms\Components\Repeater::make('facilities')
+                                    ->relationship('facilities')
+                                    ->label(' ')
+                                    ->schema([
+                                        TextInput::make('facility')
+                                            ->label('Name'),
+
+                                        Forms\Components\Textarea::make('description')
+                                            ->label('Description'),
+
+                                    ])
+                                    ->grid(2)
+                                    ->columnSpan(2),
+                            ])
             ])
             ->columns(3);
     }
@@ -148,6 +165,7 @@ class RoomResource extends Resource
                 SpatieMediaLibraryImageColumn::make('room')
                     ->label('Picture')
                     ->collection('room')
+                    ->limit(1)
                     ->height(50)
                     ->width(50),
 
