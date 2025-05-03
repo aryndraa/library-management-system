@@ -46,14 +46,12 @@ class RoomBookingHistoryResource extends Resource
                         ToggleButtons::make('status')
                             ->inline()
                             ->options([
-                                'pending' => 'Pending',
                                 'schedule'  => 'Schedule',
                                 'check in' => 'Check In',
                                 'check out'  => 'Check Out',
                                 'cancel' => 'Cancel',
                             ])
                             ->colors([
-                                'pending' => 'warning',
                                 'check in' => 'success',
                                 'check out' => 'gray',
                                 'schedule'  => 'primary',

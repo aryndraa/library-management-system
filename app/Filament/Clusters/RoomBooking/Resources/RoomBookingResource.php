@@ -38,7 +38,6 @@ class RoomBookingResource extends Resource
     {
         return $form
             ->schema([
-
                 Forms\Components\Group::make()
                     ->schema([
                         DatePicker::make('booking_date')
@@ -47,14 +46,12 @@ class RoomBookingResource extends Resource
                         ToggleButtons::make('status')
                             ->inline()
                             ->options([
-                                'pending' => 'Pending',
                                 'schedule'  => 'Schedule',
                                 'check in' => 'Check In',
                                 'check out'  => 'Check Out',
                                 'cancel' => 'Cancel',
                             ])
                             ->colors([
-                                'pending' => 'warning',
                                 'check in' => 'success',
                                 'check out' => 'gray',
                                 'schedule'  => 'primary',
@@ -176,7 +173,6 @@ class RoomBookingResource extends Resource
                         $query->where('library_id', Filament::auth()->user()->library_id);
                     })
                     ->whereNot('status', 'check out')
-                    ->whereNot('status', 'pending')
             )
             ->columns([
                 Tables\Columns\TextColumn::make('room.name')
@@ -192,15 +188,8 @@ class RoomBookingResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('booking_date')
-                    ->date()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('started_time')
-                    ->time()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('finished_time')
-                    ->time()
+                    ->label('Booking Time')
+                    ->dateTime()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')
