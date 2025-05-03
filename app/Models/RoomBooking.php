@@ -17,7 +17,8 @@ class RoomBooking extends Model
         'started_time',
         'finished_time',
         'total_price',
-        'status'
+        'status',
+        'code'
     ];
 
     public function room(): BelongsTo

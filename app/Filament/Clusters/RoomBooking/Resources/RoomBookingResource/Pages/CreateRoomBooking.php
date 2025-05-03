@@ -10,6 +10,7 @@ use Filament\Actions;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
@@ -17,6 +18,7 @@ use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\RawJs;
+use Illuminate\Support\Str;
 
 class CreateRoomBooking extends CreateRecord
 {
@@ -27,28 +29,80 @@ class CreateRoomBooking extends CreateRecord
         return $form
             ->schema([
 
-                Select::make('member_id')
-                    ->label('Member')
-                    ->relationship('member', 'email')
-                    ->preload()
-                    ->searchable(),
-
-                Select::make('room_id')
-                    ->label('Room')
-                    ->options(function () {
-                        $libraryId = Filament::auth()->user()->library_id;
-
-                        return Room::where('library_id', $libraryId)
-                            ->pluck('name', 'id');
-                    })
-                    ->preload()
-                    ->searchable()
-                    ->reactive(),
-
-                Group::make()
+                Section::make()
                     ->schema([
-                        DatePicker::make('booking_date')
-                            ->date(),
+
+                        Select::make('member_id')
+                            ->label('Member')
+                            ->relationship('member', 'email')
+                            ->preload()
+                            ->searchable()
+                            ->columnSpan(2),
+
+                        Select::make('room_id')
+                            ->label('Room')
+                            ->options(function () {
+                                $libraryId = Filament::auth()->user()->library_id;
+
+                                return Room::where('library_id', $libraryId)
+                                    ->pluck('name', 'id');
+                            })
+                            ->preload()
+                            ->searchable()
+                            ->reactive()
+                            ->columnSpan(2),
+
+                        Group::make()
+                            ->schema([
+                                DatePicker::make('booking_date')
+                                    ->date()
+                                    ->columnSpan(2),
+
+                                TimePicker::make('started_time')
+                                    ->label('Started Time')
+                                    ->time()
+                                    ->rules([
+                                        function (callable $get) {
+                                            return function (string $attribute, $value, \Closure $fail) use ($get) {
+                                                $roomId = $get('room_id');
+                                                $date = $get('booking_date');
+                                                $startTime = Carbon::parse($value);
+                                                $endTime = Carbon::parse($get('finished_time'));
+
+                                                if (! $roomId || ! $date || !$get('finished_time')) return;
+
+                                                $conflict = RoomBooking::where('room_id', $roomId)
+                                                    ->where('booking_date', $date)
+                                                    ->where(function ($query) use ($startTime, $endTime) {
+                                                        $query->whereBetween('started_time', [$startTime, $endTime->copy()->subMinute()])
+                                                            ->orWhereBetween('finished_time', [$startTime->copy()->addMinute(), $endTime])
+                                                            ->orWhere(function ($q) use ($startTime, $endTime) {
+                                                                $q->where('started_time', '<', $startTime)
+                                                                    ->where('finished_time', '>', $endTime);
+                                                            });
+                                                    })
+                                                    ->exists();
+
+                                                if ($conflict) {
+                                                    $fail('Waktu mulai bertabrakan dengan jadwal lain.');
+                                                }
+                                            };
+                                        }
+                                    ]),
+
+                                TimePicker::make('finished_time')
+                                    ->label('Finished Time')
+                                    ->time(),
+
+                            ])
+                            ->columns(4)
+                            ->columnSpan(4),
+                    ])
+                    ->columns(4),
+
+
+                Section::make()
+                    ->schema([
 
                         ToggleButtons::make('status')
                             ->inline()
@@ -66,69 +120,19 @@ class CreateRoomBooking extends CreateRecord
                                 'schedule'  => 'primary',
                                 'cancel'  => 'danger',
                             ])
-                            ->required(),
-                    ])
-                    ->columns(2)
-                    ->columnSpan(4),
-
-                Group::make()
-                    ->schema([
-                        TimePicker::make('started_time')
-                            ->label('Started Time')
-                            ->time()
-                            ->rules([
-                                function (callable $get) {
-                                    return function (string $attribute, $value, \Closure $fail) use ($get) {
-                                        $roomId = $get('room_id');
-                                        $date = $get('booking_date');
-                                        $startTime = Carbon::parse($value);
-                                        $endTime = Carbon::parse($get('finished_time'));
-
-                                        if (! $roomId || ! $date || !$get('finished_time')) return;
-
-                                        $conflict = RoomBooking::where('room_id', $roomId)
-                                            ->where('booking_date', $date)
-                                            ->where(function ($query) use ($startTime, $endTime) {
-                                                $query->whereBetween('started_time', [$startTime, $endTime->copy()->subMinute()])
-                                                    ->orWhereBetween('finished_time', [$startTime->copy()->addMinute(), $endTime])
-                                                    ->orWhere(function ($q) use ($startTime, $endTime) {
-                                                        $q->where('started_time', '<', $startTime)
-                                                            ->where('finished_time', '>', $endTime);
-                                                    });
-                                            })
-                                            ->exists();
-
-                                        if ($conflict) {
-                                            $fail('Waktu mulai bertabrakan dengan jadwal lain.');
-                                        }
-                                    };
-                                }
-                            ]),
-
-                        TimePicker::make('finished_time')
-                            ->label('Finished Time')
-                            ->time(),
-
-                        TextInput::make('total_price')
-                            ->mask(RawJs::make(<<<'JS'
-                                        text => {
-                                            let number = text.replace(/[^\d]/g, '');
-                                            return new Intl.NumberFormat('id-ID', {
-                                                style: 'currency',
-                                                currency: 'IDR',
-                                                minimumFractionDigits: 0
-                                            }).format(number);
-                                        }
-                                    JS))
-                            ->dehydrateStateUsing(fn ($state) => (int) preg_replace('/[^\d]/', '', $state))
-                            ->formatStateUsing(fn ($state) => $state ? 'Rp ' . number_format($state, 0, ',', '.') : null)
-                            ->disabled()
-                            ->columnSpan(2)
-                    ])
-                    ->columns(4)
-                    ->columnSpan(4),
+                            ->required()
+                            ->columnSpan(2),
+                    ]),
         ]);
     }
+
+    public function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['code'] = 'BRW-' . now()->format('Ymd') . '-' . Str::upper(Str::random(4));
+
+        return $data;
+    }
+
 
     protected function afterCreate(): void
     {
@@ -143,6 +147,8 @@ class CreateRoomBooking extends CreateRecord
 
         $hours = max(1, $start->diffInHours($end));
         $total = $hours * $booking->room->price;
+
+
 
         $booking->update([
             'total_price' => $total,

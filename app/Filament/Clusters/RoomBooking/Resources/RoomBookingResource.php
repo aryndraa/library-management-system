@@ -40,9 +40,17 @@ class RoomBookingResource extends Resource
             ->schema([
                 Forms\Components\Group::make()
                     ->schema([
-                        DatePicker::make('booking_date')
-                            ->date(),
 
+                        Forms\Components\Group::make()
+                            ->schema([
+                                TextInput::make('code')
+                                    ->disabled(),
+
+                                DatePicker::make('booking_date')
+                                    ->date(),
+
+                            ])
+                            ->columns(2),
                         ToggleButtons::make('status')
                             ->inline()
                             ->options([
