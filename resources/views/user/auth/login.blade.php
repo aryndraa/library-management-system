@@ -27,7 +27,7 @@
     <body class="antialiased">
         <section class="grid grid-cols-1 lg:grid-cols-4 ">
             <div
-                class="min-h-[25vh]  lg:min-h-[94vh] m-2 lg:m-5 py-6 px-5 lg:px-8 bg-black-300 col-span-2 rounded-xl bg-cover bg-center bg-blend-overlay bg-black/30"
+                class="min-h-[25vh]  lg:min-h-[94vh] m-2 lg:m-5 lg:py-6 p-5 lg:px-8 bg-black-300 col-span-2 rounded-xl bg-cover bg-center bg-blend-overlay bg-black/30"
                 style="background-image: url('https://images.unsplash.com/photo-1510172951991-856a654063f9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJvb2t8ZW58MHx8MHx8fDA%3D')"
 
             >
