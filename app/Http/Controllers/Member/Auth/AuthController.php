@@ -30,4 +30,9 @@ class AuthController extends Controller
 
         return redirect('makeProfile');
     }
+
+    public function makeProfile(): View
+    {
+        return view('user.auth.make-profile');
+    }
 }
