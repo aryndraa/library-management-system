@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function register()
     {
-        return view('user.auth.login');
+        return view('user.auth.register');
     }
 
     public function postLogin(Request $request)

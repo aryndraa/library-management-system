@@ -9,5 +9,10 @@ Route::get('/', function () {
 
 Route::prefix('member')
     ->group(function () {
-       Route::get('/login', [AuthController::class, 'login'])->name('member.login');
+        Route::controller(AuthController::class)
+            ->name('member.auth')
+            ->middleware('guest')
+            ->group(function () {
+                Route::get('/register', 'register')->name('register');
+            });
     });
