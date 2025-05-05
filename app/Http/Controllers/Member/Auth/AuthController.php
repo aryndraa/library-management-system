@@ -3,29 +3,31 @@
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function register()
+    public function register(): View
     {
         return view('user.auth.register');
     }
 
-    public function postLogin(Request $request)
+    public function postRegister(Request $request): RedirectResponse
     {
         $request->validate([
-           'email' => 'required|string|email',
-            'password' => 'required|string',
+            'email' => 'required|string|email',
+            'password' => 'required|string|confirmed',
+            'password_confirmation' => 'required|string|same:password',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $data = $request->all();
+        $user = $this->create($data);
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('home'));
-        }
+        Auth::login($user);
 
-        return redirect('login');
+        return redirect('makeProfile');
     }
 }
