@@ -27,47 +27,50 @@
     <body class="antialiased">
         <section class="grid grid-cols-1 lg:grid-cols-4 ">
             <div
-                class="min-h-[30vh] lg:min-h-[94vh]  lg:m-5 py-6 px-8 bg-black-300 col-span-2 lg:rounded-xl bg-cover bg-center bg-blend-overlay bg-black/30"
+                class="min-h-[25vh]  lg:min-h-[94vh] m-2 lg:m-5 py-6 px-5 lg:px-8 bg-black-300 col-span-2 rounded-xl bg-cover bg-center bg-blend-overlay bg-black/30"
                 style="background-image: url('https://images.unsplash.com/photo-1510172951991-856a654063f9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJvb2t8ZW58MHx8MHx8fDA%3D')"
 
             >
                 <x-logo/>
             </div>
-            <div class="col-span-2 px-4 py-8 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center">
+            <div class="col-span-2 px-5   py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center">
                 <div class="w-full ">
-                    <div class="mb-8">
+{{--                    <div class="mb-4 text-xl text-center">--}}
+{{--                        <h1>Create Your Account</h1>--}}
+{{--                    </div>--}}
+
+                    <div class="mb-8  lg:block">
                         <div class="flex items-center gap-2 lg:gap-4 mb-2">
-                            <hr class="w-6 lg:w-12 ">
-                            <h2 class="text-xs lg:text-lg leading-1 ">Become A Member</h2>
+                            <hr class="w-8 lg:w-12 ">
+                            <h2 class="text-sm lg:text-lg leading-1 ">Become A Member</h2>
                         </div>
-                        <h1 class="text-base lg:text-2xl leading-[30px] lg:leading-[44px]">Welcome to Perpusku, let’s create <br> your member account</h1>
+                        <h1 class="text-xl lg:text-2xl leading-[30px] lg:leading-[44px]">Welcome to Perpusku, let’s create <br> your member account</h1>
                     </div>
 
                     <div>
-                        <div class="flex flex-col gap-6 mb-12">
-                        <div class="flex flex-col">
-                            <label for="" class="mb-2 text-base">Email</label>
-                            <input type="email" placeholder="youremail@gmail.com" class="w-full px-6 py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none text-font/70">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="" class="mb-2 text-base">Password</label>
-                            <input type="password" placeholder="••••••••" class="w-full px-6 py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none text-font/70">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="" class="mb-2 text-base">Confirm Password</label>
-                            <input type="password" placeholder="••••••••" class="w-full px-6 py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none text-font/70">
-                        </div>
-                    </div>
-
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-sm mb-1">Already Have Account?</p>
-                                <a href="#" class="text-xl text-primary-300">Login Account</a>
+                        <div class="flex flex-col gap-5 lg:gap-6 mb-12">
+                            <div class="flex flex-col">
+                                <label for="" class="mb-2 text-sm lg:text-base">Email</label>
+                                <input type="email" placeholder="youremail@gmail.com" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
                             </div>
-                            <button class="font-normal rounded-lg px-6 py-2 bg-bgWidget">Continue</button>
+                            <div class="flex flex-col">
+                                <label for="" class="mb-2 text-sm lg:text-base">Password</label>
+                                <input type="password" placeholder="••••••••" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="" class="mb-2 text-sm lg:text-base">Confirm Password</label>
+                                <input type="password" placeholder="••••••••" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-4 lg:flex-row justify-between lg:items-end">
+                            <div>
+                                <p class="text-xs lg:text-sm lg:mb-1">Already Have Account?</p>
+                                <a href="#" class="text-lg lg:text-xl text-primary-300">Login Account</a>
+                            </div>
+                            <button class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Continue</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
