@@ -3,8 +3,8 @@
 @section('content')
     <section class="grid grid-cols-1 lg:grid-cols-4 ">
         <div
-            class="min-h-[25vh]  lg:min-h-[94vh] m-2 lg:m-5 lg:py-6 p-5 lg:px-8 bg-black-300 col-span-2 rounded-xl bg-cover bg-center bg-blend-overlay bg-black/30"
-            style="background-image: url('https://images.unsplash.com/photo-1510172951991-856a654063f9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJvb2t8ZW58MHx8MHx8fDA%3D')"
+            class="min-h-[25vh]  lg:min-h-[94vh] m-2 lg:m-5 lg:py-6 p-5 lg:px-8 bg-black-300 col-span-2 rounded-xl bg-cover bg-center bg-blend-overlay bg-black/20"
+            style="background-image: url('https://images.unsplash.com/photo-1528297506728-9533d2ac3fa4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
 
         >
             <x-logo/>
@@ -23,7 +23,7 @@
                     <h1 class="text-xl lg:text-2xl leading-[30px] lg:leading-[44px]">Welcome to Perpusku, let’s create <br> your member account</h1>
                 </div>
 
-                <div>
+                <form>
                     <div class="flex flex-col gap-5 lg:gap-6 mb-12">
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Email</label>
@@ -44,9 +44,9 @@
                             <p class="text-xs lg:text-sm lg:mb-1">Already Have Account?</p>
                             <a href="#" class="text-lg lg:text-xl text-primary-300">Login Account</a>
                         </div>
-                        <button class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Continue</button>
+                        <a href="{{route('member.auth.make-profile')}}" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Continue</a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>

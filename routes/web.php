@@ -10,9 +10,10 @@ Route::get('/', function () {
 Route::prefix('member')
     ->group(function () {
         Route::controller(AuthController::class)
-            ->name('member.auth')
+            ->name('member.auth.')
             ->middleware('guest')
             ->group(function () {
                 Route::get('/register', 'register')->name('register');
+                Route::get('/make-profile', 'makeProfile')->name('make-profile');
             });
     });
