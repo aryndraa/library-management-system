@@ -9,7 +9,7 @@
         >
             <x-logo/>
         </div>
-        <div class="col-span-2 px-5   py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center">
+        <div class="col-span-2 px-5  py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center">
             <div class="w-full ">
                 {{--                    <div class="mb-4 text-xl text-center">--}}
                 {{--                        <h1>Create Your Account</h1>--}}
