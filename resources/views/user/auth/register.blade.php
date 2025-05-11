@@ -42,7 +42,7 @@
                     <div class="flex flex-col gap-4 lg:flex-row justify-between lg:items-end">
                         <div>
                             <p class="text-xs lg:text-sm lg:mb-1">Already Have Account?</p>
-                            <a href="#" class="text-lg lg:text-xl text-primary-300">Login Account</a>
+                            <a href="{{route('member.auth.login')}}" class="text-lg lg:text-xl text-primary-300">Login Account</a>
                         </div>
                         <a href="{{route('member.auth.make-profile')}}" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Continue</a>
                     </div>

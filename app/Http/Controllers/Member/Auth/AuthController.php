@@ -35,4 +35,9 @@ class AuthController extends Controller
     {
         return view('user.auth.make-profile');
     }
+
+    public function login(): View
+    {
+        return view('user.auth.login');
+    }
 }

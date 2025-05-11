@@ -14,6 +14,7 @@ Route::prefix('member')
             ->middleware('guest')
             ->group(function () {
                 Route::get('/register', 'register')->name('register');
+                Route::get('/login', 'login')->name('login');
                 Route::get('/make-profile', 'makeProfile')->name('make-profile');
             });
     });
