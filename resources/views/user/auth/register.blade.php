@@ -63,5 +63,13 @@
             </div>
         </div>
     </section>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script>
+                flasher().error("{{ $error }}");
+            </script>
+        @endforeach
+    @endif
 @endsection
 

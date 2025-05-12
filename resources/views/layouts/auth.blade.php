@@ -28,6 +28,7 @@
 <body class="antialiased">
     @yield('content')
     @livewireScripts
+
 </body>
 
 </html>

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\Auth\RegisterRequest;
 use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AuthController extends Controller
@@ -18,20 +21,32 @@ class AuthController extends Controller
 
     public function postRegister(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string|confirmed',
-            'password_confirmation' => 'required|string|same:password',
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:members,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'same:password'],
         ]);
+
+
+        if ($validator->fails()) {
+            foreach ($validator->messages()->all() as $message) {
+                flash()->error($message);
+            }
+
+            return redirect()->route('member.auth.register')->withErrors($validator);
+        }
 
         $data = $request->only('email', 'password');
         $data['password'] = bcrypt($data['password']);
 
         $user = Member::query()->create($data);
 
+        flash()->success('Post created successfully!');
         session(['member_id_pending_profile' => $user->id]);
 
-        return redirect()->route('makeProfile');
+        return redirect()->route('member.auth.make-profile');
+
+
     }
 
     public function makeProfile()
