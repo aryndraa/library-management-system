@@ -11,9 +11,6 @@
         </div>
         <div class="col-span-2 px-5  py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center">
             <div class="w-full ">
-                {{--                    <div class="mb-4 text-xl text-center">--}}
-                {{--                        <h1>Create Your Account</h1>--}}
-                {{--                    </div>--}}
 
                 <div class="mb-8  lg:block">
                     <div class="flex items-center gap-2 lg:gap-4 mb-2">
@@ -23,19 +20,35 @@
                     <h1 class="text-xl lg:text-2xl leading-[30px] lg:leading-[44px]">Welcome to Perpusku, let’s create <br> your member account</h1>
                 </div>
 
-                <form>
+                <form action="/member/register" method="post">
+                    @csrf
                     <div class="flex flex-col gap-5 lg:gap-6 mb-12">
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Email</label>
-                            <input type="email" placeholder="youremail@gmail.com" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="youremail@gmail.com"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Password</label>
-                            <input type="password" placeholder="••••••••" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="••••••••"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Confirm Password</label>
-                            <input type="password" placeholder="••••••••" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="password"
+                                name="password_confirmation"
+                                placeholder="••••••••"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                     </div>
 
@@ -44,7 +57,7 @@
                             <p class="text-xs lg:text-sm lg:mb-1">Already Have Account?</p>
                             <a href="{{route('member.auth.login')}}" class="text-lg lg:text-xl text-primary-300">Login Account</a>
                         </div>
-                        <a href="{{route('member.auth.make-profile')}}" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Continue</a>
+                        <button type="submit" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Continue</button>
                     </div>
                 </form>
             </div>

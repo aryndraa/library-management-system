@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,11 +25,11 @@ class AuthController extends Controller
         ]);
 
         $data = $request->all();
-        $user = $this->create($data);
+        $user = Member::query()->create($data);
 
         Auth::login($user);
 
-        return redirect('makeProfile');
+        return redirect()->route('makeProfile');
     }
 
     public function makeProfile(): View
