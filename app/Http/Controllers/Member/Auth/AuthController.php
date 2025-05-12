@@ -24,17 +24,51 @@ class AuthController extends Controller
             'password_confirmation' => 'required|string|same:password',
         ]);
 
-        $data = $request->all();
+        $data = $request->only('email', 'password');
+        $data['password'] = bcrypt($data['password']);
+
         $user = Member::query()->create($data);
 
-        Auth::login($user);
+        session(['member_id_pending_profile' => $user->id]);
 
         return redirect()->route('makeProfile');
     }
 
-    public function makeProfile(): View
+    public function makeProfile()
     {
+        if (!session()->has('member_id_pending_profile')) {
+            return redirect()->route('register');
+        }
+
         return view('user.auth.make-profile');
+    }
+
+    public function postMakeProfile(Request $request, ): RedirectResponse
+    {
+        $request->validate([
+            'first_name' => 'required|string',
+            'last_name'  => 'required|string',
+            'phone'      => 'required|string',
+            'address'    => 'nullable|ring',
+            'city'       => 'nullable|ring',
+            'province'   => 'nullable|ring',
+            'birthday'   => 'nullable|te',
+            'gender'     => 'nullable|ring',
+        ]);
+
+        $memberId = session('member_id_pending_profile');
+        $member = Member::query()->findOrFail($memberId)->load('profile');
+
+        $member->profile()->make($request->only([
+            'first_name', 'last_name', 'phone', 'address',
+            'city', 'province', 'birthday', 'gender'
+        ]));
+
+        Auth::login($member);
+
+        session()->forget('member_id_pending_profile');
+
+        return redirect()->route('home');
     }
 
     public function login(): View

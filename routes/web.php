@@ -5,8 +5,8 @@ use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('filament.admin.auth.login');
-});
+    return view('user.home');
+})->name('home');
 
 Route::prefix('member')
     ->name('member.')
