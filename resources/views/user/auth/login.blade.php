@@ -12,15 +12,26 @@
                     <h1 class="text-xl lg:text-2xl leading-[30px] lg:leading-[44px]">Please enter your details to log in <br/> your account </h1>
                 </div>
 
-                <form>
+                <form action="/member/login" method="post">
+                    @csrf
                     <div class="flex flex-col gap-5 lg:gap-6 mb-12">
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Email</label>
-                            <input type="email" placeholder="youremail@gmail.com" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="youremail@gmail.com"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Password</label>
-                            <input type="password" placeholder="••••••••" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="••••••••"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                     </div>
 
@@ -29,7 +40,7 @@
                             <p class="text-xs lg:text-sm lg:mb-1">Don’t Have Account?</p>
                             <a href="{{route('member.auth.register')}}" class="text-lg lg:text-xl text-primary-300">Create Account</a>
                         </div>
-                        <a href="{{route('member.auth.make-profile')}}" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Log In</a>
+                        <button type="submit" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Log In</button>
                     </div>
                 </form>
             </div>

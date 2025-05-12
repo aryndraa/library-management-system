@@ -16,7 +16,10 @@ Route::prefix('member')
             ->group(function () {
                 Route::get('/register', 'register')->name('register');
                 Route::post('/register', 'postRegister')->name('postRegister');
+
                 Route::get('/login', 'login')->name('login');
+                Route::post('/login', 'postLogin')->name('postLogin');
+
                 Route::get('/make-profile', 'makeProfile')->name('make-profile');
                 Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
             });
