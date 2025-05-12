@@ -4,9 +4,7 @@ use App\Http\Controllers\Member\Auth\AuthController;
 use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('user.home');
-})->name('home');
+
 
 Route::prefix('member')
     ->name('member.')
@@ -20,6 +18,16 @@ Route::prefix('member')
                 Route::post('/register', 'postRegister')->name('postRegister');
                 Route::get('/login', 'login')->name('login');
                 Route::get('/make-profile', 'makeProfile')->name('make-profile');
+                Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
             });
+
+        Route::middleware('auth:member')
+            ->group(function () {
+                Route::get('/', function () {
+                    return view('user.home');
+                })->name('home');
+
+
+        });
     });
 

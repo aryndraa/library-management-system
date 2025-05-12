@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         $user = Member::query()->create($data);
 
-        flash()->success('Post created successfully!');
+        flash()->success('Registered successfully!');
         session(['member_id_pending_profile' => $user->id]);
 
         return redirect()->route('member.auth.make-profile');

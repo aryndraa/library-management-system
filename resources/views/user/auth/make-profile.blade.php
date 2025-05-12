@@ -15,7 +15,8 @@
                 <h2 class="text-sm lg:text-lg leading-1 ">Make Your Profile</h2>
             </div>
 
-            <form action="#" class="grid md:grid-cols-2 lg:gap-8 ">
+            <form action="/member/make-profile" method="post" class="grid md:grid-cols-2 lg:gap-8 ">
+                @csrf
                 <div class="grid lg:grid-rows-4  gap-5 lg:gap-0">
                     <div class="flex flex-col lg:items-center mb-4 lg:mb-8 lg:row-span-2">
                         <label for="avatarInput">
@@ -29,38 +30,73 @@
                     <div class="grid lg:grid-cols-2 gap-5 lg:gap-5">
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">First Name</label>
-                            <input type="text" placeholder="Enter your first name" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="text"
+                                name="first_name"
+                                placeholder="Enter your first name"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Last Name</label>
-                            <input type="text" placeholder="Enter your last name" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="text"
+                                name="last_name"
+                                placeholder="Enter your last name"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                     </div>
                     <div class="flex flex-col col-span-full">
                         <label for="" class="mb-2 text-sm lg:text-base">Phone Number</label>
-                        <input type="text" placeholder="Enter your phone number" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                        <input
+                            type="text"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                        >
                     </div>
                 </div>
 
                 <div class="grid grid-rows-4">
                     <div class="flex flex-col mb-5">
                         <label for="" class="mb-2 text-sm lg:text-base">Address</label>
-                        <input type="text" placeholder="Enter your address" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                        <input
+                            type="text"
+                            name="address"
+                            placeholder="Enter your address"
+                            class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                        >
                     </div>
                     <div class="grid grid-cols-2 gap-5">
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Province</label>
-                            <input type="text" placeholder="Enter your province" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="text"
+                                name="province"
+                                placeholder="Enter your province"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">City</label>
-                            <input type="text" placeholder="Enter your city" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30">
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder="Enter your city"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            >
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-5">
                         <div class="flex flex-col">
                             <label for="" class="mb-2 text-sm lg:text-base">Birthday</label>
-                            <input type="date" placeholder="Enter your city" class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none text-font/30">
+                            <input
+                                type="date"
+                                name="birthday"
+                                placeholder="Enter your city"
+                                class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none text-font/30"
+                            >
                         </div>
                         <div class="flex flex-col">
                             <label for="gender" class="mb-2 text-sm lg:text-base">Gender</label>
@@ -74,7 +110,7 @@
                         </div>
                     </div>
                     <div class="flex items-center">
-                        <button class="flex h-fit  flex-col  col-span-full w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-primary-300 text-white font-medium rounded-lg focus:outline-none placeholder:text-font/30">
+                        <button type="submit" class="flex h-fit  flex-col  col-span-full w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-primary-300 text-white font-medium rounded-lg focus:outline-none placeholder:text-font/30">
                             Submit
                         </button>
                     </div>
