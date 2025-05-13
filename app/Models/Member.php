@@ -2,23 +2,36 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Member extends Authenticatable Implements HasMedia
+class Member extends Authenticatable Implements HasMedia, HasName
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Notifiable;
 
     protected $fillable = [
         'email',
         'password',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->profile->first_name . ' ' . $this->profile->last_name ?? 'Librarian';
+    }
 
     public function profile(): HasOne
     {
