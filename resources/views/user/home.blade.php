@@ -1,30 +1,17 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
+@extends('layouts.app')
 
-    <meta name="application-name" content="{{ config('app.name') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
+    <section
+        class="min-h-[92vh] w-full flex items-center relative"
+    >
+        <div class="min-h-[92vh] absolute inset-0 z-[-1]">
+            <img
+                src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+                class="max-h-[92vh] z-[-2] w-full absolute object-cover"
+            >
+            <div class="absolute z-[-1] bg-gradient-to-b from-black/20 via-black/10 to-black/20 inset-0"></div>
+        </div>
 
-    @vite('resources/css/app.css')
-    <title>{{ config('app.name') }}</title>
-
-    {{--  font  --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-    </style>
-
-    @vite(['resources/css/app.css','resources/js/app.js' ])
-</head>
-
-<body class="antialiased">
-    <h1>hello</h1>
-</body>
-</html>
+    </section>
+@endsection
