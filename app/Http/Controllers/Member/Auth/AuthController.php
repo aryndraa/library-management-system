@@ -120,6 +120,17 @@ class AuthController extends Controller
 
         Auth::guard('member')->login($member);
 
+        flash()->success('Login successfully!');
+
         return redirect()->route('member.home');
+    }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::guard('member')->logout();
+
+        flash()->warning('You are logged out!');
+
+        return redirect()->route('member.auth.login');
     }
 }

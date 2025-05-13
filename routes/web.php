@@ -30,6 +30,7 @@ Route::prefix('member')
                     return view('user.home');
                 })->name('home');
 
+                Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         });
     });
