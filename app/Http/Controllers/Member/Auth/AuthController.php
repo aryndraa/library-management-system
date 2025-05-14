@@ -87,23 +87,25 @@ class AuthController extends Controller
         }
 
         $memberId = session('member_id_pending_profile');
-        $member   = Member::query()->findOrFail($memberId)->load('profile');
+        $member   = Member::query()->findOrFail($memberId);
 
         $member->profile()->create($request->only([
             'first_name', 'last_name', 'phone', 'address',
             'city', 'province', 'birthday', 'gender'
         ]));
 
+        $member->load('profile');
 
         if($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
+
 
             if($member->profile->avatar) {
                 Storage::disk('public')->delete($member->profile->avatar->file_path);
                 $member->profile->avatar->delete();
             }
 
-            File::uploadFile($avatar, $member, 'avatar', 'avatars');
+            File::uploadFile($avatar, $member->profile, 'avatar', 'avatars');
         }
 
         Auth::guard('member')->login($member);
