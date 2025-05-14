@@ -100,12 +100,12 @@ class AuthController extends Controller
             $avatar = $request->file('avatar');
 
 
-            if($member->profile->avatar) {
+            if($member->profile->photoProfile) {
                 Storage::disk('public')->delete($member->profile->avatar->file_path);
                 $member->profile->avatar->delete();
             }
 
-            File::uploadFile($avatar, $member->profile, 'avatar', 'member/avatars');
+            File::uploadFile($avatar, $member->profile, 'photoProfile', 'member/avatars');
         }
 
         Auth::guard('member')->login($member);

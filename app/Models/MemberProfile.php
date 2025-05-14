@@ -22,12 +22,13 @@ class MemberProfile extends Model
         'city',
     ];
 
+
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class);
     }
 
-    public function avatar(): MorphOne
+    public function photoProfile(): MorphOne
     {
         return $this->morphOne(File::class, 'related');
     }
