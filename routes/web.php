@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('')
+Route::prefix('member')
+    ->name('member.')
     ->group(function () {
 
         Route::controller(AuthController::class)
@@ -19,7 +20,7 @@ Route::prefix('')
                 Route::get('/login', 'login')->name('login');
                 Route::post('/login', 'postLogin')->name('postLogin');
 
-                Route::get('/make-profile', 'makeProfile')->name('make-profile');
+                Route::get('/make-profile', 'makeProfile')->name('makeProfile');
                 Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
             });
 

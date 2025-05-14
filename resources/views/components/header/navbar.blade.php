@@ -1,4 +1,4 @@
-<header class="absolute z-50 top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-3 items-center mx-6 lg:mx-20 my-4 lg:my-6">
+<header class="absolute z-50 top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-3 items-center mx-6 lg:mx-20 my-5 lg:my-6">
     <div>
         <x-logo/>
     </div>

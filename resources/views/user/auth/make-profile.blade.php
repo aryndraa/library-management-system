@@ -15,14 +15,18 @@
                 <h2 class="text-sm lg:text-lg leading-1 ">Make Your Profile</h2>
             </div>
 
-            <form action="/member/make-profile" method="post" class="grid md:grid-cols-2 lg:gap-8 ">
+            <form action="/member/make-profile" method="post" enctype="multipart/form-data" class="grid md:grid-cols-2 lg:gap-8 ">
                 @csrf
                 <div class="grid lg:grid-rows-4  gap-5 lg:gap-0">
                     <div class="flex flex-col lg:items-center mb-4 lg:mb-8 lg:row-span-2">
-                        <label for="avatarInput">
+                        <label for="avatarInput" class="relative">
                             <div class="w-40 h-40 lg:w-52 lg:h-52 rounded-full overflow-hidden bg-bgWidget cursor-pointer">
                                 <img id="avatarPreview" src="https://via.placeholder.com/150" alt="."
                                      class="w-full h-full object-cover">
+
+                                <div class="absolute bottom-0 right-0 transform p-3 rounded-full bg-primary-300 -translate-x-6 -translate-y-1">
+                                    <x-heroicon-o-camera class="h-6 w-6 text-white"/>
+                                </div>
                             </div>
                         </label>
                         <input type="file" name="avatar" id="avatarInput" accept="image/*" class="hidden">

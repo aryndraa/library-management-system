@@ -27,7 +27,7 @@ class MemberProfile extends Model
         return $this->belongsTo(Member::class);
     }
 
-    public function photoProfile(): MorphOne
+    public function avatar(): MorphOne
     {
         return $this->morphOne(File::class, 'related');
     }
