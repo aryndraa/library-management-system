@@ -105,7 +105,7 @@ class AuthController extends Controller
                 $member->profile->avatar->delete();
             }
 
-            File::uploadFile($avatar, $member->profile, 'avatar', 'avatars');
+            File::uploadFile($avatar, $member->profile, 'avatar', 'member/avatars');
         }
 
         Auth::guard('member')->login($member);
