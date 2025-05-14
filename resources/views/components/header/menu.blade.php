@@ -62,8 +62,8 @@
         </div>
         <nav class="flex flex-col gap-8">
             <div>
-                <h3 class="text-sm text-white/50 mb-4 font-light">Menu</h3>
-                <div class="flex flex-col gap-5 pl-2">
+                <h3 class="text-sm text-white/50 mb-5 font-light">Menu</h3>
+                <div class="flex flex-col gap-6 pl-2">
                     <a href="#" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-o-home class="size-6"/>
@@ -91,8 +91,8 @@
                 </div>
             </div>
             <div>
-                <h3 class="text-sm text-white/50 mb-4 font-light">Options</h3>
-                <div class="flex flex-col gap-5 pl-2">
+                <h3 class="text-sm text-white/50 mb-5 font-light">Options</h3>
+                <div class="flex flex-col gap-6 pl-2">
                     <a href="#" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-o-bookmark-square class="size-6"/>
