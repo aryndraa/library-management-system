@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Member\Auth\AuthController;
+use App\Http\Controllers\Member\Profile\ProfileController;
 use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,14 @@ Route::prefix('member')
                 Route::get('/login', 'login')->name('login');
                 Route::post('/login', 'postLogin')->name('postLogin');
 
+                Route::get('/make-profile', 'makeProfile')->name('makeProfile');
+                Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
+            });
+
+        Route::controller(ProfileController::class)
+            ->name('profile.')
+            ->middleware('guest')
+            ->group(function () {
                 Route::get('/make-profile', 'makeProfile')->name('makeProfile');
                 Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
             });
