@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Member\Auth\AuthController;
+use App\Http\Controllers\Member\Book\BookController;
 use App\Http\Controllers\Member\Profile\ProfileController;
 use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,13 @@ Route::prefix('member')
             ->group(function () {
                 Route::get('/make-profile', 'makeProfile')->name('makeProfile');
                 Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
+            });
+
+        Route::controller(BookController::class)
+            ->prefix('book')
+            ->name('book.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
             });
 
         Route::middleware('auth:member')

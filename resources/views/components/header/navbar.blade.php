@@ -5,7 +5,7 @@
     <div class="justify-center items-center gap-10 hidden lg:flex">
         <a href="#" class="text-white text-lg">Home</a>
         <a href="#" class="text-white text-lg">About us</a>
-        <a href="#" class="text-white text-lg">Books</a>
+        <a href="{{route('member.book.index')}}" class="text-white text-lg">Books</a>
         <a href="#" class="text-white text-lg">Rooms</a>
     </div>
     <div class="justify-end gap-8 items-center hidden lg:flex">
