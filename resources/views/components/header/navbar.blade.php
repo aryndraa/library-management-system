@@ -9,7 +9,6 @@
         <a href="#" class="text-white text-lg">Rooms</a>
     </div>
     <div class="justify-end gap-8 items-center hidden lg:flex">
-        <x-header.search/>
         <x-header.status-session/>
     </div>
     <div class="lg:hidden flex items-center justify-end">
