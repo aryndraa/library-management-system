@@ -9,6 +9,18 @@ class SelectLibrary extends Component
 {
     public $search = '';
 
+    public $show = true;
+
+    public function setLibrarySession($id)
+    {
+        session(['library_id_session' => $id]);
+
+        $this->show = false;
+
+        return redirect()->route('member.home');
+
+    }
+
     public function render()
     {
         $libraries = Library::query()
