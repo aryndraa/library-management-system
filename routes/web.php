@@ -34,18 +34,19 @@ Route::prefix('member')
                 Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
             });
 
-        Route::controller(BookController::class)
-            ->prefix('book')
-            ->name('book.')
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-            });
 
         Route::middleware('auth:member')
             ->group(function () {
                 Route::get('/', function () {
                     return view('user.home');
                 })->name('home');
+
+                Route::controller(BookController::class)
+                    ->prefix('book')
+                    ->name('book.')
+                    ->group(function () {
+                        Route::get('/', 'index')->name('index');
+                    });
 
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
