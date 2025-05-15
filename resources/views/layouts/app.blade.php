@@ -24,13 +24,18 @@
     </style>
 
     @vite(['resources/css/app.css','resources/js/app.js' ])
+
+    @livewireStyles
 </head>
 
 <body class="antialiased">
     <x-header.navbar/>
     <main>
+        <livewire:select-library />
         @yield('content')
     </main>
+
+    @livewireScripts
 </body>
 </html>
 
