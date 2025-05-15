@@ -1,19 +1,23 @@
 <?php
 
-namespace App\View\Components\header;
+namespace App\View\Components\Features;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class statusSession extends Component
+class TotalItems extends Component
 {
+    public $item;
+    public $total;
+
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($item, $total)
     {
-        //
+        $this->item = $item;
+        $this->total = $total;
     }
 
     /**
@@ -21,6 +25,6 @@ class statusSession extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.header.status-session');
+        return view('components.features.total-items');
     }
 }

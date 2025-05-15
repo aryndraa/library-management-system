@@ -24,9 +24,7 @@
 
     <section class="py-20 px-32 transform -translate-y-10 bg-white rounded-t-[46px]">
         <div class="flex justify-between items-center">
-            <h3 class="text-lg">
-                {{count($books)}} Books Found
-            </h3>
+            <x-features.total-items item="Books" total="{{count($books)}}"/>
             <div class="flex items-center gap-8">
                 <form class="flex items-center gap-3 px-4 py-2 bg-bgWidget rounded-full">
                     <input
