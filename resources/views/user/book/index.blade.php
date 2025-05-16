@@ -32,12 +32,37 @@
     </section>
 
     <section class="py-20 px-32 transform -translate-y-10 bg-white rounded-t-[46px]">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mb-6">
             <x-features.total-items item="Books" total="{{count($books)}}"/>
             <div class="flex items-center gap-6">
                 <x-features.search name="Books"/>
                 <x-features.sort :sortItems="$sortItems"/>
             </div>
+        </div>
+
+        <div class="flex gap-5">
+            <div class="bg-bgWidget p-6 w-[28%] rounded-xl">
+                <div>
+                    <h3 class="text-xl mb-3">Categories</h3>
+                    <form method="get">
+                        @foreach(\App\Models\Category::all() as $category)
+                            <div class="py-2 flex gap-3 items-center">
+                                <input
+                                    type="checkbox"
+                                    name="categories[]"
+                                    value="{{$category->name}}"
+                                    id="category_{{ $loop->index }}"
+                                    onchange="this.form.submit()"
+                                    class="peer size-5 cursor-pointer transition-all appearance-none rounded  border border-slate-300 checked:bg-primary-300 checked:border-primary-200  checked:hover:bg-primary-300 focus:bg-primary-100 checked:focus:bg-primary-100 "
+                                    {{ in_array($category->name, request()->get('categories', [])) ? 'checked' : '' }}
+                                >
+                                <label for="category_{{ $loop->index }}">{{$category->name}}</label>
+                            </div>
+                        @endforeach
+                    </form>
+                </div>
+            </div>
+            <div>test</div>
         </div>
     </section>
 @endsection
