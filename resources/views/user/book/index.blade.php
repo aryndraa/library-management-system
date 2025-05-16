@@ -1,3 +1,12 @@
+@php
+    $sortItems = [
+        'newest',
+        'oldest',
+        'hots',
+        'popular'
+    ]
+ @endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -25,16 +34,9 @@
     <section class="py-20 px-32 transform -translate-y-10 bg-white rounded-t-[46px]">
         <div class="flex justify-between items-center">
             <x-features.total-items item="Books" total="{{count($books)}}"/>
-            <div class="flex items-center gap-8">
+            <div class="flex items-center gap-6">
                 <x-features.search name="Books"/>
-                <div>
-                    <button class="flex items-center gap-3 text-lg">
-                        Sort
-                        <span>
-                            <x-heroicon-o-chevron-down class="w-6 h-6"/>
-                        </span>
-                    </button>
-                </div>
+                <x-features.sort :sortItems="$sortItems"/>
             </div>
         </div>
     </section>

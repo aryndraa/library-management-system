@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Member\Book;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use function Symfony\Component\VarDumper\Dumper\esc;
 
 class BookController extends Controller
 {
@@ -15,6 +17,7 @@ class BookController extends Controller
         $category = $request->input('category');
 
         $books = Book::query()
+            ->withCount(['borrowings', 'likes'])
             ->when($search, function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
@@ -24,7 +27,17 @@ class BookController extends Controller
                 });
             })
             ->when($sort, function ($query) use ($sort) {
-                return $query->orderBy($sort, 'desc');
+                if($sort == 'newest') {
+                    return $query->orderBy('created_at', 'desc');
+                } else if($sort == 'oldest') {
+                    return $query->orderBy('created_at', 'asc');
+                } else if($sort == 'hots') {
+                    return $query->orderBy('borrowings_count', 'desc');
+                } else if($sort == 'popular') {
+                    return $query->orderBy('likes_count', 'desc');
+                }
+
+                return null;
             })
             ->where('library_id', session('library_id_session'))
             ->paginate(20);
