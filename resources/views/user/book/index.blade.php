@@ -26,18 +26,7 @@
         <div class="flex justify-between items-center">
             <x-features.total-items item="Books" total="{{count($books)}}"/>
             <div class="flex items-center gap-8">
-                <form class="flex items-center gap-3 px-4 py-2 bg-bgWidget rounded-full">
-                    <input
-                        type="text"
-                        name="search"
-                        id="search"
-                        class="border-none focus:ring-0 bg-transparent w-72 placeholder:text-font/40"
-                        placeholder="Search books"
-                    >
-                    <button type="submit" class="p-2 rounded-full bg-white">
-                        <x-heroicon-o-magnifying-glass class="size-6"/>
-                    </button>
-                </form>
+                <x-features.search name="Books"/>
                 <div>
                     <button class="flex items-center gap-3 text-lg">
                         Sort
