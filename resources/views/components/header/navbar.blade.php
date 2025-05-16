@@ -3,7 +3,7 @@
         <x-logo/>
     </div>
     <div class="justify-center items-center gap-10 hidden lg:flex">
-        <a href="#" class="text-white text-lg">Home</a>
+        <a href="{{ route('member.home') }}" class="text-white text-lg">Home</a>
         <a href="#" class="text-white text-lg">About us</a>
         <a href="{{route('member.book.index')}}" class="text-white text-lg">Books</a>
         <a href="#" class="text-white text-lg">Rooms</a>

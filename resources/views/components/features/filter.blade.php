@@ -1,4 +1,4 @@
-<div class="bg-bgWidget p-6 w-[28%] rounded-xl">
+<div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl">
     <div>
         <h3 class="text-xl mb-3">Categories</h3>
         <form method="get">
