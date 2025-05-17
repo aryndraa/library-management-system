@@ -17,7 +17,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        $book->newQuery()->withCount(['borrowings', 'likes']);
+        $book->newQuery()->withCount(['borrowings', 'likes', 'bookComments'])->with('category');
 
         return view('user.book.show', compact('book'));
     }
