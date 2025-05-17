@@ -46,6 +46,7 @@ Route::prefix('member')
                     ->name('book.')
                     ->group(function () {
                         Route::get('/', 'index')->name('index');
+                        Route::get('/{book}', 'show')->name('show');
                     });
 
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
