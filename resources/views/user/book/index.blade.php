@@ -34,22 +34,5 @@
         </div>
     </section>
 
-    <section class="py-20 px-32 transform -translate-y-10 bg-white rounded-t-[46px]">
-        <div class="flex justify-between items-center mb-12">
-            <x-features.total-items item="Books" total="{{count($books)}}"/>
-            <div class="flex items-center gap-6">
-                <x-features.search name="Books"/>
-                <x-features.sort :sortItems="$sortItems"/>
-            </div>
-        </div>
-
-        <div class="flex gap-5">
-            <x-features.filter :categories="$categories"/>
-            <div class="grid grid-cols-4 gap-4 gap-y-6">
-                @foreach($books as $book)
-                    <x-card.book-card :$book/>
-                @endforeach
-            </div>
-        </div>
-    </section>
+    @livewire('books')
 @endsection

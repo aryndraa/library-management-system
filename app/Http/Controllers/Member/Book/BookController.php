@@ -42,6 +42,6 @@ class BookController extends Controller
             ->where('library_id', session('library_id_session'))
             ->paginate(20);
 
-        return view('user.book.index', compact('books'));
+        return view('user.book.index');
     }
 }
