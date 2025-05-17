@@ -1,6 +1,6 @@
 @props(['book'])
 
-<a href="{{$book->id}}" class="group ">
+<a href="{{route('member.book.show',$book->id)}}" class="group ">
     <div class="bg-bgWidget p-4 py-5 rounded-xl mb-2">
         <img
             src="{{$book->getFirstMediaUrl('book')}}"
