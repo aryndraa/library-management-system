@@ -1,4 +1,4 @@
-@extends('layouts.show')
+@extends('layouts.show', ['routeDirect' => 'member.book.index'])
 
 @section('content')
 
