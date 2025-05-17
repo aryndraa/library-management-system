@@ -12,7 +12,12 @@
                     <h1 class="text-xl lg:text-2xl leading-[30px] lg:leading-[44px]">Please enter your details to log in <br/> your account </h1>
                 </div>
 
-                <form action="/member/login" method="post">
+                <form
+                    action="/member/login"
+                    method="post"
+                    x-data="{ loading: false }"
+                    @submit.prevent="loading = true; $nextTick(() => $el.submit())"
+                >
                     @csrf
                     <div class="flex flex-col gap-5 lg:gap-6 mb-12">
                         <div class="flex flex-col">
@@ -40,7 +45,24 @@
                             <p class="text-xs lg:text-sm lg:mb-1">Don’t Have Account?</p>
                             <a href="{{route('member.auth.register')}}" class="text-lg lg:text-xl text-primary-300">Create Account</a>
                         </div>
-                        <button type="submit" class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget">Log In</button>
+                        <button
+                            type="submit"
+                            class="font-normal rounded-lg px-6 py-4 lg:py-2 bg-bgWidget flex items-center justify-center gap-2"
+                            :disabled="loading"
+                        >
+                            <template x-if="!loading">
+                                <span>Log In</span>
+                            </template>
+                            <template x-if="loading">
+                                <span class="flex items-center">
+                                    <svg class="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                    </svg>
+                                    Loading...
+                                </span>
+                            </template>
+                        </button>
                     </div>
                 </form>
             </div>
