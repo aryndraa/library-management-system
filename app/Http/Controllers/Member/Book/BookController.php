@@ -8,7 +8,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use function Symfony\Component\VarDumper\Dumper\esc;
 
-class BookController extends Controller
+class   BookController extends Controller
 {
     public function index(Request $request)
     {

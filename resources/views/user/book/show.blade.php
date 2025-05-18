@@ -62,14 +62,7 @@
                         class="rounded-xl w-full h-[360px]  shadow-md object-cover shadow-black/40 "
                     >
                 </div>
-                <div class="flex gap-4">
-                    <button class="w-full bg-bgWidget text-lg    p-3 rounded-lg ">
-                        Borrow Book
-                    </button>
-                    <button class="rounded-full p-4 bg-bgWidget">
-                        <x-heroicon-s-heart class="size-7 text-font/60"/>
-                    </button>
-                </div>
+                @livewire('book-actions', ['book' => $book])
             </div>
 
             <div class="max-h-[64vh]">
