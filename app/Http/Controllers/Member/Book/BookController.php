@@ -20,10 +20,6 @@ class   BookController extends Controller
         $book->newQuery()
             ->with('category');
 
-        $randomBook = Book::query()->inRandomOrder()
-            ->take(6)
-            ->get();
-
-        return view('user.book.show', compact(['book', 'randomBook']));
+        return view('user.book.show', compact(['book']));
     }
 }
