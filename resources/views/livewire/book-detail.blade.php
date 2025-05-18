@@ -1,8 +1,16 @@
 <section class="flex gap-16" wire:poll.5>
     <div class="w-[46%]">
         <div class="flex gap-4 text-lg text-font/60 mb-10">
-            <button wire:click="toggleComment(false)" class="pb-2.5 pr-4 text-primary-300 border-b border-primary-300">About</button>
-            <button wire:click="toggleComment(true)" class="pb-2.5 pr-4 ">{{$book->bookComments->count()}} Comments</button>
+            <button wire:click="toggleComment(false)"
+                    class="pb-2.5 pr-4 {{!$openComment ? 'text-primary-300 border-b border-primary-300' : ''}} "
+            >
+                About
+            </button>
+            <button wire:click="toggleComment(true)"
+                    class="pb-2.5 pr-4 {{$openComment ? 'text-primary-300 border-b border-primary-300' : ''}}"
+            >
+                {{$book->bookComments->count()}} Comments
+            </button>
         </div>
 
         @if(!$openComment)
@@ -52,11 +60,11 @@
                 </div>
             </div>
         @else
-            <div>
-                <div class="w-full flex flex-col mb-4">
+            <div class="min-h-[57vh] max-h-[57vh] flex flex-col justify-between ">
+                <div class="w-full flex flex-col overflow-y-scroll scroll-y  ">
                     @foreach($bookComments as $comment)
-                            <div class="w-full px-4 py-4 border-t first:pt-0 first:border-t-0">
-                                <div class="flex justify-between mb-1.5">
+                            <div class="w-full  py-6 border-t border-font/20 first:pt-0 first:border-t-0">
+                                <div class="flex justify-between mb-3">
                                     <div class="flex gap-4 items-center">
                                         <div class="size-8">
                                             @if($comment->member->profile->photoProfile->file_url)
@@ -79,23 +87,25 @@
                                          {{ $comment->created_at->diffForHumans(now(), true) }} ago
                                     </span>
                                 </div>
-                                <p class="text-sm text-font/60">
+                                <p class="text-sm text-font/60 ">
                                     {{$comment->message}}
                                 </p>
                             </div>
                     @endforeach
                 </div>
 
-                <div class="bg-bgWidget p-4 rounded-lg flex flex-col">
+                <form wire:submit="sendComment" class="bg-bgWidget p-4 rounded-lg flex flex-col">
                     <textarea
-                        class="bg-transparent border-none focus:ring-0 w-full min-h-32 max-h-32 scroll-y mb-4 placeholder:text-font/60"
+                        class="bg-transparent border-none focus:ring-0 w-full min-h-12 max-h-12 scroll-y mb-4 placeholder:text-font/60"
                         placeholder="Write a Comment...."
+                        required
+                        wire:model="message"
                     ></textarea>
                     <button class="flex items-center justify-end gap-1 text-font/60 text-lg ">
                         Send
                         <x-heroicon-o-chevron-right class="size-5"/>
                     </button>
-                </div>
+                </form>
             </div>
         @endif
 

@@ -12,7 +12,8 @@ class BookComment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'message'
+        'message',
+        'member_id'
     ];
 
     public function book(): BelongsTo
