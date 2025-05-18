@@ -4,7 +4,7 @@
     <section class="flex gap-16">
         <div class="w-[46%]">
             <div class="flex gap-4 text-lg text-font/60 mb-10">
-                <a href="#" class="pb-2.5 pr-4 text-font border-b">About</a>
+                <a href="#" class="pb-2.5 pr-4 text-primary-300 border-b border-primary-300">About</a>
                 <a href="#" class="pb-2.5 pr-4 ">{{$book->count_comments ?? 0}} Comments</a>
             </div>
             <div>
@@ -15,8 +15,8 @@
                     </div>
                     <div class="flex text-base  ">
                         <p class="pr-8">{{$book->category->name}}</p>
-                        <p class="px-8 border-x">{{$book->count_likes ?? 0}} Likes</p>
-                        <p class="pl-8">{{$book->borrowings_likes ?? 0}} Borrowed</p>
+                        <p class="px-8 border-x">{{$book->likes->count()}} Likes</p>
+                        <p class="pl-8">{{$book->borrowings->count() }} Borrowed</p>
                     </div>
                 </div>
                 <div>

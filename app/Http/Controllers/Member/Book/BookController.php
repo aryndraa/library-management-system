@@ -18,7 +18,6 @@ class   BookController extends Controller
     public function show(Book $book)
     {
         $book->newQuery()
-            ->withCount(['borrowings', 'likes', 'bookComments'])
             ->with('category');
 
         $randomBook = Book::query()->inRandomOrder()

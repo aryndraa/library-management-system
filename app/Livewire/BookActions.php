@@ -20,7 +20,11 @@ class BookActions extends Component
     {
         $this->book       = $book;
         $this->isLiked    = Auth::user()->bookLikes->contains($book);
-        $this->isBorrowed = Auth::user()->borrowedBooks()->where('book_id', $book->id)->exists();
+        $this->isBorrowed = Auth::user()->borrowedBooks()
+                                ->where('book_id', $book->id)
+                                ->whereNot('status', 'returned')
+                                ->exists();
+
 
     }
 
