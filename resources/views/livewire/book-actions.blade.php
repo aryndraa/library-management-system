@@ -21,6 +21,7 @@
 
             <div
                 x-show="showModal"
+                x-cloak
                 x-transition.opacity
                 class="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
             >

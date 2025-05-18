@@ -13,7 +13,7 @@ class BookDetail extends Component
 
     public $randomBooks;
 
-    public bool $openComment = true;
+    public bool $openComment = false;
 
     public $bookComments;
 
@@ -51,6 +51,8 @@ class BookDetail extends Component
         ]);
 
         $this->message = '';
+
+        flash()->success('Comment added successfully');
     }
 
     public function toggleCommentMenu($commentId)
@@ -79,6 +81,8 @@ class BookDetail extends Component
 
         $this->editingCommentId = null;
         $this->editingMessage = '';
+
+        flash()->success('Comment updated successfully');
     }
 
     public function deleteComment($id)
@@ -88,6 +92,8 @@ class BookDetail extends Component
         }
 
         $this->book->bookComments()->where('id', $id)->delete();
+
+        flash()->success('Comment deleted successfully');
     }
 
     public function render()
