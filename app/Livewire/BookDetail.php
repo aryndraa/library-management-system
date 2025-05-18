@@ -17,6 +17,11 @@ class BookDetail extends Component
 
     public $bookComments;
 
+    public ?int $editingCommentId = null;
+    public string $editingMessage = '';
+
+    public ?int $activeCommentMenu = null;
+
     #[Validate('required')]
     public string $message = '';
 
@@ -46,6 +51,43 @@ class BookDetail extends Component
         ]);
 
         $this->message = '';
+    }
+
+    public function toggleCommentMenu($commentId)
+    {
+        $this->activeCommentMenu = $this->activeCommentMenu === $commentId ? null : $commentId;
+    }
+
+    public function startEditing($commentId)
+    {
+
+        $this->activeCommentMenu = false;
+        $comment = $this->book->bookComments()->findOrFail($commentId);
+
+
+        $this->editingCommentId = $commentId;
+        $this->editingMessage = $comment->message;
+    }
+
+    public function updateComment()
+    {
+        $comment = $this->book->bookComments()->findOrFail($this->editingCommentId);
+
+        $comment->update([
+            'message' => $this->editingMessage,
+        ]);
+
+        $this->editingCommentId = null;
+        $this->editingMessage = '';
+    }
+
+    public function deleteComment($id)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('auth.login');
+        }
+
+        $this->book->bookComments()->where('id', $id)->delete();
     }
 
     public function render()

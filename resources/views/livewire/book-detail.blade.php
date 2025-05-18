@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <section class="flex gap-16" wire:poll.5>
     <div class="w-[46%]">
         <div class="flex gap-4 text-lg text-font/60 mb-10">
@@ -33,7 +34,8 @@
                             <p class="leading-[1.6]">
                                 <span x-show="!expanded" x-text="'{{ Str::limit($book->synopsis, 200) }}'"></span>
                                 <span x-show="expanded" x-text="'{{ $book->synopsis }}'"></span>
-                                <button @click="expanded = !expanded" class="text-font font-normal underline ml-2" x-text="expanded ? 'Read less' : 'Read more'"></button>
+                                <button @click="expanded = !expanded" class="text-font font-normal underline ml-2"
+                                        x-text="expanded ? 'Read less' : 'Read more'"></button>
                             </p>
                         </div>
                     </div>
@@ -63,34 +65,65 @@
             <div class="min-h-[57vh] max-h-[57vh] flex flex-col justify-between ">
                 <div class="w-full flex flex-col overflow-y-scroll scroll-y  ">
                     @foreach($bookComments as $comment)
-                            <div class="w-full  py-6 border-t border-font/20 first:pt-0 first:border-t-0">
-                                <div class="flex justify-between mb-3">
-                                    <div class="flex gap-4 items-center">
-                                        <div class="size-8">
-                                            @if($comment->member->profile->photoProfile->file_url)
-                                                <img
-                                                    src="{{$comment->member->profile->photoProfile->file_url}}"
-                                                    alt=""
-                                                    class="rounded-full"
-                                                >
-                                            @else
-                                                <div class="size-full bg-primary-300 text-white ">
-                                                    <x-heroicon-s-user/>
+                        <div class="w-full  py-6 border-t border-font/20 first:pt-0 first:border-t-0">
+                            <div class="flex justify-between mb-3">
+                                <div class="flex gap-4 items-center">
+                                    <div class="size-8">
+                                        @if($comment->member->profile->photoProfile->file_url)
+                                            <img
+                                                src="{{$comment->member->profile->photoProfile->file_url}}"
+                                                alt=""
+                                                class="rounded-full"
+                                            >
+                                        @else
+                                            <div class="size-full bg-primary-300 text-white ">
+                                                <x-heroicon-s-user/>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <h3 class="text-lg">
+                                        {{$comment->member->profile->first_name}} {{$comment->member->profile->last_name}}
+                                    </h3>
+                                </div>
+                                <div class="flex gap-4 items-center">
+                                    <span class="text-font/60">
+                                        {{ $comment->created_at->diffForHumans(now(), true) }} ago
+                                    </span>
+                                    @if($comment->member_id === Auth::id())
+                                        <div class="relative" wire:poll.0>
+                                            <span wire:click="toggleCommentMenu({{ $comment->id }})" class="cursor-pointer">
+                                                <x-heroicon-s-ellipsis-vertical class="size-6 text-font/60"/>
+                                            </span>
+                                            @if($activeCommentMenu === $comment->id)
+                                                <div class="flex flex-col gap-4 items-start absolute -bottom-14 -left-52 p-3 w-52 bg-white shadow">
+                                                    <button class="text-font/60" wire:click="startEditing({{ $comment->id }})">
+                                                        Edit
+                                                    </button>
+                                                    <button class="text-red-300" wire:click="deleteComment({{ $comment->id }})">
+                                                        Delete
+                                                    </button>
                                                 </div>
                                             @endif
                                         </div>
-                                        <h3 class="text-lg">
-                                            {{$comment->member->profile->first_name}} {{$comment->member->profile->last_name}}
-                                        </h3>
-                                    </div>
-                                    <span class="text-font/60">
-                                         {{ $comment->created_at->diffForHumans(now(), true) }} ago
-                                    </span>
+                                    @endif
                                 </div>
-                                <p class="text-sm text-font/60 ">
-                                    {{$comment->message}}
-                                </p>
                             </div>
+                            @if($editingCommentId === $comment->id)
+                                <form wire:submit.prevent="updateComment" class="flex flex-col gap-2 mt-2">
+                                     <textarea wire:model.defer="editingMessage"
+                                               class="w-full border px-4 rounded-lg py-1 text-sm resize-none focus:ring-0 border-none bg-bgWidget"
+                                               rows="3"></textarea>
+                                    <div class="flex gap-2">
+                                        <button type="submit" class="text-primary-300">Simpan</button>
+                                        <button type="button" wire:click="$set('editingCommentId', null)" class="text-gray-500">Batal</button>
+                                    </div>
+                                </form>
+                            @else
+                                <p class="text-sm text-font/60 ">
+                                    {{ $comment->message }}
+                                </p>
+                            @endif
+                        </div>
                     @endforeach
                 </div>
 
@@ -124,7 +157,7 @@
         </div>
 
         <div class="max-h-[64vh]">
-            <h3 class="text-center text-lg pb-4">More  Book</h3>
+            <h3 class="text-center text-lg pb-4">More Book</h3>
             <div class="h-full overflow-y-scroll scroll-y">
                 @foreach($randomBooks as $book)
                     <div class="bg-bgWidget p-4 py-5 rounded-xl mb-2">
