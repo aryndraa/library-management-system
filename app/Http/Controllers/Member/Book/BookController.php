@@ -17,8 +17,7 @@ class   BookController extends Controller
 
     public function show(Book $book)
     {
-        $book->newQuery()
-            ->with('category');
+        $book->load('category');
 
         return view('user.book.show', compact(['book']));
     }

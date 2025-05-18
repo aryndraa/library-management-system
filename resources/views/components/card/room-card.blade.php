@@ -27,7 +27,7 @@
                 <p class="text-sm text-font/60">Price</p>
                 <span>Rp {{ number_format($room->price, 0, ',', '.') }}</span>
             </div>
-            <a href="#" class="flex items-center gap-2">
+            <a href="{{route('member.room.show', $room->id)}}" class="flex items-center gap-2">
                 View Room
                 <x-heroicon-o-arrow-right class="size-5"/>
             </a>

@@ -55,6 +55,7 @@ Route::prefix('member')
                     ->name('room.')
                     ->group(function () {
                         Route::get('/', 'index')->name('index');
+                        Route::get('/{room}', 'show')->name('show');
                     });
 
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
