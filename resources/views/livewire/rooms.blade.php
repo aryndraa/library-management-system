@@ -55,8 +55,9 @@
         </div>
 
 
-        <div class="grid grid-cols-4 gap-4 gap-y-6">
+        <div class="grid grid-cols-1 w-full gap-y-6">
             @foreach($rooms as $room)
+                <x-card.room-card :$room/>
 {{--                <x-card.book-card :$book/>--}}
             @endforeach
         </div>
