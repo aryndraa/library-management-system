@@ -1,7 +1,7 @@
 @props(['room'])
 
 <div class="grid grid-cols-3 gap-4 w-full">
-    <img src="{{$room->getFirstMediaUrl('room')}}" class="col-span-2 min-w-full max-h-80 rounded-xl" alt="">
+    <img src="{{$room->getFirstMediaUrl('room')}}" class="col-span-2 min-w-full max-h-[22rem] rounded-xl" alt="">
     <div class="bg-bgWidget rounded-xl p-5 flex flex-col justify-between ">
         <div>
             <div class="pb-3 mb-3 border-b border-font/20">
