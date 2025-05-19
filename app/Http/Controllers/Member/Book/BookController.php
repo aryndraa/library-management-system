@@ -14,7 +14,7 @@ class BookController extends Controller
     {
         $search   = $request->input('search');
         $sort     = $request->input('sort');
-        $category = $request->input('category');
+        $category = $request->input('categories');
 
         $books = Book::query()
             ->withCount(['borrowings', 'likes'])
@@ -23,7 +23,7 @@ class BookController extends Controller
             })
             ->when($category, function ($query) use ($category) {
                 return $query->whereHas('category', function ($query) use ($category) {
-                    return $query->where('id', $category);
+                    return $query->whereIn('name', (array) $category);
                 });
             })
             ->when($sort, function ($query) use ($sort) {

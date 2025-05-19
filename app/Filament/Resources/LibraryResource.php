@@ -153,8 +153,6 @@ class LibraryResource extends Resource
 
             ])
             ->columns(3);
-
-
     }
 
     public static function view(ViewRecord $view)

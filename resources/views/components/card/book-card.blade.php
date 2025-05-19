@@ -9,7 +9,7 @@
         >
     </div>
     <div class="px-1">
-        <h3 class="w-[90%] mb-2 text-[16px]">
+        <h3 class="w-[90%] mb-1 text-[16px]">
             {{$book->title}}
         </h3>
         <p class="text-sm text-font/60">

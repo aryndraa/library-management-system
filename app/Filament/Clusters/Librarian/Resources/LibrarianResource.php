@@ -156,6 +156,7 @@ class LibrarianResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
+                    ->limit(15)
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('profile.phone')

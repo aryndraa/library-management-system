@@ -17,7 +17,8 @@ class BorrowedPenaltySeeder extends Seeder
         $lateReturnCount = BorrowedBook::query()
             ->whereDate('returned_date', '>', 'due_date')
             ->count();
-        $borrowedPenalty = BorrowedBook::factory()->count($lateReturnCount)->make();
+
+        $borrowedPenalty = BorrowedPenalty::factory()->count(10)->make();
 
         BorrowedPenalty::query()->insert($borrowedPenalty->toArray());
     }

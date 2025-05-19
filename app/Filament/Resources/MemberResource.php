@@ -7,6 +7,7 @@ use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
 use Faker\Provider\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -15,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\HtmlString;
 
 class MemberResource extends Resource
 {
@@ -31,9 +33,16 @@ class MemberResource extends Resource
     {
         return $form
             ->schema([
-                SpatieMediaLibraryFileUpload::make('picture')
-                    ->collection('member')
-                    ->columnSpan(1),
+                Placeholder::make('avatar')
+                    ->content(fn ($record) => $record->profile?->photoProfile?->file_url
+                        ? new HtmlString(
+                            '<img src="' . $record->profile?->photoProfile?->file_url . '" style="border-radius: 28px;" />'
+                        )
+                        : 'No avatar')
+                    ->extraAttributes(['class' => 'filament-forms-image'])
+                    ->columnSpan(1)
+                    ->label('Avatar')
+                    ->disableLabel(),
 
                 Forms\Components\Section::make()
                     ->schema([
@@ -79,9 +88,12 @@ class MemberResource extends Resource
         return $table
             ->columns([
 
-                SpatieMediaLibraryImageColumn::make('member')
+                Tables\Columns\ImageColumn::make('avatar')
                     ->label('Picture')
-                    ->collection('member')
+                    ->getStateUsing(function ($record) {
+                        return $record->profile?->photoProfile?->file_url;
+                    })
+                    ->rounded()
                     ->height(50)
                     ->width(50),
 
