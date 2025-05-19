@@ -119,6 +119,14 @@ class RoomResource extends Resource
                             ->columnSpan(1)
                             ->columns(2),
 
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\Textarea::make('description')
+                                    ->label('Description')
+                                    ->autosize()
+                                    ->columnSpan(3),
+                            ]),
+
                         Forms\Components\Section::make('Room Pictures')
                             ->schema([
                                 SpatieMediaLibraryFileUpload::make('picture')

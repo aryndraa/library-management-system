@@ -71,7 +71,8 @@ class RoomResource extends Resource
                                     ->label('Name'),
 
                                 Forms\Components\Textarea::make('description')
-                                    ->label('Description'),
+                                    ->label('Description')
+                                    ->autosize(),
 
                             ])
                             ->grid(2)

@@ -19,7 +19,8 @@ class Room extends Model implements HasMedia
         'room_category_id',
         'library_id',
         'price',
-        'status'
+        'status',
+        'description',
     ];
 
     public function category(): BelongsTo
