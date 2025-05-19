@@ -59,6 +59,11 @@ class RoomResource extends Resource
                                 }
                                 JS)),
 
+                        Forms\Components\Textarea::make('description')
+                         ->label('Description')
+                        ->columnSpan(2)
+                        ->autosize(),
+
                         Forms\Components\Repeater::make('facilities')
                             ->relationship('facilities')
                             ->schema([
