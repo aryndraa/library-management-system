@@ -6,7 +6,7 @@
         <a href="{{ route('member.home') }}" class="text-white text-lg">Home</a>
         <a href="#" class="text-white text-lg">About us</a>
         <a href="{{route('member.book.index')}}" class="text-white text-lg">Books</a>
-        <a href="#" class="text-white text-lg">Rooms</a>
+        <a href="{{route('member.room.index')}}" class="text-white text-lg">Rooms</a>
     </div>
     <div class="justify-end gap-8 items-center hidden lg:flex">
         <x-header.status-session/>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Member\Auth\AuthController;
 use App\Http\Controllers\Member\Book\BookController;
 use App\Http\Controllers\Member\Profile\ProfileController;
+use App\Http\Controllers\Member\Room\RoomController;
 use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,13 @@ Route::prefix('member')
                     ->group(function () {
                         Route::get('/', 'index')->name('index');
                         Route::get('/{book}', 'show')->name('show');
+                    });
+
+                Route::controller(RoomController::class)
+                    ->prefix('room')
+                    ->name('room.')
+                    ->group(function () {
+                        Route::get('/', 'index')->name('index');
                     });
 
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

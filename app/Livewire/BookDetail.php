@@ -18,6 +18,7 @@ class BookDetail extends Component
     public $bookComments;
 
     public ?int $editingCommentId = null;
+
     public string $editingMessage = '';
 
     public ?int $activeCommentMenu = null;
