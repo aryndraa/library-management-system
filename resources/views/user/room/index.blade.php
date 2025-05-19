@@ -21,9 +21,9 @@
         <div class="mx-20 text-white">
             <div class="flex items-center gap-2 lg:gap-4 mb-2">
                 <hr class="w-8 lg:w-12 ">
-                <h2 class="text-sm lg:text-lg leading-1 ">Expand your mind</h2>
+                <h2 class="text-sm lg:text-lg leading-1 ">Space to Focus</h2>
             </div>
-            <h1 class="text-7xl leading-[1.2] font-medium">With thousands <br> of books</h1>
+            <h1 class="text-7xl leading-[1.2] font-medium">Quiet Rooms for <br> Focused Minds</h1>
         </div>
     </section>
 @endsection
