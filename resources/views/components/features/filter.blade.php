@@ -1,6 +1,6 @@
-<div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl">
+<div class="min-w-[25%] h-fit rounded-xl">
     <div>
-        <h3 class="text-xl mb-3">Categories</h3>
+        <h3 class="text-xl mb-4">Categories</h3>
         <form method="get">
             @foreach($categories as $category)
                 <div class="py-2 flex gap-3 items-center">
