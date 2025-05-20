@@ -3,40 +3,35 @@
 namespace App\Filament\Clusters\BookBorrowing\Resources;
 
 use App\Filament\Clusters\BookBorrowing;
-use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource\Pages;
-use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingResource\RelationManagers;
+use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingReturnRequestedResource\Pages;
+use App\Filament\Clusters\BookBorrowing\Resources\BookBorrowingReturnRequestedResource\RelationManagers;
 use App\Filament\Resources\BookResource;
 use App\Models\BorrowedBook;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\Actions;
-use Filament\Infolists\Components\Actions\Action;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BookBorrowingResource extends Resource
+class BookBorrowingReturnRequestedResource extends Resource
 {
     protected static ?string $model = BorrowedBook::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
-
-    protected static ?string $label = 'Borrowed Books';
-
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
 
     protected static ?string $cluster = BookBorrowing::class;
+
+    protected static ?string $label = 'Return Requested';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -50,14 +45,16 @@ class BookBorrowingResource extends Resource
                     ->options(fn ($get) => array_filter([
                         'pending' => $get('status') === 'borrowed' ? null : 'Pending',
                         'borrowed' => 'Borrowed',
+                        'return requested'  => 'Return Requested',
                         'returned' => 'Returned',
                         'penalty'  => 'Penalty',
                     ]))
                     ->colors([
-                        'pending'  => 'info',
-                        'borrowed' => 'warning',
-                        'returned' => 'success',
-                        'penalty'  => 'danger',
+                        'pending'           => 'info',
+                        'borrowed'          => 'warning',
+                        'returned'          => 'success',
+                        'penalty'           => 'danger',
+                        'return requested'  => 'info',
                     ])
                     ->required(),
 
@@ -136,8 +133,6 @@ class BookBorrowingResource extends Resource
                     ])
                     ->columns(2)
                     ->columnSpan(1),
-
-
             ]);
     }
 
@@ -146,16 +141,17 @@ class BookBorrowingResource extends Resource
         return $table
             ->query(
                 BorrowedBook::query()
-                    ->where('library_id', Filament::auth()->user()->library_id)
-                    ->whereNot('status', 'returned')
+                    ->where('status', 'return requested')
             )
             ->columns([
                 TextColumn::make('code')
-                    ->limit('8')
+                    ->limit('15')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('book.title')
                     ->limit('25')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('member.profile.first_name')
@@ -177,38 +173,9 @@ class BookBorrowingResource extends Resource
                     }),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('status')
-                    ->options([
-                        'borrowed' => 'Borrowed',
-                        'returned' => 'Returned',
-                        'penalty'  => 'Penalty',
-                        'return requested' => 'Return Requested',
-                    ]),
-
-                Tables\Filters\Filter::make('borrowed_date')
-                    ->form([
-                        DatePicker::make('borrowed_date')
-                            ->label('Borrowed Date'),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when($data['borrowed_date'], fn ($query, $date) =>
-                            $query->whereDate('borrowed_date', $date));
-                    }),
-
-                Tables\Filters\Filter::make('due_date')
-                    ->form([
-                        DatePicker::make('due_date')
-                            ->label('Due Date'),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when($data['due_date'], fn ($query, $date) =>
-                            $query->whereDate('due_date', $date));
-                    }),
+                //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -228,10 +195,19 @@ class BookBorrowingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBookBorrowings::route('/'),
-            'create' => Pages\CreateBookBorrowing::route('/create'),
-            'view' => Pages\ViewBookBorrowing::route('/{record}'),
-            'edit' => Pages\EditBookBorrowing::route('/{record}/edit'),
+            'index' => Pages\ListBookBorrowingReturnRequesteds::route('/'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        /** @var class-string<Model> $modelClass */
+        $modelClass = static::$model;
+
+        return (string) $modelClass::query()
+            ->where('library_id', Filament::auth()->user()->library_id)
+            ->where('status', 'return requested')
+            ->havingNull('returned_date')
+            ->count();
     }
 }

@@ -1,7 +1,16 @@
 @extends('layouts.show', ['routeDirect' => 'member.home'])
 
 @section('content')
-<section x-data="{ openModalId: null }" class="grid grid-cols-4 gap-16">
+<section
+    x-data="{ openModalId: null }"
+    x-init="
+        window.addEventListener('close-modal', event => {
+            if (event.detail?.id) {
+                openModalId = null;
+            }
+        })
+    "
+    class="grid grid-cols-4 gap-16">
     <x-navigation.sidebar/>
 
     <div class="col-span-3 ">
@@ -31,6 +40,7 @@
                             match ($borrowed->status) {
                                 'pending' => ' bg-blue-50 text-blue-500',
                                 'borrowed' => ' bg-amber-50 text-amber-500',
+                                'return requested' => ' bg-amber-50 text-amber-500',
                                 'penalty' => ' bg-red-50 text-red-500',
                                 'returned' => ' bg-bgWidget text-font/60'
                             }
@@ -88,6 +98,7 @@
                                             {{ match ($borrowed->status) {
                                                 'pending' => 'text-blue-500',
                                                 'borrowed' => 'text-amber-500',
+                                                'return requested' => 'text-amber-500',
                                                 'penalty' => 'text-red-500',
                                                 'returned' => 'text-font/40'
                                             } }}">
@@ -96,7 +107,9 @@
                                 </div>
                                 <div class="flex gap-4 items-center">
                                     <button @click="openModalId = null" class="px-4 py-2 bg-bgWidget hover:bg-bgWidget/80 transition ease-in-out text-sm rounded-lg font-normal">Close</button>
-                                    <button class="px-4 py-2 bg-primary-300 hover:bg-primary-300/80 transition ease-in-out text-sm rounded-lg text-white font-normal">Return</button>
+                                    @if($borrowed->status == 'borrowed' || $borrowed->status == 'penalty' )
+                                        @livewire('borrowed-book-action', ['borrowedId' => $borrowed->id])
+                                    @endif
                                 </div>
                             </div>
                         </div>

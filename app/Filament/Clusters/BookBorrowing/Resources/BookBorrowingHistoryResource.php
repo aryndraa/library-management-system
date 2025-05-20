@@ -29,7 +29,7 @@ class BookBorrowingHistoryResource extends Resource
 
     protected static ?string $label = "Borrowed History";
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $cluster = BookBorrowing::class;
 
@@ -151,13 +151,12 @@ class BookBorrowingHistoryResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('member.first_name')
+                TextColumn::make('member.profile.first_name')
                     ->getStateUsing(fn ($record) =>
                         $record->member->profile->first_name .
                         ' '
                         . $record->member->profile->last_name
                     )
-                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('borrowed_date')
@@ -166,13 +165,6 @@ class BookBorrowingHistoryResource extends Resource
 
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('status')
-                    ->options([
-                        'borrowed' => 'Borrowed',
-                        'returned' => 'Returned',
-                        'penalty'  => 'Penalty',
-                    ]),
-
                 Tables\Filters\Filter::make('borrowed_date')
                     ->form([
                         DatePicker::make('borrowed_date')

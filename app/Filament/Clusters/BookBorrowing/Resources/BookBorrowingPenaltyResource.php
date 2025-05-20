@@ -27,7 +27,7 @@ class BookBorrowingPenaltyResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-exclamation-triangle';
 
     protected static ?string $label = "Borrowed Penalties";
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $cluster = BookBorrowing::class;
 
@@ -60,21 +60,22 @@ class BookBorrowingPenaltyResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('member.first_name')
+                TextColumn::make('member.profile.first_name')
                     ->getStateUsing(fn ($record) =>
                         $record->member->profile->first_name .
                         ' '
                         . $record->member->profile->last_name
                     )
-                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'borrowed' => 'warning',
-                        'returned' => 'success',
-                        'penalty'  => 'danger',
+                        'pending'          => 'info',
+                        'borrowed'         => 'warning',
+                        'returned'         => 'success',
+                        'penalty'          => 'danger',
+                        'return requested' => 'info',
                     }),
             ])
             ->filters([
