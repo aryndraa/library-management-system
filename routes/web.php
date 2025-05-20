@@ -63,6 +63,7 @@ Route::prefix('member')
                     ->name('profile.')
                     ->group(function () {
                         Route::get('/', 'userProfile')->name('userProfile');
+                        Route::post('', 'editProfile')->name('editProfile');
                     });
 
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

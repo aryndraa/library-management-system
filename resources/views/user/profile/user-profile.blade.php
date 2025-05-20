@@ -10,7 +10,9 @@
             <a href="#" class="py-6 w-fit border-b border-transparent">Account Setting</a>
         </div>
 
-        <div class="col-span-3 flex flex-col gap-14 ">
+        <form action="{{route('member.profile.editProfile')}}" method="post" class="col-span-3 flex flex-col gap-14 " id="myForm" onsubmit="handleSubmit(event)"    >
+            @csrf
+
             <div>
                 <h1 class="text-2xl mb-10">Personal Information</h1>
                 <div class="grid grid-cols-2 gap-10">
@@ -116,7 +118,7 @@
             <div>
                 <h2 class="text-2xl mb-10">Contact Information</h2>
                 <div class="grid grid-cols-2 gap-5">
-                    <div class="flex flex-col col-span-full">
+                    <div class="flex flex-col ">
                         <label for="" class="mb-2 text-sm lg:text-base">Email</label>
                         <input
                             type="text"
@@ -126,7 +128,7 @@
                             class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
                         >
                     </div>
-                    <div class="flex flex-col col-span-full">
+                    <div class="flex flex-col ">
                         <label for="" class="mb-2 text-sm lg:text-base">Phone Number</label>
                         <input
                             type="text"
@@ -139,8 +141,27 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <button class="px-6 text-end py-3 w-fit rounded-lg bg-primary-300 text-white font-normal">Save</button>
+                <button
+                    id="submitButton"
+                    type="submit"
+                    class="px-6 text-end py-3 w-fit rounded-lg bg-primary-300 text-white font-normal flex items-center gap-2"
+                >
+                    <span id="submitText">Save</span>
+                    <span id="loadingSpinner" class="hidden animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5"></span>
+                </button>
             </div>
-        </div>
+        </form>
     </section>
+
+    <script>
+        function handleSubmit(event) {
+            const btn = document.getElementById('submitButton');
+            const text = document.getElementById('submitText');
+            const spinner = document.getElementById('loadingSpinner');
+
+            text.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            btn.disabled = true;
+        }
+    </script>
 @endsection

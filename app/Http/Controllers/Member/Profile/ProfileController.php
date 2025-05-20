@@ -30,11 +30,11 @@ class ProfileController extends Controller
             'first_name' => 'required|string',
             'last_name'  => 'required|string',
             'phone'      => 'required|string',
-            'address'    => 'nullable|ring',
-            'city'       => 'nullable|ring',
-            'province'   => 'nullable|ring',
-            'birthday'   => 'nullable|te',
-            'gender'     => 'nullable|ring',
+            'address'    => 'nullable|string',
+            'city'       => 'nullable|string',
+            'province'   => 'nullable|string',
+            'birthday'   => 'nullable|date',
+            'gender'     => 'nullable|string',
             'avatar'     => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -84,5 +84,56 @@ class ProfileController extends Controller
             ->first();
 
         return view('user.profile.user-profile', compact('member'));
+    }
+
+    public function editProfile(Request $request) : RedirectResponse
+    {
+        $member = Member::query()
+            ->where('id', Auth::id())
+            ->first();
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string',
+            'last_name'  => 'required|string',
+            'phone'      => 'required|string',
+            'address'    => 'nullable|string',
+            'city'       => 'nullable|string',
+            'province'   => 'nullable|string',
+            'birthday'   => 'nullable|date',
+            'gender'     => 'nullable|string',
+            'avatar'     => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            foreach ($validator->messages()->all() as $message) {
+                flash()->error($message);
+            }
+
+            return redirect()->route('member.profile.userProfile    ')->withErrors($validator);
+        }
+
+        $member->profile()->update([
+            'first_name' => $request->input('first_name'),
+            'last_name'  => $request->input('last_name'),
+            'phone'      => $request->input('phone'),
+            'address'    => $request->input('address'),
+            'city'       => $request->input('city'),
+            'province'   => $request->input('province'),
+            'birthday'   => $request->input('birthday'),
+            'gender'     => $request->input('gender'),
+        ]);
+
+        if($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+
+            if($member->profile->photoProfile) {
+                Storage::disk('public')->delete($member->profile->photoProfile->file_path);
+                $member->profile->photoProfile->delete();
+            }
+
+            File::uploadFile($avatar, $member->profile, 'photoProfile', 'member/avatars');
+        }
+
+        return redirect()->route('member.profile.userProfile');
     }
 }
