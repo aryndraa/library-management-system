@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Member\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
+use App\Models\BorrowedBook;
 use App\Models\File;
 use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
@@ -135,5 +137,15 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('member.profile.userProfile');
+    }
+
+    public function borrowedBooks()
+    {
+        $borrowedBooks = BorrowedBook::query()
+            ->where('member_id', Auth::id())
+            ->with(['book'])
+            ->get();
+
+        return view('user.profile.borrowed-book', compact('borrowedBooks'));
     }
 }

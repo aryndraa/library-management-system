@@ -2,13 +2,7 @@
 
 @section('content')
     <section class="grid grid-cols-4 gap-16">
-        <div class="col-span-1 flex flex-col text-font/60  border-r">
-            <a href="#" class="pb-6 w-fit border-b  text-font border-font/40">User Profile</a>
-            <a href="#" class="py-6 w-fit border-b border-transparent">Book Borrowing</a>
-            <a href="#" class="py-6 w-fit border-b border-transparent">Book Likes</a>
-            <a href="#" class="py-6 w-fit border-b border-transparent">Room Booking</a>
-            <a href="#" class="py-6 w-fit border-b border-transparent">Account Setting</a>
-        </div>
+        <x-navigation.sidebar/>
 
         <form action="{{route('member.profile.editProfile')}}" method="post" class="col-span-3 flex flex-col gap-14 " id="myForm" onsubmit="handleSubmit(event)"    >
             @csrf
