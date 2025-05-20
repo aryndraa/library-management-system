@@ -16,7 +16,7 @@
 
 <div >
     @if(Auth::check())
-        <a href="#" class="flex gap-4 items-center ">
+        <a href="{{route('member.profile.userProfile')}}" class="flex gap-4 items-center ">
             @if($user->profile->photoProfile)
                 <img
                     src="{{$user->profile->photoProfile->file_url}}"

@@ -58,6 +58,13 @@ Route::prefix('member')
                         Route::get('/{room}', 'show')->name('show');
                     });
 
+                Route::controller(ProfileController::class)
+                    ->prefix('profile')
+                    ->name('profile.')
+                    ->group(function () {
+                        Route::get('/', 'userProfile')->name('userProfile');
+                    });
+
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         });

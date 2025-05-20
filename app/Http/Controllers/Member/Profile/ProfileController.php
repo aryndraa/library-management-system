@@ -24,7 +24,7 @@ class ProfileController extends Controller
         return view('user.profile.make-profile');
     }
 
-    public function postMakeProfile(Request $request,): RedirectResponse
+    public function postMakeProfile(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
@@ -74,5 +74,15 @@ class ProfileController extends Controller
         session()->forget('member_id_pending_profile');
 
         return redirect()->route('member.home');
+    }
+
+    public function userProfile()
+    {
+        $member = Member::query()
+            ->where('id', Auth::id())
+            ->with(['profile', 'profile.photoProfile'])
+            ->first();
+
+        return view('user.profile.user-profile', compact('member'));
     }
 }
