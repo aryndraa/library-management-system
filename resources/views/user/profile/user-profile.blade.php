@@ -4,7 +4,7 @@
     <section class="grid grid-cols-4 gap-16">
         <x-navigation.sidebar/>
 
-        <form action="{{route('member.profile.editProfile')}}" method="post" class="col-span-3 flex flex-col gap-14 " id="myForm" onsubmit="handleSubmit(event)"    >
+        <form action="{{route('member.profile.editProfile')}}" method="post" enctype="multipart/form-data" class="col-span-3 flex flex-col gap-14 " id="myForm" onsubmit="handleSubmit(event)"    >
             @csrf
 
             <div>
@@ -117,9 +117,10 @@
                         <input
                             type="text"
                             name="email"
+                            disabled
                             value="{{ $member->email }}"
                             placeholder="Enter your email"
-                            class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none placeholder:text-font/30"
+                            class="w-full px-4 lg:px-6  py-3 border-none focus:ring-0 bg-bgWidget rounded-lg focus:outline-none text-font/30"
                         >
                     </div>
                     <div class="flex flex-col ">
@@ -148,6 +149,16 @@
     </section>
 
     <script>
+        const input = document.getElementById('avatarInput');
+        const preview = document.getElementById('avatarPreview');
+
+        input.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        });
+
         function handleSubmit(event) {
             const btn = document.getElementById('submitButton');
             const text = document.getElementById('submitText');
@@ -157,5 +168,7 @@
             spinner.classList.remove('hidden');
             btn.disabled = true;
         }
+
+
     </script>
 @endsection

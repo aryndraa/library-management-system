@@ -111,7 +111,7 @@ class ProfileController extends Controller
                 flash()->error($message);
             }
 
-            return redirect()->route('member.profile.userProfile    ')->withErrors($validator);
+            return redirect()->route('member.profile.userProfile')->withErrors($validator);
         }
 
         $member->profile()->update([
