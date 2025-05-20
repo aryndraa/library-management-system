@@ -1,4 +1,4 @@
-<div class="col-span-1 flex flex-col text-font/60 border-r">
+<div class="col-span-1 flex flex-col text-font/60 border-r h-fit">
     <a href="{{ route('member.profile.userProfile') }}"
        class="pb-6 w-fit border-b {{ request()->routeIs('member.profile.userProfile') ? 'text-font border-font/40' : 'border-transparent' }}">
         User Profile
