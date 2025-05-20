@@ -148,6 +148,7 @@ class BookBorrowingResource extends Resource
                 BorrowedBook::query()
                     ->where('library_id', Filament::auth()->user()->library_id)
                     ->whereNot('status', 'returned')
+                    ->orderByDesc('created_at')
             )
             ->columns([
                 TextColumn::make('code')

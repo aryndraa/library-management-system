@@ -144,6 +144,7 @@ class ProfileController extends Controller
         $borrowedBooks = BorrowedBook::query()
             ->where('member_id', Auth::id())
             ->with(['book'])
+            ->orderByDesc('created_at')
             ->get();
 
         return view('user.profile.borrowed-book', compact('borrowedBooks'));

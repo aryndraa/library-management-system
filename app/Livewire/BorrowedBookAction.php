@@ -20,8 +20,8 @@ class BorrowedBookAction extends Component
             ->where('id', $this->borrowedId)
             ->first();
 
-        if ($borrowed->status !== 'return request') {
-            $borrowed->status = 'return request';
+        if ($borrowed->status !== 'return requested') {
+            $borrowed->status = 'return requested';
             $borrowed->save();
 
             flash()->success('Return request send successfully');

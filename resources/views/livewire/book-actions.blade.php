@@ -1,7 +1,7 @@
 <div class="flex items-center gap-4">
     @if($isBorrowed)
         <a
-            href="#"
+            href="{{ route('member.profile.borrowedBooks') }}"
             class="w-full bg-bgWidget text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2"
         >
             Borrowed Detail

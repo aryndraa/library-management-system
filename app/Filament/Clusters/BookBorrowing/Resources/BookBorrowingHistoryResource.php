@@ -139,6 +139,7 @@ class BookBorrowingHistoryResource extends Resource
             ->query(
                 BorrowedBook::query()
                     ->where('library_id', Filament::auth()->user()->library_id)
+                    ->orderByDesc('created_at')
             )
             ->columns([
                 TextColumn::make('code')

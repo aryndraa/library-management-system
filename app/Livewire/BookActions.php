@@ -62,6 +62,11 @@ class BookActions extends Component
 
         flash()->success('Book borrowed successfully');
 
+        $book = $this->book;
+        $book->stock -= 1;
+        $book->save();
+
+
         $this->isBorrowed = true;
 
         $this->book->refresh();

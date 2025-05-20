@@ -43,15 +43,13 @@ class BookBorrowingReturnRequestedResource extends Resource
                 ToggleButtons::make('status')
                     ->inline()
                     ->options(fn ($get) => array_filter([
-                        'pending' => $get('status') === 'borrowed' ? null : 'Pending',
-                        'borrowed' => 'Borrowed',
+
                         'return requested'  => 'Return Requested',
                         'returned' => 'Returned',
                         'penalty'  => 'Penalty',
                     ]))
                     ->colors([
-                        'pending'           => 'info',
-                        'borrowed'          => 'warning',
+
                         'returned'          => 'success',
                         'penalty'           => 'danger',
                         'return requested'  => 'info',
@@ -142,6 +140,8 @@ class BookBorrowingReturnRequestedResource extends Resource
             ->query(
                 BorrowedBook::query()
                     ->where('status', 'return requested')
+                    ->orderByDesc('created_at')
+
             )
             ->columns([
                 TextColumn::make('code')
@@ -196,6 +196,7 @@ class BookBorrowingReturnRequestedResource extends Resource
     {
         return [
             'index' => Pages\ListBookBorrowingReturnRequesteds::route('/'),
+            'edit' => Pages\EditBookBorrowingReturnRequested::route('/{record}/edit'),
         ];
     }
 
@@ -207,7 +208,7 @@ class BookBorrowingReturnRequestedResource extends Resource
         return (string) $modelClass::query()
             ->where('library_id', Filament::auth()->user()->library_id)
             ->where('status', 'return requested')
-            ->havingNull('returned_date')
             ->count();
     }
+
 }

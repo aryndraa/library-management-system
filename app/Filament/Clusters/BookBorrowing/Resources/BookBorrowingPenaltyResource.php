@@ -48,6 +48,8 @@ class BookBorrowingPenaltyResource extends Resource
                     ->whereDate('due_date', '<=', now())
                     ->whereNot('status', 'returned')
                     ->havingNull('returned_date')
+                    ->orderByDesc('created_at')
+
             )
             ->columns([
                 TextColumn::make('code')
