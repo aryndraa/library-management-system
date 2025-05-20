@@ -1,7 +1,7 @@
 @extends('layouts.show', ['routeDirect' => 'member.home'])
 
 @section('content')
-<section class="grid grid-cols-4 gap-16">
+<section x-data="{ openModalId: null }" class="grid grid-cols-4 gap-16">
     <x-navigation.sidebar/>
 
     <div class="col-span-3 ">
@@ -18,59 +18,6 @@
             </thead>
             <tbody class="text-font">
             @forelse ($borrowedBooks as $index => $borrowed)
-                <div class="first:flex hidden justify-center items-center min-h-screen bg-black/50 fixed  inset-0">
-                    <div class="w-[48%] min-h-[45vh] bg-white  rounded-xl p-6 grid grid-cols-3 gap-8">
-                        <div class="col-span-1 p-4 rounded-xl shadow-sm bg-bgWidget h-full object-cover w-full">
-                            <img src="{{ $borrowed->book->getFirstMediaUrl('book') }}" alt="" class="h-full w-full  rounded-xl">
-                        </div>
-                        <div class="col-span-2 pt-3 flex-col flex justify-between">
-                            <div>
-                                <div class="mb-3 pb-3 border-b border-font/20">
-                                    <h2 class="text-lg mb-1.5">{{ $borrowed->book->title }}</h2>
-                                    <p class="text-sm text-font/60">{{ $borrowed->book->category->name }}</p>
-                                </div>
-                                <div>
-                                    <h3 class=" mb-2">Borrowed Detail</h3>
-                                    <div class="flex flex-col gap-2">
-                                        <div class="grid grid-cols-4 text-font/60 ">
-                                            <h4 class="text-sm">Code</h4>
-                                            <span class="text-sm text-center">:</span>
-                                            <p class="col-span-2 text-sm text-end bg">{{ $borrowed->code }}</p>
-                                        </div>
-                                        <div class="grid grid-cols-4 text-font/60 ">
-                                            <h4 class="text-sm">Borrowed Date</h4>
-                                            <span class="text-sm text-center">:</span>
-                                            <p class="col-span-2 text-sm text-end bg">{{ \Carbon\Carbon::parse($borrowed->borrowed_date)->format('d M Y') }}</p>
-                                        </div>
-                                        <div class="grid grid-cols-4 text-font/60 ">
-                                            <h4 class="text-sm">Due Date</h4>
-                                            <span class="text-sm text-center">:</span>
-                                            <p class="col-span-2 text-sm text-end bg">{{ \Carbon\Carbon::parse($borrowed->due_date)->format('d M Y') }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-end">
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-font/60">Status</span>
-                                    <span class="capitalize rounded-lg
-                                        {{ match ($borrowed->status) {
-                                            'pending' => 'text-blue-500',
-                                            'borrowed' => 'text-amber-500',
-                                            'penalty' => 'text-red-500',
-                                            'returned' => 'text-font/40'
-                                        } }}
-                                    ">{{ $borrowed->status }}</span>
-                                </div>
-                                <div class="flex gap-4 items-center">
-                                    <button class="px-4 py-2 bg-bgWidget hover:bg-bgWidget/80 transition ease-in-out text-sm rounded-lg  font-normal">Close</button>
-                                    <button class="px-4 py-2 bg-primary-300 hover:bg-primary-300/80 transition ease-in-out text-sm rounded-lg text-white font-normal">Return</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <tr class="border-t border-font/20 hover:bg-bgWidget transition ease-in-out">
                     <td class="px-6 py-4">{{ $index + 1 }}</td>
                     <td class="px-6 py-4">{{ $borrowed->code }}</td>
@@ -80,15 +27,19 @@
                         </a>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="px-2 py-1 rounded-full text-xs {{
-                            $borrowed->status === 'returned' ? 'bg-green-100 text-green-700' :
-                            ($borrowed->status === 'overdue' ? 'bg-red-100 text-red-700' :
-                             'bg-yellow-100 text-yellow-700') }}">
+                        <span class="px-4 py-2 rounded-lg text-xs {{
+                            match ($borrowed->status) {
+                                'pending' => ' bg-blue-50 text-blue-500',
+                                'borrowed' => ' bg-amber-50 text-amber-500',
+                                'penalty' => ' bg-red-50 text-red-500',
+                                'returned' => ' bg-bgWidget text-font/60'
+                            }
+                        }}">
                             {{ ucfirst($borrowed->status) }}
                         </span>
                     </td>
                     <td>
-                        <button type="button" class="flex items-center gap-3 text-font/60 font-normal">
+                        <button type="button"  @click="openModalId = {{ $borrowed->id }}" class="flex items-center gap-3 text-font/60 font-normal">
                             <span>
                                 <x-heroicon-s-eye class="size-4"/>
                             </span>
@@ -96,6 +47,62 @@
                         </button>
                     </td>
                 </tr>
+
+                {{-- Modal --}}
+                <div x-show="openModalId === {{ $borrowed->id }}" class="fixed inset-0 z-50 bg-black/50 flex justify-center items-center" x-cloak>
+                    <div class="w-[48%] min-h-[45vh] bg-white rounded-xl p-6 grid grid-cols-3 gap-8">
+                        <div class="col-span-1 p-4 rounded-xl shadow-sm bg-bgWidget h-full object-cover w-full">
+                            <img src="{{ $borrowed->book->getFirstMediaUrl('book') }}" alt="" class="h-full w-full rounded-xl">
+                        </div>
+                        <div class="col-span-2 pt-3 pb-1 flex-col flex justify-between">
+                            <div>
+                                <div class="mb-3 pb-3 border-b border-font/20">
+                                    <h2 class="text-lg mb-1.5">{{ $borrowed->book->title }}</h2>
+                                    <p class="text-sm text-font/60">{{ $borrowed->book->category->name }}</p>
+                                </div>
+                                <div>
+                                    <h3 class="mb-2">Borrowed Detail</h3>
+                                    <div class="flex flex-col gap-2">
+                                        <div class="grid grid-cols-4 text-font/60">
+                                            <h4 class="text-sm">Code</h4>
+                                            <span class="text-sm text-center">:</span>
+                                            <p class="col-span-2 text-sm text-end">{{ $borrowed->code }}</p>
+                                        </div>
+                                        <div class="grid grid-cols-4 text-font/60">
+                                            <h4 class="text-sm">Borrowed Date</h4>
+                                            <span class="text-sm text-center">:</span>
+                                            <p class="col-span-2 text-sm text-end">{{ \Carbon\Carbon::parse($borrowed->borrowed_date)->format('d M Y') }}</p>
+                                        </div>
+                                        <div class="grid grid-cols-4 text-font/60">
+                                            <h4 class="text-sm">Due Date</h4>
+                                            <span class="text-sm text-center">:</span>
+                                            <p class="col-span-2 text-sm text-end">{{ \Carbon\Carbon::parse($borrowed->due_date)->format('d M Y') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-font/60">Status</span>
+                                    <span class="capitalize rounded-lg
+                                            {{ match ($borrowed->status) {
+                                                'pending' => 'text-blue-500',
+                                                'borrowed' => 'text-amber-500',
+                                                'penalty' => 'text-red-500',
+                                                'returned' => 'text-font/40'
+                                            } }}">
+                                            {{ $borrowed->status }}
+                                        </span>
+                                </div>
+                                <div class="flex gap-4 items-center">
+                                    <button @click="openModalId = null" class="px-4 py-2 bg-bgWidget hover:bg-bgWidget/80 transition ease-in-out text-sm rounded-lg font-normal">Close</button>
+                                    <button class="px-4 py-2 bg-primary-300 hover:bg-primary-300/80 transition ease-in-out text-sm rounded-lg text-white font-normal">Return</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             @empty
                 <tr>
                     <td colspan="8" class="text-center px-6 py-4">No borrowed books found.</td>
