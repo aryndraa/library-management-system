@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\Auth\RegisterRequest;
 use App\Models\File;
 use App\Models\Member;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -48,8 +51,6 @@ class AuthController extends Controller
         session(['member_id_pending_profile' => $user->id]);
 
         return redirect()->route('member.profile.makeProfile');
-
-
     }
 
 
@@ -106,5 +107,64 @@ class AuthController extends Controller
         flash()->warning('You are logged out!');
 
         return redirect()->route('member.auth.login');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $token = Str::random(64);
+        $email = $request->get('email');
+
+        if($email !== Auth::user()->email) {
+            flash()->error('Your email is not valid!');
+
+            return redirect()->route('member.profile.accountSetting');
+        }
+
+        DB::table('password_resets')->updateOrInsert(
+            ['email' => $email],
+            [
+                'email' => $email,
+                'token' => Hash::make($token),
+            ]
+        );
+
+        \Mail::send('emails.reset', ['token' => $token], function ($message) use ($email) {
+            $message->to($email);
+            $message->subject('Reset Password');
+        });
+
+        return redirect()->route('member.profile.accountSetting');
+    }
+
+    public function showResetForm($token)
+    {
+        return view('auth.passwords.reset', ['token' => $token]);
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $record = DB::table('password_resets')->where('email', $request->email)->first();
+
+        if (!$record || !Hash::check($request->token, $record->token)) {
+            return back()->withErrors(['email' => 'Invalid or expired token.']);
+        }
+
+        if (Carbon::parse($record->created_at)->addMinutes(5)->isPast()) {
+            return back()->withErrors(['email' => 'Token expired.']);
+        }
+
+        $user = Member::where('email', $request->email)->first();
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        DB::table('password_resets')->where('email', $request->email)->delete();
+
+        return redirect()->route('login')->with('status', 'Password has been reset.');
     }
 }

@@ -164,4 +164,14 @@ class ProfileController extends Controller
         return view('user.profile.booked-room', compact('rooms'));
     }
 
+    public function accountSetting()
+    {
+        $member = Member::query()
+            ->where('id', Auth::id())
+            ->with(['profile', 'profile.photoProfile'])
+            ->first();
+
+        return view('user.profile.account-setting', compact('member'));
+    }
+
 }
