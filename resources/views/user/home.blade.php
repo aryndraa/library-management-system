@@ -76,4 +76,7 @@
             </div>
         </div>
     </section>
+    <section class="px-32 pb-28">
+        @livewire('book-overview')
+    </section>
 @endsection
