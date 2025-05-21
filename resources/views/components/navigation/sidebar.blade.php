@@ -11,6 +11,9 @@
        class="py-6 w-fit border-b {{ request()->routeIs('member.profile.bookLikes') ? 'text-font border-font/40' : 'border-transparent' }}">
         Book Likes
     </a>
-    <a href="{{ route('member.profile.bookedRooms') }}" class="py-6 w-fit border-b border-transparent">Booked Room</a>
+    <a href="{{ route('member.profile.bookedRooms') }}"
+       class="py-6 w-fit border-b {{ request()->routeIs('member.profile.bookedRooms') ? 'text-font border-font/40' : 'border-transparent' }}">
+        Booked Room
+    </a>
     <a href="#" class="py-6 w-fit border-b border-transparent">Account Setting</a>
 </div>

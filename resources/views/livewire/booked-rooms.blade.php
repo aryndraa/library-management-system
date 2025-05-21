@@ -1,4 +1,14 @@
-<div class="col-span-3 " x-data="{ openModalId: null }">
+<div
+    class="col-span-3 "
+    x-data="{ openModalId: null } "
+    x-init="
+             window.addEventListener('close-modal', event => {
+                if (event.detail?.id) {
+                    openModalId = null;
+                }
+             })
+        "
+>
     <div>
         <div class="flex justify-between items-end mb-8">
             <h2 class="text-2xl">Borrowed History</h2>
@@ -38,7 +48,7 @@
             <tbody class="text-font">
             @forelse ($rooms as $index => $room)
                 <tr class="border-t border-font/20 transition ease-in-out {{
-                                $room->status === 'check out' ? 'bg-neutral-100 text-font/60' : ''
+                                in_array($room->status, ['canceled', 'check out']) ? 'bg-neutral-100 text-font/60' : ''
                             }}">
                     <td class="px-6 py-4 text-sm">{{ $index + 1 }}</td>
                     <td class="px-6 py-4 text-sm  relative">
@@ -128,10 +138,13 @@
                             </div>
                         </div>
 
-                        <div class="mt-6 flex justify-end">
+                        <div class="mt-6 flex justify-end gap-4">
                             <button @click="openModalId = null" class="px-4 py-2 text-sm rounded-lg bg-bgWidget hover:bg-bgWidget/80 transition ease-in-out">
                                 Close
                             </button>
+                            @if($room->status !== 'canceled' && $room->status !== 'check out'  )
+                               @livewire('booked-room-action', ['bookedId' => $room->id])
+                            @endif
                         </div>
                     </div>
                 </div>

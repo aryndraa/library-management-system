@@ -48,7 +48,7 @@
                         </a>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="px-4 py-2 rounded-lg text-xs {{
+                        <span class="px-4 py-2 rounded-lg text-xs font-normal {{
                             match ($borrowed->status) {
                                 'pending' => ' bg-blue-50 text-blue-500',
                                 'borrowed' => ' bg-amber-50 text-amber-500',
