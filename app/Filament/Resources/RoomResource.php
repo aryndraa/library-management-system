@@ -26,6 +26,9 @@ class RoomResource extends Resource
 
     protected static ?string $navigationGroup = 'Resources';
 
+    protected static ?string $recordTitleAttribute = 'name';
+
+
     public static function form(Form $form): Form
     {
         return $form
