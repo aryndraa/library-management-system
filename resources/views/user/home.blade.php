@@ -121,4 +121,43 @@
             </div>
         </div>
     </section>
+
+    <footer class=" pr-20 ">
+        <div class="grid grid-cols-2 h-[340px]">
+            <div class="col-span-1 flex flex-col justify-between px-20 py-12 bg-bgWidget h-full">
+                <div>
+                    <h1 class="text-4xl mb-2">Perpusku</h1>
+                    <p class="text-font/60">Exclusive Library</p>
+                </div>
+                <div>
+                    <p class="mb-3">Inspiration often begins quietly — between the pages of a book, in a single sentence, a new idea is born.</p>
+                    <div class="flex items-center gap-2">
+                        <hr class="w-6">
+                        <p>Arya</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-1 grid grid-cols-2 px-12 py-12">
+                <div>
+                    <h3 class="mb-6 text-2xl">Useful Link</h3>
+                    <div class="flex flex-col gap-4">
+                        <a href="{{ route('member.home') }}" class="hover:underline">Home</a>
+                        <a href="#" class="hover:underline">About Us</a>
+                        <a href="{{ route('member.book.index') }}" class="hover:underline">Books</a>
+                        <a href="{{ route('member.room.index') }}" class="hover:underline">Rooms</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="mb-6 text-2xl">Profile Pages</h3>
+                    <div class="flex flex-col gap-4">
+                        <a href="{{ route('member.profile.userProfile') }}" class="hover:underline">Profile</a>
+                        <a href="{{ route('member.profile.borrowedBooks') }}" class="hover:underline">Borrowed Books</a>
+                        <a href="{{ route('member.profile.bookedRooms') }}" class="hover:underline">Booked Room</a>
+                        <a href="{{ route('member.profile.accountSetting') }}" class="hover:underline">Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 @endsection
