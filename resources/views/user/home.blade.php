@@ -33,11 +33,31 @@
             <img src="{{ asset('images/logoipsum/Logo-4.svg') }}" alt="">
         </div>
     </section>
-    <section class="px-32  pb-24">
+    <section class="px-32  pb-28">
         <div class="grid grid-cols-3 gap-8">
             <x-card.count-card total="{{ \App\Models\Category::all()->count() }}" name="Category"/>
             <x-card.count-card total="120" name="Book"/>
             <x-card.count-card total="122" name="Room"/>
+        </div>
+    </section>
+    <section class="px-32  pb-28">
+        <div class="grid grid-cols-2 gap-14">
+            <div>
+                <h2 class="text-4xl leading-[1.6]">With thousands of books and digital access, we are committed to providing the <span class="text-primary-300"> best service for you.</span></h2>
+            </div>
+            <div class="h-full flex flex-col justify-between">
+                <p class="">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+                <div class="flex gap-4">
+                    <span class="text-sm px-3 py-1 border border-font/60 rounded-full">Digital</span>
+                    <span class="text-sm px-3 py-1 border border-font/60 rounded-full">Innovative</span>
+                    <span class="text-sm px-3 py-1 border border-font/60 rounded-full">Modern</span>
+                </div>
+            </div>
+        </div>
+        <div>
+
         </div>
     </section>
 @endsection

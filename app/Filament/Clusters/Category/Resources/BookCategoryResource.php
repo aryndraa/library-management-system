@@ -7,6 +7,7 @@ use App\Filament\Clusters\Category\Resources\BookCategoryResource\Pages;
 use App\Filament\Clusters\Category\Resources\BookCategoryResource\RelationManagers;
 use App\Models\BookCategory;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,17 +31,25 @@ class BookCategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->label('Name')
-                    ->string()
-                    ->required()
-                    ->unique('categories', 'name')
-                    ->autocapitalize(),
+                Forms\Components\Section::make()
+                    ->schema([
 
-                TextInput::make('code')
-                    ->label('Code')
-                    ->minLength(4)
-                    ->unique('categories', 'code', null, true)
+                        TextInput::make('name')
+                            ->label('Name')
+                            ->string()
+                            ->required()
+                            ->unique('categories', 'name')
+                            ->autocapitalize(),
+
+                        TextInput::make('code')
+                            ->label('Code')
+                            ->minLength(4)
+                            ->unique('categories', 'code', null, true)
+                    ])->columnSpan(1),
+
+                    SpatieMediaLibraryFileUpload::make('cover')
+                        ->collection('book')
+                        ->columnSpan(1),
             ]);
     }
 
