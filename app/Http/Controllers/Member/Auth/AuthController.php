@@ -112,7 +112,7 @@ class AuthController extends Controller
     public function sendResetLinkEmail(Request $request)
     {
         $token = Str::random(64);
-        $email = $request->get('email');
+        $email = $request->input('email');
 
         if($email !== Auth::user()->email) {
             flash()->error('Your email is not valid!');
@@ -128,17 +128,19 @@ class AuthController extends Controller
             ]
         );
 
-        \Mail::send('emails.reset', ['token' => $token], function ($message) use ($email) {
+        \Mail::send('mail.reset', ['token' => $token], function ($message) use ($email) {
             $message->to($email);
             $message->subject('Reset Password');
         });
+
+        flash()->success('Reset password sent to your email!');
 
         return redirect()->route('member.profile.accountSetting');
     }
 
     public function showResetForm($token)
     {
-        return view('auth.passwords.reset', ['token' => $token]);
+        return view('user.auth.passwords.reset', ['token' => $token]);
     }
 
     public function reset(Request $request)
@@ -152,10 +154,14 @@ class AuthController extends Controller
         $record = DB::table('password_resets')->where('email', $request->email)->first();
 
         if (!$record || !Hash::check($request->token, $record->token)) {
+            flash()->error('Token is invalid or expired!');
+
             return back()->withErrors(['email' => 'Invalid or expired token.']);
         }
 
         if (Carbon::parse($record->created_at)->addMinutes(5)->isPast()) {
+            flash()->error('You are token has expired!');
+
             return back()->withErrors(['email' => 'Token expired.']);
         }
 
@@ -165,6 +171,8 @@ class AuthController extends Controller
 
         DB::table('password_resets')->where('email', $request->email)->delete();
 
-        return redirect()->route('login')->with('status', 'Password has been reset.');
+        flash()->success('password reset successfully!');
+
+        return redirect()->route('member.home')->with('status', 'Password has been reset.');
     }
 }

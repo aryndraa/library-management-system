@@ -70,6 +70,15 @@ Route::prefix('member')
                         Route::get('/account-setting', 'accountSetting')->name('accountSetting');
                     });
 
+                Route::controller(AuthController::class)
+                    ->name('auth.')
+                    ->group(function () {
+                        Route::post('/logout', 'logout')->name('logout');
+                        Route::post('/forgot-password', 'sendResetLinkEmail')->name('password.email');
+                        Route::get('/reset-password/{token}', 'showResetForm')->name('password.reset');
+                        Route::post('/reset-password', 'reset')->name('password.update');
+                    });
+
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         });
