@@ -141,12 +141,13 @@ class ProfileController extends Controller
 
     public function borrowedBooks()
     {
-        $borrowedBooks = BorrowedBook::query()
-            ->where('member_id', Auth::id())
-            ->with(['book'])
-            ->orderByDesc('created_at')
-            ->get();
+        return view('user.profile.borrowed-book');
+    }
 
-        return view('user.profile.borrowed-book', compact('borrowedBooks'));
+    public function bookLikes()
+    {
+        $books = auth()->user()->bookLikes()->latest()->paginate(10);
+
+        return view('user.profile.book-like', compact('books'));
     }
 }

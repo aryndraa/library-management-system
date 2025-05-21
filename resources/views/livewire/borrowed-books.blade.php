@@ -1,6 +1,7 @@
 <div class="col-span-3 ">
     <div>
-        <div class="flex justify-end mb-4">
+        <div class="flex justify-between items-end mb-6">
+            <h2 class="text-2xl">Borrowed History</h2>
             <div class="flex items-center gap-3 px-4 py-2 bg-bgWidget rounded-full w-fit">
                 <input
                     type="text"
