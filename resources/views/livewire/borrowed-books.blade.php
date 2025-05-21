@@ -40,9 +40,9 @@
                 <tr class="border-t border-font/20 transition ease-in-out {{
                             $borrowed->status === 'returned' ? 'bg-neutral-100 text-font/60' : ''
                      }}">
-                    <td class="px-6 py-4">{{ $index + 1 }}</td>
-                    <td class="px-6 py-4">{{ $borrowed->code }}</td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 text-sm">{{ $index + 1 }}</td>
+                    <td class="px-6 py-4 text-sm">{{ $borrowed->code }}</td>
+                    <td class="px-6 py-4 text-sm">
                         <a href="{{route('member.book.show', $borrowed->book->id)}}" class="hover:text-primary-300 hover:underline" >
                             {{ \Illuminate\Support\Str::limit($borrowed->book->title, 25)  ?? '-' }}
                         </a>
@@ -61,7 +61,7 @@
                         </span>
                     </td>
                     <td>
-                        <button type="button"  @click="openModalId = {{ $borrowed->id }}" class="flex items-center gap-3 text-font/60 font-normal">
+                        <button type="button"  @click="openModalId = {{ $borrowed->id }}" class="flex items-center text-sm gap-3 text-font/60 font-normal">
                             <span>
                                 <x-heroicon-s-eye class="size-4"/>
                             </span>

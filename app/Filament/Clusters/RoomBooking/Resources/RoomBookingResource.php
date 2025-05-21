@@ -57,13 +57,13 @@ class RoomBookingResource extends Resource
                                 'schedule'  => 'Schedule',
                                 'check in' => 'Check In',
                                 'check out'  => 'Check Out',
-                                'cancel' => 'Cancel',
+                                'canceled' => 'Canceled',
                             ])
                             ->colors([
                                 'check in' => 'success',
                                 'check out' => 'gray',
                                 'schedule'  => 'primary',
-                                'cancel'  => 'danger',
+                                'canceled'  => 'danger',
                             ])
                             ->required(),
                     ])
@@ -217,7 +217,7 @@ class RoomBookingResource extends Resource
                         'check in' => 'Check In',
                         'check out'  => 'Check Out',
                         'schedule'  => 'Schedule',
-                        'cancel' => 'Cancel',
+                        'canceled' => 'Canceled',
                     ]),
 
                 Tables\Filters\Filter::make('booking_date')

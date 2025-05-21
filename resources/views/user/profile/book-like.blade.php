@@ -24,10 +24,10 @@
                         <tr class="border-t border-font/20 transition ease-in-out {{
                                 $book->status === 'returned' ? 'bg-neutral-100 text-font/60' : ''
                             }}">
-                            <td class="px-6 py-4">{{ $index + 1 }}</td>
-                            <td class="px-6 py-4  relative">
+                            <td class="px-6 py-4 text-sm">{{ $index + 1 }}</td>
+                            <td class="px-6 py-4 text-sm  relative">
                                 <a href="{{route('member.book.show', $book->id)}}" class="hover:text-primary-300 hover:underline group" >
-                                    {{ \Illuminate\Support\Str::limit($book->title, 20)  ?? '-' }}
+                                    {{ \Illuminate\Support\Str::limit($book->title, 30)  ?? '-' }}
                                     <div class="absolute hidden group-hover:block -right-52 bottom-12 z-10">
                                         <div class="bg-bgWidget shadow rounded-xl p-4 grid grid-cols-3 gap-6 w-80">
                                             <img src="{{ $book->getFirstMediaUrl('book') }}" alt="" class="h-28  col-span-1 rounded-xl">
@@ -40,14 +40,14 @@
                                 </a>
                             </td>
 
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-sm">
                                 {{  $book->isbn }}
                             </td>
 
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-sm">
                                 {{ $book->category->name }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-sm">
                                 {{ $book->library->name }}
                             </td>
 
