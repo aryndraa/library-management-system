@@ -33,7 +33,11 @@
             <img src="{{ asset('images/logoipsum/Logo-4.svg') }}" alt="">
         </div>
     </section>
-    <section>
-
+    <section class="px-32  pb-24">
+        <div class="grid grid-cols-3 gap-8">
+            <x-card.count-card/>
+            <x-card.count-card/>
+            <x-card.count-card/>
+        </div>
     </section>
 @endsection
