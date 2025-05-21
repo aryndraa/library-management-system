@@ -35,9 +35,9 @@
     </section>
     <section class="px-32  pb-24">
         <div class="grid grid-cols-3 gap-8">
-            <x-card.count-card/>
-            <x-card.count-card/>
-            <x-card.count-card/>
+            <x-card.count-card total="{{ \App\Models\Category::all()->count() }}" name="Category"/>
+            <x-card.count-card total="120" name="Book"/>
+            <x-card.count-card total="122" name="Room"/>
         </div>
     </section>
 @endsection

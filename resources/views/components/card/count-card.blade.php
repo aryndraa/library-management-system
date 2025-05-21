@@ -1,8 +1,13 @@
+@props([
+    'total',
+    'name'
+])
+
 <div
     class="p-6 bg-bgWidget rounded-xl"
     x-data="{
         count: 0,
-        target: 100,
+        target: {{ $total }},
         animated: false,
         startCount() {
             if (this.animated) return;
@@ -22,7 +27,7 @@
         <h2 class="text-3xl font-normal mb-1.5">
             <span x-text="count"></span>+
         </h2>
-        <h3 class="text-font/60">Variant Book</h3>
+        <h3 class="text-font">Variant {{ $name }}</h3>
     </div>
     <p class="text-font/60">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
