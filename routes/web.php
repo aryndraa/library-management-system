@@ -80,5 +80,11 @@ Route::prefix('member')
                         Route::post('/logout', 'logout')->name('logout');
                     });
         });
+
+
+        Route::post('/library-session/clear', function () {
+            session()->forget('library_id_session');
+            return redirect()->back();
+        })->name('librarySession.clear');
     });
 
