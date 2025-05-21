@@ -41,7 +41,7 @@
         </div>
     </section>
     <section class="px-32  pb-28">
-        <div class="grid grid-cols-2 gap-14">
+        <div class="grid grid-cols-2 gap-14 mb-16">
             <div>
                 <h2 class="text-4xl leading-[1.6]">With thousands of books and digital access, we are committed to providing the <span class="text-primary-300"> best service for you.</span></h2>
             </div>
@@ -56,8 +56,24 @@
                 </div>
             </div>
         </div>
-        <div>
-
+        <div class="grid grid-cols-4 min-h-[320px]">
+            <div class="col-span-1 h-full flex flex-col justify-between p-6 bg-bgWidget rounded-xl">
+                <h3 class="text-3xl leading-[1.4]">Find more categories</h3>
+                <a href="{{ route('member.book.index') }}" class="flex gap-3 text-lg items-center">
+                    View More
+                    <x-heroicon-s-arrow-right class="size-5"/>
+                </a>
+            </div>
+            <div class="col-span-3 flex overflow-x-scroll gap-8 px-4 scroll-x">
+                @foreach(\App\Models\Category::all() as  $category)
+                    <div
+                        style="background-image: url('{{ $category->getFirstMediaUrl('category') }}')"
+                        class="min-w-[280px] bg-cover rounded-xl bg-blend-overlay bg-black/20 p-6 py-4 flex flex-col justify-end"
+                    >
+                        <h3 class="text-lg text-white font-normal">{{ $category->name }}</h3>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </section>
 @endsection

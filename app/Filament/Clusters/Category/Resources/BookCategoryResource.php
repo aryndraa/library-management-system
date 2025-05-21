@@ -12,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,8 +48,8 @@ class BookCategoryResource extends Resource
                             ->unique('categories', 'code', null, true)
                     ])->columnSpan(1),
 
-                    SpatieMediaLibraryFileUpload::make('cover')
-                        ->collection('book')
+                    SpatieMediaLibraryFileUpload::make('image')
+                        ->collection('category')
                         ->columnSpan(1),
             ]);
     }
@@ -57,6 +58,11 @@ class BookCategoryResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('image')
+                    ->collection('category')
+                    ->width(40)
+                    ->height(60),
+
                 TextColumn::make('name')
                     ->label('Name')
                     ->sortable()
