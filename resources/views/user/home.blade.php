@@ -2,15 +2,15 @@
 
 @section('content')
     <section
-        class="min-h-screen w-full flex items-end relative py-24    "
+        class="min-h-[105vh] w-full flex items-end relative py-28    "
     >
-        <div class="min-h-screen lg:min-h-screen  absolute inset-0 z-[-1]">
+        <div class="min-h-[105vh] lg:min-h-[105vh]  absolute inset-0 z-[-1]">
             <img
                 src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt=""
-                class="max-h-screen z-[-2] w-full absolute object-cover"
+                class="h-[105vh] z-[-2] w-full absolute object-cover"
             >
-            <div class="min-h-screen lg:max-h-screen absolute z-[-1] bg-gradient-to-b from-black/20 via-black/10 to-black/20 inset-0"></div>
+            <div class="min-h-[105vh] lg:max-h-[105vh] absolute z-[-1] bg-gradient-to-b from-black/20 via-black/10 to-black/20 inset-0"></div>
         </div>
 
         <div class="mx-20 text-white">
@@ -23,5 +23,17 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section class="px-32 py-24 rounded-t-[32px] transform -translate-y-8 bg-white">
+        <div class="grid grid-cols-5 gap-16 place-items-center">
+            <img src="{{ asset('images/logoipsum/Logo.svg') }}" alt="">
+            <img src="{{ asset('images/logoipsum/Logo-1.svg') }}" alt="">
+            <img src="{{ asset('images/logoipsum/Logo-2.svg') }}" alt="">
+            <img src="{{ asset('images/logoipsum/Logo-3.svg') }}" alt="">
+            <img src="{{ asset('images/logoipsum/Logo-4.svg') }}" alt="">
+        </div>
+    </section>
+    <section>
+
     </section>
 @endsection
