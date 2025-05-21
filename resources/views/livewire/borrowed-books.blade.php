@@ -2,16 +2,26 @@
     <div>
         <div class="flex justify-between items-end mb-6">
             <h2 class="text-2xl">Borrowed History</h2>
-            <div class="flex items-center gap-3 px-4 py-2 bg-bgWidget rounded-full w-fit">
-                <input
-                    type="text"
-                    class="border-none focus:ring-0 bg-transparent w-72 placeholder:text-font/40"
-                    placeholder="Search By Code"
-                    wire:model.live="search"
-                >
-                <button type="button" class="p-2 rounded-full bg-white">
-                    <x-heroicon-o-magnifying-glass class="size-6"/>
-                </button>
+            <div class="flex flex-col items-end gap-2">
+                <div>
+                    <select wire:model.live="selectedLibrary" id="librarySelect" class="px-3 py-2 text-sm border-none focus:ring-0 w-64">
+                        @foreach ($libraries as $library)
+                            <option value="{{ $library->id }}">{{ $library->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-3 px-4 py-1.5 bg-bgWidget rounded-full w-fit">
+                    <input
+                        type="text"
+                        class="border-none focus:ring-0 bg-transparent w-72 placeholder:text-font/40"
+                        placeholder="Search By Code"
+                        wire:model.live="search"
+                    >
+                    <button type="button" class="p-2 rounded-full bg-white">
+                        <x-heroicon-o-magnifying-glass class="size-6"/>
+                    </button>
+                </div>
             </div>
         </div>
 
