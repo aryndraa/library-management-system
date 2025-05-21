@@ -4,27 +4,25 @@ namespace App\Livewire;
 
 use App\Models\BorrowedBook;
 use App\Models\Library;
-use Illuminate\Database\Query\Builder;
+use App\Models\RoomBooking;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class BorrowedBooks extends Component
+class BookedRooms extends Component
 {
+
     use WithPagination;
 
     public $search = '';
 
-    protected $paginationTheme = 'tailwind';
-
-    public $selectedLibrary = '';
+    public $selectedLibrary;
 
     public $libraries = [];
-
-//    protected string $paginationTheme = 'custom';
 
     public function mount()
     {
         $this->selectedLibrary = session('library_id_session');
+
         $this->libraries = Library::all();
     }
 
@@ -33,27 +31,30 @@ class BorrowedBooks extends Component
         $this->resetPage();
     }
 
-    public function updatingSelectedLibrary()
+    public function updatingLibraryId()
     {
         $this->resetPage();
     }
 
-
     public function render()
     {
-        $borrowedBooks = BorrowedBook::with(['book.category', 'member.profile'])
-            ->where('member_id', auth()->id())
+        $rooms = RoomBooking::with(['room', 'room.category', 'room.library'])
+            ->when($this->search, function ($query) {
+                $query->whereHas('room', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhere('code', 'like', '%' . $this->search . '%');
+            })
             ->when($this->selectedLibrary !== session('library_id_session'), function ($q) {
-                $q ->whereHas('book', function ($q) {
+                return $q->whereHas('room', function ($q) {
                     $q->where('library_id', $this->selectedLibrary);
                 });
             })
-            ->when($this->search, fn ($q) => $q->where('code', 'like', '%' . $this->search . '%'))
             ->latest()
             ->paginate(10);
 
-        return view('livewire.borrowed-books', [
-            'borrowedBooks' => $borrowedBooks,
+        return view('livewire.booked-rooms', [
+            'rooms' => $rooms
         ]);
     }
 }
