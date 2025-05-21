@@ -1,6 +1,6 @@
 <div class="col-span-3 ">
     <div>
-        <div class="flex justify-between items-end mb-6">
+        <div class="flex justify-between items-end mb-8">
             <h2 class="text-2xl">Borrowed History</h2>
             <div class="flex flex-col items-end gap-2">
                 <div>

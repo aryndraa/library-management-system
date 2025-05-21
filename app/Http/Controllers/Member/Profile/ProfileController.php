@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\BorrowedBook;
 use App\Models\File;
 use App\Models\Member;
+use App\Models\RoomBooking;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -150,4 +151,17 @@ class ProfileController extends Controller
 
         return view('user.profile.book-like', compact('books'));
     }
+
+    public function bookedRooms()
+    {
+        $rooms = RoomBooking::query()
+            ->where('member_id', Auth::id())
+            ->whereHas('room', function ($query) {
+                $query->where('library_id', session('library_id_session'));
+            })
+            ->paginate(10);
+
+        return view('user.profile.booked-room', compact('rooms'));
+    }
+
 }

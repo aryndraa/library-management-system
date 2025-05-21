@@ -8,7 +8,7 @@
 
         <div class="col-span-3 ">
             <div>
-                <h2 class="text-2xl mb-6">Book Likes</h2>
+                <h2 class="text-2xl mb-8">Book Likes</h2>
                 <table class="min-w-full bg-white border  border-font/20 rounded-lg">
                     <thead class="text-left text-sm text-gray-700 uppercase ">
                     <tr>
@@ -25,19 +25,19 @@
                                 $book->status === 'returned' ? 'bg-neutral-100 text-font/60' : ''
                             }}">
                             <td class="px-6 py-4">{{ $index + 1 }}</td>
-                            <td class="px-6 py-4 group relative">
-                                <a href="{{route('member.book.show', $book->id)}}" class="hover:text-primary-300 hover:underline" >
+                            <td class="px-6 py-4  relative">
+                                <a href="{{route('member.book.show', $book->id)}}" class="hover:text-primary-300 hover:underline group" >
                                     {{ \Illuminate\Support\Str::limit($book->title, 20)  ?? '-' }}
-                                </a>
-                                <div class="absolute hidden group-hover:block -right-52 bottom-12 z-10">
-                                    <div class="bg-bgWidget shadow rounded-xl p-4 grid grid-cols-3 gap-6 w-80">
-                                        <img src="{{ $book->getFirstMediaUrl('book') }}" alt="" class="h-28  col-span-1 rounded-xl">
-                                        <div class="col-span-2">
-                                            <h3 class="mb-2">{{ $book->title }}</h3>
-                                            <p class="text-sm text-font/60">{{ \Illuminate\Support\Str::limit($book->synopsis, 60) }}</p>
+                                    <div class="absolute hidden group-hover:block -right-52 bottom-12 z-10">
+                                        <div class="bg-bgWidget shadow rounded-xl p-4 grid grid-cols-3 gap-6 w-80">
+                                            <img src="{{ $book->getFirstMediaUrl('book') }}" alt="" class="h-28  col-span-1 rounded-xl">
+                                            <div class="col-span-2">
+                                                <h3 class="mb-2">{{ $book->title }}</h3>
+                                                <p class="text-sm text-font/60">{{ \Illuminate\Support\Str::limit($book->synopsis, 60) }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </td>
 
                             <td class="px-6 py-4">

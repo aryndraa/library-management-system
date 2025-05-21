@@ -66,6 +66,7 @@ Route::prefix('member')
                         Route::post('', 'editProfile')->name('editProfile');
                         Route::get('/borrowed-books', 'borrowedBooks')->name('borrowedBooks');
                         Route::get('/book-likes', 'bookLikes')->name('bookLikes');
+                        Route::get('/booked-rooms', 'bookedRooms')->name('bookedRooms');
                     });
 
                 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
