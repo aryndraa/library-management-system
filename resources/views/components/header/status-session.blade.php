@@ -30,9 +30,9 @@
             </div>
         </a>
     @else
-        <div class="flex gap-4 pr-4">
-            <a href="{{route('member.auth.login')}}" class="px-6 py-1.5 border border-transparent text-white rounded-full">Login</a>
-            <a href="{{route('member.auth.register')}}" class="px-6 py-1.5 border border-white text-white rounded-full">Register</a>
+        <div class="flex gap-2 pr-4">
+            <a href="{{route('member.auth.login')}}" class="px-4 py-1.5 border border-transparent text-white rounded-full">Login</a>
+            <a href="{{route('member.auth.register')}}" class="px-4 py-1.5 border border-white text-white rounded-full">Register</a>
         </div>
     @endif
 
