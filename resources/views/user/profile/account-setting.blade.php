@@ -45,7 +45,10 @@
                 </form>
             </div>
             <div>
-                <button class="bg-bgWidget rounded-xl text-lg w-full py-3">Log out</button>
+                <form action="{{ route('member.auth.logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="bg-bgWidget rounded-xl text-lg w-full py-3">Log out</button>
+                </form>
             </div>
         </div>
     </section>

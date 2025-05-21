@@ -166,7 +166,7 @@ class AuthController extends Controller
         }
 
         $user = Member::where('email', $request->email)->first();
-        $user->password = bcrypt($request->password);
+        $user->password = $request->password;
         $user->save();
 
         DB::table('password_resets')->where('email', $request->email)->delete();

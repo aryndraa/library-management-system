@@ -77,10 +77,8 @@ Route::prefix('member')
                         Route::post('/forgot-password', 'sendResetLinkEmail')->name('password.email');
                         Route::get('/reset-password/{token}', 'showResetForm')->name('password.reset');
                         Route::post('/reset-password', 'reset')->name('password.update');
+                        Route::post('/logout', 'logout')->name('logout');
                     });
-
-                Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
         });
     });
 
