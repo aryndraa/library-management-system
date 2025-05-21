@@ -4,7 +4,7 @@
             <span class="text-font/60 text-xl">Enjoy book lending</span>
             <h2 class="text-3xl mt-3">Thousands of titles available</h2>
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-4 text-lg">
             <button wire:click="setFilter('new')" class="pb-3 border-b {{ $filter === 'new' ? 'border-b-font/60' : 'border-b-transparent' }}">New Arrival</button>
             <button wire:click="setFilter('popular')" class="pb-3 border-b {{ $filter === 'popular' ? 'border-b-font/60' : 'border-b-transparent' }}">Populars</button>
             <button wire:click="setFilter('recommended')" class="pb-3 border-b {{ $filter === 'recommended' ? 'border-b-font/60' : 'border-b-transparent' }}">Recommended</button>
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-8 h-[280px] mt-6">
+    <div class="grid grid-cols-4 gap-8 min-h-[280px] mt-6">
         @foreach($this->books as $book)
             <a href="{{route('member.book.show',$book->id)}}" class="group h-full ">
                 <div class="bg-bgWidget p-8  rounded-xl mb-2">

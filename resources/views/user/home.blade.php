@@ -1,3 +1,10 @@
+@php
+    $rooms = \App\Models\Room::query()
+                ->where('library_id', session('library_id_session'))
+                ->get()
+
+ @endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -33,6 +40,7 @@
             <img src="{{ asset('images/logoipsum/Logo-4.svg') }}" alt="">
         </div>
     </section>
+
     <section class="px-32  pb-28">
         <div class="grid grid-cols-3 gap-8">
             <x-card.count-card total="{{ \App\Models\Category::all()->count() }}" name="Category"/>
@@ -40,6 +48,7 @@
             <x-card.count-card total="122" name="Room"/>
         </div>
     </section>
+
     <section class="px-32  pb-28">
         <div class="grid grid-cols-2 gap-14 mb-16">
             <div>
@@ -76,7 +85,40 @@
             </div>
         </div>
     </section>
+
     <section class="px-32 pb-28">
         @livewire('book-overview')
+    </section>
+
+    <section class="px-32 pb-28">
+        <div class="flex justify-between items-start mb-16">
+            <div class="flex items-center gap-2 lg:gap-4 mb-2">
+                <hr class="w-8 lg:w-12 ">
+                <p class="text-xl leading-1 ">Innovation Space</p>
+            </div>
+            <h2 class="text-3xl leading-[1.6]">
+                Not just a place to read, but a space to <br> grow <span class="text-primary-300">ideas and inspiration.</span>
+            </h2>
+        </div>
+        <div class="grid grid-cols-4 gap-8">
+            <div class="flex gap-8 overflow-x-scroll scroll-x col-span-3">
+                @foreach($rooms as $room)
+                    <div>
+                        <img src="{{$room->getFirstMediaUrl('room')}}" alt="" class="h-[360px] object-cover min-w-[600px] rounded-xl mb-4">
+                        <h3 class="text-xl">{{ $room->name }}</h3>
+                    </div>
+                @endforeach
+            </div>
+            <div class="col-span-1 h-full flex flex-col justify-between p-6 bg-bgWidget rounded-xl">
+                <a href="{{ route('member.room.index') }}" class="flex gap-3 text-lg items-center">
+                    View More
+                    <x-heroicon-s-arrow-right class="size-5"/>
+                </a>
+                <div>
+                    <h3 class="text-2xl leading-[1.4]">{{$rooms->count()}}+ Rooms </h3>
+                    <p class="to-font/60">Ready To Booking</p>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection

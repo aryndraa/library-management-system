@@ -19,6 +19,7 @@ class BookOverview extends Component
         return match ($this->filter) {
             'popular' => Book::with('category')
                 ->withCount('borrowings')
+                ->where('library_id', session('library_id_session'))
                 ->orderByDesc('borrowings_count')
                 ->take(8)
                 ->get(),
@@ -26,11 +27,13 @@ class BookOverview extends Component
             'recommended' => Book::with('category')
                 ->withCount('likes')
                 ->orderByDesc('likes_count')
+                ->where('library_id', session('library_id_session'))
                 ->take(8)
                 ->get(),
 
             default => Book::with('category')
                 ->latest()
+                ->where('library_id', session('library_id_session'))
                 ->take(8)
                 ->get(), // new
         };
