@@ -1,4 +1,5 @@
 <div class="flex items-center gap-4">
+
     @if($isBorrowed)
         <a
             href="{{ route('member.profile.borrowedBooks') }}"
@@ -7,7 +8,8 @@
             Borrowed Detail
         </a>
     @else
-        <div x-data="{ showModal: false, loading: false }" class="w-full h-full">
+        @if($book->stock > 0)
+            <div x-data="{ showModal: false, loading: false }" class="w-full h-full",>
             <button
                 @click="showModal = true"
                 class="w-full bg-primary-300 text-white text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2"
@@ -18,7 +20,6 @@
                 </svg>
                 <span x-text="loading ? 'Loading...' : 'Borrow Book'"></span>
             </button>
-
             <div
                 x-show="showModal"
                 x-cloak
@@ -54,6 +55,13 @@
                 </div>
             </div>
         </div>
+        @else
+            <div
+                class="w-full bg-bgWidget text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2 cursor-not-allowed"
+            >
+                Book Is Empty
+            </div>
+        @endif
     @endif
 
 

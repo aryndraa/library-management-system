@@ -80,7 +80,7 @@
                             <div>
                                 <div class="mb-3 pb-3 border-b border-font/20">
                                     <h2 class="text-lg mb-1.5">{{ $borrowed->book->title }}</h2>
-                                    <p class="text-sm text-font/60">{{ $borrowed->book->category->name }}</p>
+                                    <p class="text-sm text-font/60">{{ $borrowed->book->category->name ?? '-///-' }}</p>
                                 </div>
                                 <div>
                                     <h3 class="mb-2">Borrowed Detail</h3>

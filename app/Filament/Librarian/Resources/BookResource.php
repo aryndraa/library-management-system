@@ -31,6 +31,9 @@ class BookResource extends Resource
 
     protected static ?string $navigationGroup = 'Book Management';
 
+    protected static ?string $recordTitleAttribute = 'title';
+
+
     public static function form(Form $form): Form
     {
         return $form

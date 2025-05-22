@@ -103,6 +103,7 @@ class AuthController extends Controller
     public function logout(): RedirectResponse
     {
         Auth::guard('member')->logout();
+        session()->forget('library_id_session');
 
         flash()->warning('You are logged out!');
 

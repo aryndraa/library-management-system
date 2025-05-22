@@ -11,6 +11,9 @@ use Carbon\Carbon;
 use Filament\Actions\ViewAction;
 use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -35,7 +38,96 @@ class BookBorrowingPenaltyResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('code')
+                    ->minLength(6),
+
+                ToggleButtons::make('status')
+                    ->inline()
+                    ->options(fn ($get) => array_filter([
+                        'returned' => 'Returned',
+                        'penalty'  => 'Penalty',
+                    ]))
+                    ->colors([
+                        'returned' => 'success',
+                        'penalty'  => 'danger',
+                    ])
+                    ->required(),
+
+                Forms\Components\Group::make()
+                    ->schema([
+                        DatePicker::make('borrowed_date')
+                            ->label('Borrowed Date')
+                            ->date(),
+
+                        DatePicker::make('due_date')
+                            ->label('Due Date')
+                            ->date(),
+                    ])
+                    ->columns(2),
+
+                DatePicker::make('returned_date')
+                    ->label('Returned Date')
+                    ->date()
+                    ->nullable(),
+
+                Forms\Components\Section::make('Member Profile')
+                    ->relationship('member')
+                    ->schema([
+
+                        TextInput::make('email')
+                            ->columnSpan(2),
+
+                        Forms\Components\Group::make()
+                            ->relationship('profile')
+                            ->schema([
+                                TextInput::make('first_name')
+                                    ->label('Name'),
+
+                                TextInput::make('phone')
+                                    ->label('Phone'),
+
+
+                            ])
+                            ->columnSpan(2)
+                            ->columns(2)
+                    ])
+                    ->disabled()
+                    ->headerActions([
+//                        Forms\Components\Actions\Action::make('view_member')
+//                            ->label('View Book')
+//                            ->url(fn ($get) => BookResource::getUrl('view', ['record' => $get('book_id')]))
+//                            ->icon('heroicon-o-eye')
+//                            ->color('primary'),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(1),
+
+                Forms\Components\Section::make('Book')
+                    ->relationship('book')
+                    ->schema([
+                        TextInput::make('title')
+                            ->columnSpan(2),
+
+                        TextInput::make('isbn')
+                            ->label('ISBN'),
+
+                        Forms\Components\Group::make()
+                            ->relationship('category')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Category'),
+                            ])
+                    ])
+                    ->disabled()
+                    ->headerActions([
+                        Forms\Components\Actions\Action::make('view_book')
+                            ->label('View Book')
+                            ->url(fn ($get) => BookResource::getUrl('view', ['record' => $get('book_id')]))
+                            ->icon('heroicon-o-eye')
+                            ->color('primary'),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(1),
             ]);
     }
 
@@ -84,11 +176,6 @@ class BookBorrowingPenaltyResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('view')
-                    ->label('View')
-                    ->url(fn ($record) => BookBorrowingResource::getUrl('view', ['record' => $record->id]))
-                    ->icon('heroicon-o-eye')
-                    ->color('primary')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

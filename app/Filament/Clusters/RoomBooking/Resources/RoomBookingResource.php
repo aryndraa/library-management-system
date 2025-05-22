@@ -181,6 +181,7 @@ class RoomBookingResource extends Resource
                         $query->where('library_id', Filament::auth()->user()->library_id);
                     })
                     ->whereNot('status', 'check out')
+                    ->whereNot('status', 'canceled')
             )
             ->columns([
                 Tables\Columns\TextColumn::make('room.name')

@@ -47,7 +47,7 @@
     </div>
 
     <div class="flex gap-5">
-        <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl">
+        <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl ">
             <div>
                 <h3 class="text-xl mb-3">Categories</h3>
                 @foreach($categoryList as $i => $name)
@@ -67,12 +67,17 @@
         </div>
 
 
-        <div class="grid grid-cols-4 gap-4 gap-y-6">
-            @foreach($books as $book)
-                <x-card.book-card :$book/>
-            @endforeach
+        <div>
+             <div class="grid grid-cols-4 gap-4 gap-y-6">
+                 @foreach($books as $book)
+                     <x-card.book-card :$book/>
+                 @endforeach
+             </div>
+
+             <div class="flex justify-end">
+                 {{ $books->onEachSide(1)->links('vendor.pagination.custom-tailwind') }}
+             </div>
         </div>
 
-{{--        {{ $books->links() }}--}}
     </div>
 </section>

@@ -22,7 +22,7 @@
                         <h2 class="text-lg text-font/60">{{$book->isbn}}</h2>
                     </div>
                     <div class="flex text-base  ">
-                        <p class="pr-8">{{$book->category->name}}</p>
+                        <p class="pr-8">{{$book->category->name ?? '-///-'}}</p>
                         <p class="px-8 border-x">{{$book->likes->count()}} Likes</p>
                         <p class="pl-8">{{$book->borrowings->count() }} Borrowed</p>
                     </div>
@@ -96,9 +96,12 @@
                                             </span>
                                             @if($activeCommentMenu === $comment->id)
                                                 <div class="flex flex-col gap-4 items-start absolute -bottom-14 -left-52 p-3 w-52 bg-white shadow">
-                                                    <button class="text-font/60" wire:click="startEditing({{ $comment->id }})">
-                                                        Edit
-                                                    </button>
+
+                                                    @if(\Carbon\Carbon::parse($book->status)->addMinutes(5)->isPast())
+                                                        <button class="text-font/60" wire:click="startEditing({{ $comment->id }})">
+                                                            Edit
+                                                        </button>
+                                                    @endif
                                                     <button class="text-red-300" wire:click="deleteComment({{ $comment->id }})">
                                                         Delete
                                                     </button>

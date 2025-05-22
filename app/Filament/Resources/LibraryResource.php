@@ -125,7 +125,7 @@ class LibraryResource extends Resource
                                 Placeholder::make('qr_code')
                                     ->label('')
                                     ->content(function ($record) {
-                                        $qr = QrCode::size(105)->generate(url('/librarian/presence/' . $record->id));
+                                        $qr = QrCode::size(105)->generate(url('http://library-app.test/librarian/login/' . $record->id));
                                         return new HtmlString($qr);
                                     })
 
@@ -138,7 +138,7 @@ class LibraryResource extends Resource
                                 Placeholder::make('qr_code')
                                     ->label('')
                                     ->content(function ($record) {
-                                        $qr = QrCode::size(105)->generate(url('http://library-app.test/attendance/' . $record->id));
+                                        $qr = QrCode::size(105)->generate(url('http://library-app.test/member/login/' . $record->id));
                                         return new HtmlString($qr);
                                     })
                             ])

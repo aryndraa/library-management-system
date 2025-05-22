@@ -90,7 +90,7 @@
         @livewire('book-overview')
     </section>
 
-    <section class="px-32 pb-28">
+    <section class="px-32 pb-32">
         <div class="flex justify-between items-start mb-16">
             <div class="flex items-center gap-2 lg:gap-4 mb-2">
                 <hr class="w-8 lg:w-12 ">
@@ -122,9 +122,9 @@
         </div>
     </section>
 
-    <footer class=" pr-20 ">
+    <footer class=" pr-32 ">
         <div class="grid grid-cols-2 h-[340px]">
-            <div class="col-span-1 flex flex-col justify-between px-20 py-12 bg-bgWidget h-full">
+            <div class="col-span-1 flex flex-col justify-between px-32 py-12 bg-bgWidget h-full">
                 <div>
                     <h1 class="text-4xl mb-2">Perpusku</h1>
                     <p class="text-font/60">Exclusive Library</p>

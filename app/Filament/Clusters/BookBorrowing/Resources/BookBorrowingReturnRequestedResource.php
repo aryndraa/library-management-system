@@ -49,7 +49,6 @@ class BookBorrowingReturnRequestedResource extends Resource
                         'penalty'  => 'Penalty',
                     ]))
                     ->colors([
-
                         'returned'          => 'success',
                         'penalty'           => 'danger',
                         'return requested'  => 'info',
@@ -165,8 +164,6 @@ class BookBorrowingReturnRequestedResource extends Resource
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'pending'          => 'info',
-                        'borrowed'         => 'warning',
                         'returned'         => 'success',
                         'penalty'          => 'danger',
                         'return requested' => 'info',

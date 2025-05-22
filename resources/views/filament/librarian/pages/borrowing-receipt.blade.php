@@ -26,7 +26,7 @@
 
                             <div class="mb-6">
                                 <h3 class="text-lg font-medium mb-1">{{$borrowedBook->book->title}}</h3>
-                                <p class="text-sm mb-1">{{$borrowedBook->book->category->name}}</p>
+                                <p class="text-sm mb-1">{{$borrowedBook->book->category->name ?? '-/// -'}}</p>
                                 <p class="text-sm">{{$borrowedBook->book->isbn}}</p>
                             </div>
                             <div>

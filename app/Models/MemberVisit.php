@@ -12,6 +12,12 @@ class MemberVisit extends Model
 
     protected $table = 'member_visits';
 
+    protected $fillable =[
+        'member_id',
+        'library_id',
+        'visit_date'
+    ];
+
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class);

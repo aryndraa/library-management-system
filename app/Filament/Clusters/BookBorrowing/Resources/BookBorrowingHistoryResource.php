@@ -43,14 +43,10 @@ class BookBorrowingHistoryResource extends Resource
                 ToggleButtons::make('status')
                     ->inline()
                     ->options([
-                        'borrowed' => 'Borrowed',
                         'returned' => 'Returned',
-                        'penalty'  => 'Penalty',
                     ])
                     ->colors([
-                        'borrowed' => 'warning',
                         'returned' => 'success',
-                        'penalty'  => 'danger',
                     ])
                     ->required(),
 

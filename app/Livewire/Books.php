@@ -76,7 +76,8 @@ class Books extends Component
                 };
             })
             ->where('library_id', session('library_id_session'))
-            ->paginate(20);
+            ->latest()
+            ->paginate(12);
 
         return view('livewire.books', [
             'books' => $books,

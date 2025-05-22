@@ -2,7 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Admin;
 use App\Models\Book;
+use App\Models\Librarian;
+use Filament\Notifications\Events\DatabaseNotificationsSent;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -60,12 +64,25 @@ class BookActions extends Component
             'code'          => 'BRW-' . now()->format('Ymd') . '-' . Str::upper(Str::random(4)),
         ]);
 
-        flash()->success('Book borrowed successfully');
+        flash()->success('Pending borrowed successfully');
 
         $book = $this->book;
         $book->stock -= 1;
         $book->save();
 
+        /** @var Librarian $user */
+        $librarians = Librarian::query()->get();
+
+        foreach ($librarians as $librarian) {
+            Notification::make()
+                ->title('Book borrowed pending')
+                ->icon('heroicon-o-book-open')
+                ->body("Book **{$book->title}** from library **{$book->library?->name}** has been pending to borrowed.")
+                ->duration(10)
+                ->sendToDatabase($librarian);
+
+            event(new DatabaseNotificationsSent($librarian));
+        }
 
         $this->isBorrowed = true;
 

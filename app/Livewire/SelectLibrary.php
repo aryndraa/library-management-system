@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Library;
+use App\Models\MemberVisit;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class SelectLibrary extends Component
@@ -17,8 +20,23 @@ class SelectLibrary extends Component
 
         $this->show = false;
 
-        return redirect()->route('member.home');
+        $memberId = Auth::id();
+        $today = Carbon::today();
 
+        $existingVisit = MemberVisit::where('member_id', $memberId)
+            ->where('library_id', $id)
+            ->whereDate('visit_date', $today)
+            ->exists();
+
+        if (!$existingVisit) {
+            MemberVisit::create([
+                'member_id' => $memberId,
+                'library_id' => $id,
+                'visit_date' => $today,
+            ]);
+        }
+
+        return redirect()->route('member.home');
     }
 
     public function render()

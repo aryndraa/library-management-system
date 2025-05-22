@@ -35,7 +35,7 @@
     </div>
 
     <div class="flex gap-5">
-        <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl sticky top-12">
+        <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl sticky top-16">
             <div>
                 <h3 class="text-xl mb-3">Categories</h3>
                 @foreach($categoryList as $i => $name)

@@ -75,7 +75,7 @@ class LibrariansRelationManager extends RelationManager
                     ->rounded(),
 
                 TextColumn::make('email'),
-                TextColumn::make('profile.firstname')
+                TextColumn::make('profile.first_name')
                     ->label('Full Name')
                     ->getStateUsing(function ($record) {
                         return $record->profile->first_name . ' ' . $record->profile->last_name;
