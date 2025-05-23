@@ -26,6 +26,9 @@ class Books extends Component
     public array $sortItems = [];
     public array $categoryList = [];
 
+    public bool $expanded = false;
+
+
     public function mount()
     {
         $this->sortItems = [
@@ -51,6 +54,11 @@ class Books extends Component
     public function updatingCategories()
     {
         $this->resetPage();
+    }
+
+    public function getVisibleCategoriesProperty()
+    {
+        return array_slice($this->categoryList, 0, $this->expanded ? count($this->categoryList) : 8);
     }
 
 

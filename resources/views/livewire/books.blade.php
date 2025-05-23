@@ -7,8 +7,6 @@
         'hots',
         'popular'
     ];
-
-    $categories = Category::query()->get()->toArray();
 @endphp
 
 <section class="py-20 px-32 transform -translate-y-10 bg-white rounded-t-[46px]">
@@ -50,19 +48,27 @@
         <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl ">
             <div>
                 <h3 class="text-xl mb-3">Categories</h3>
-                @foreach($categoryList as $i => $name)
-                    <div class="py-2 flex gap-3 items-center">
-                        <input
-                            type="checkbox"
-                            wire:model.live="categories"
-                            value="{{ $name }}"
-                            id="category_{{ $i }}"
-                            class="peer size-5 cursor-pointer transition-all appearance-none rounded  border border-slate-300 checked:bg-primary-300 checked:border-primary-200  checked:hover:bg-primary-300 focus:bg-primary-100 checked:focus:bg-primary-100 "
+                <div class="transition">
+                    @foreach($this->visibleCategories as $i => $name)
+                        <div class="py-2 flex gap-3 items-center">
+                            <input
+                                type="checkbox"
+                                wire:model.live="categories"
+                                value="{{ $name }}"
+                                id="category_{{ $i }}"
+                                class="peer size-5 cursor-pointer transition-all appearance-none rounded  border border-slate-300 checked:bg-primary-300 checked:border-primary-200  checked:hover:bg-primary-300 focus:bg-primary-100 checked:focus:bg-primary-100 "
+                            >
+                            <label for="category_{{ $i }}">{{ $name }}</label>
+                        </div>
+                    @endforeach
+                </div>
 
-                        >
-                        <label for="category_{{ $i }}">{{ $name }}</label>
-                    </div>
-                @endforeach
+                <button
+                    class="mt-4 flex justify-end w-full text-font/60"
+                    wire:click="$toggle('expanded')"
+                >
+                    {{ $expanded ? 'Show less' : 'Show more' }}
+                </button>
             </div>
         </div>
 
