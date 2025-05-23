@@ -170,10 +170,10 @@ class BookBorrowingResource extends Resource
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'pending'          => 'info',
                         'borrowed'         => 'warning',
                         'returned'         => 'success',
                         'penalty'          => 'danger',
+                        'pending'          => 'info',
                         'return requested' => 'info',
                     }),
             ])

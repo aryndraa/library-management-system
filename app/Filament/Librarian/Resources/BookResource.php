@@ -169,8 +169,18 @@ class BookResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                        ->before(function ($records) {
+                        ->before(function ($records, Tables\Actions\DeleteBulkAction $action) {
                             foreach ($records as $record) {
+                                if ($record->borrowings()->whereNot('status', 'returned')->exists()) {
+                                    Notification::make()
+                                        ->title('Buku tidak bisa dihapus')
+                                        ->body('Masih ada peminjam yang belum mengembalikan buku ini.')
+                                        ->danger()
+                                        ->send();
+
+                                    $action->cancel();
+                                }
+
                                 $admins = Admin::all();
 
                                 foreach ($admins as $admin) {

@@ -63,17 +63,21 @@ class BorrowingsRelationManager extends RelationManager
                   TextColumn::make('status')
                       ->badge()
                       ->color(fn (string $state): string => match ($state) {
-                          'borrowed' => 'warning',
-                          'returned' => 'success',
-                          'penalty'  => 'danger',
+                          'borrowed'         => 'warning',
+                          'returned'         => 'success',
+                          'penalty'          => 'danger',
+                          'pending'          => 'info',
+                          'return requested' => 'info',
                       }),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
-                        'borrowed' => 'Borrowed',
-                        'returned' => 'Returned',
-                        'penalty'  => 'Penalty',
+                        'borrowed'         => 'Borrowed',
+                        'returned'         => 'Returned',
+                        'penalty'          => 'Penalty',
+                        'pending'          => 'Pending',
+                        'return requested' => 'Return Requested',
                     ]),
 
                 Tables\Filters\Filter::make('borrowed_date')
