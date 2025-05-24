@@ -25,12 +25,12 @@
                 class="lg:max-h-[70vh] absolute z-[-1] bg-gradient-to-b from-black/40 via-black/20 to-black/30 inset-0"></div>
         </div>
 
-        <div class="mx-5 lg:mx-20 text-white">
-            <div class="flex items-center gap-2 lg:gap-4 mb-2">
+        <div class="mx-5 lg:mx-20 2xl:mx-80 text-white">
+            <div class="flex items-center gap-2 lg:gap-4 mb-2 2xl:mb-6">
                 <hr class="w-8 lg:w-12 ">
-                <h2 class="text-sm lg:text-lg leading-1 ">Expand your mind</h2>
+                <h2 class="text-sm lg:text-lg 2xl:text-2xl leading-1 ">Expand your mind</h2>
             </div>
-            <h1 class="text-4xl lg:text-7xl leading-[1.2] font-medium">With thousands <br> of books</h1>
+            <h1 class="text-4xl lg:text-7xl xl:text-8xl  leading-[1.2] font-medium">With thousands <br> of books</h1>
         </div>
     </section>
 

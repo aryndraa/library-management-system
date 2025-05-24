@@ -71,7 +71,7 @@
 
     </div>
 
-    <section class="py-8 lg:py-20 px-5 lg:px-32 lg:transform -translate-y-10 bg-white rounded-t-xl lg:rounded-t-[46px]">
+    <section class="py-8 lg:py-20 2xl:px-80 px-5 lg:px-32 lg:transform -translate-y-10 bg-white rounded-t-xl lg:rounded-t-[46px]">
 
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 lg:mb-12 gap-2 lg:gap-4">
             <div class="flex justify-between items-center w-full ">
@@ -119,7 +119,7 @@
 
         <div class="flex gap-5 ">
 
-            <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl hidden ">
+            <div class="bg-bgWidget p-6 min-w-[25%] h-fit rounded-xl hidden lg:block ">
                 <div>
                     <h3 class="text-xl mb-3">Categories</h3>
                     <div class="transition">
@@ -154,7 +154,7 @@
                      @endforeach
                  </div>
 
-                 <div class="flex justify-end">
+                 <div class="flex justify-center lg:justify-end mt-8">
                      {{ $books->onEachSide(1)->links('vendor.pagination.custom-tailwind') }}
                  </div>
             </div>

@@ -5,7 +5,7 @@
         <img
             src="{{$book->getFirstMediaUrl('book')}}"
             alt=""
-            class="rounded-xl w-full h-[180px] lg:h-[240px] shadow-md shadow-black/40 transform group-hover:-translate-y-4 group-hover:scale-105 transition ease-in-out duration-500"
+            class="rounded-xl w-full h-[180px] lg:h-[240px] 2xl:h-[280px] shadow-md shadow-black/40 transform group-hover:-translate-y-4 group-hover:scale-105 transition ease-in-out duration-500"
         >
 {{--        @if($book->created_at > )--}}
 {{--            <span class="absolute font-normal bottom-5 -right-4 transform text-xs px-2 py-1 bg-yellow-400 text-red-600 -rotate-45">New Arrival</span>--}}
