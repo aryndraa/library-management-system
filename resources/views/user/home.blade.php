@@ -9,19 +9,19 @@
 
 @section('content')
     <section
-        class="min-h-[98vh] lg:min-h-[105vh] w-full flex items-start lg:items-end relative py-28    "
+        class="min-h-[98vh] lg:min-h-[105vh] 2xl:min-h-[80vh] w-full flex items-start lg:items-end relative py-28    "
     >
-        <div class="min-h-[98vh] lg:min-h-[105vh] absolute inset-0 z-[-1]">
+        <div class="min-h-[98vh] lg:min-h-[105vh]  2xl:min-h-[84vh]  absolute inset-0 z-[-1]">
             <img
                 src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt=""
-                class="h-[105vh] z-[-2] w-full absolute object-cover object-right lg:object-center"
+                class="h-[105vh]  z-[-2] w-full absolute object-cover object-right lg:object-center 2xl:object-bottom "
             >
-            <div class="min-h-[98vh] lg:max-h-[105vh] absolute z-[-1] bg-gradient-to-b from-black/40 via-black/10 to-black/40 inset-0"></div>
+            <div class="min-h-[98vh] lg:max-h-[105vh] 2xl:min-h-[84vh] absolute z-[-1] bg-gradient-to-b from-black/40 via-black/10 to-black/40 inset-0"></div>
         </div>
 
-        <div class="mx-5 lg:mx-20 text-white">
-            <h1 class="text-5xl lg:text-[80px] leading-[1.2] lg:leading-[1.2] font-medium mb-4 lg:mb-12">Your gateway to <br class="hidden lg:block"> world of knowledge</h1>
+        <div class="mx-5 lg:mx-20 2xl:mx-80 text-white">
+            <h1 class="text-5xl lg:text-[80px] 2xl:text-8xl leading-[1.2] lg:leading-[1.2] 2xl:leading-[1.4] font-medium mb-4 lg:mb-12 2xl:mb-10">Your gateway to <br class="hidden lg:block"> world of knowledge</h1>
             <div class="flex items-start gap-2 lg:gap-4 ">
                 <hr class="w-8 lg:w-24 hidden lg:block">
                 <div>
@@ -32,17 +32,17 @@
         </div>
     </section>
 
-    <section class="px-5 lg:px-32 py-16 lg:py-24 lg:rounded-t-[32px] transform lg:-translate-y-8 bg-white">
+    <section class="px-5 lg:px-32 2xl:px-80 py-16 lg:py-24 lg:rounded-t-[32px] transform lg:-translate-y-8 2xl:-translate-y-0 bg-white">
         <div class="flex flex-wrap justify-center  lg:grid lg:grid-cols-5 gap-12 lg:gap-16 place-items-center">
-            <img src="{{ asset('images/logoipsum/Logo.svg') }}"   alt="" class="w-32">
-            <img src="{{ asset('images/logoipsum/Logo-1.svg') }}" alt="" class="w-32">
-            <img src="{{ asset('images/logoipsum/Logo-2.svg') }}" alt="" class="w-32">
-            <img src="{{ asset('images/logoipsum/Logo-3.svg') }}" alt="" class="w-32">
-            <img src="{{ asset('images/logoipsum/Logo-4.svg') }}" alt="" class="w-32 hidden lg:block">
+            <img src="{{ asset('images/logoipsum/Logo.svg') }}"   alt="" class="w-32 lg:w-40">
+            <img src="{{ asset('images/logoipsum/Logo-1.svg') }}" alt="" class="w-32 lg:w-40">
+            <img src="{{ asset('images/logoipsum/Logo-2.svg') }}" alt="" class="w-32 lg:w-40">
+            <img src="{{ asset('images/logoipsum/Logo-3.svg') }}" alt="" class="w-32 lg:w-40">
+            <img src="{{ asset('images/logoipsum/Logo-4.svg') }}" alt="" class="w-32 lg:w-40 hidden lg:block">
         </div>
     </section>
 
-    <section class="px-5 lg:px-32 pb-16 lg:pb-28">
+    <section class="px-5 lg:px-32 2xl:px-80 pb-16 lg:pb-28">
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-8">
             <x-card.count-card total="{{ \App\Models\Category::all()->count() }}" name="Category"/>
             <x-card.count-card total="120" name="Book"/>
@@ -50,7 +50,7 @@
         </div>
     </section>
 
-    <section class="px-5 lg:px-32 pb-16 lg:pb-28">
+    <section class="px-5 lg:px-32 2xl:px-80 pb-16 lg:pb-28">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-14 mb-8 lg:mb-16">
             <div>
                 <h2 class="text-xl lg:text-4xl lg:leading-[1.6]">With thousands of books and digital access, we are committed to providing the <span class="text-primary-300"> best service for you.</span></h2>
@@ -87,11 +87,11 @@
         </div>
     </section>
 
-    <section class="px-5 lg:px-32 pb-16 lg:pb-28">
+    <section class="px-5 lg:px-32 2xl:px-80 pb-16 lg:pb-28">
         @livewire('book-overview')
     </section>
 
-    <section class="px-5 lg:px-32 pb-16 lg:pb-32">
+    <section class="px-5 lg:px-32 2xl:px-80 pb-16 lg:pb-32">
         <div class="flex flex-col lg:flex-row justify-between items-start mb-8 lg:mb-16">
             <div class="flex items-center gap-2 lg:gap-4 mb-2">
                 <hr class="w-8 lg:w-12 ">
@@ -124,9 +124,9 @@
         </div>
     </section>
 
-    <footer class=" lg:pr-5 ">
+    <footer class=" lg:pr-5  ">
         <div class="grid grid-cols-1 lg:grid-cols-2 h-[340px] w-full">
-            <div class="lg:col-span-1 flex flex-col gap-4 lg:gap-0 justify-between px-5 lg:px-32 py-8 lg:py-12 bg-bgWidget w-full h-full">
+            <div class="lg:col-span-1 flex flex-col gap-4 lg:gap-0 justify-between px-5 lg:px-32 2xl:px-80 py-8 lg:py-12 bg-bgWidget w-full h-full">
                 <div>
                     <h1 class="text-2xl lg:text-4xl mb-1 lg:mb-2">Perpusku</h1>
                     <p class=" text-sm lg:text-base text-font/60">Exclusive Library</p>

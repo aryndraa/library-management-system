@@ -23,13 +23,13 @@
     }"
     x-intersect.once="startCount()"
 >
-    <div class="mb-2">
-        <h2 class="text-2xl lg:text-3xl font-normal lg:mb-1.5">
+    <div class="mb-2 ">
+        <h2 class="text-2xl lg:text-3xl 2xl:text-4xl font-normal lg:mb-1.5">
             <span x-text="count"></span>+
         </h2>
-        <h3 class="text-sm lg:text-base text-font">Variant {{ $name }}</h3>
+        <h3 class="text-sm lg:text-base 2xl:text-xl text-font">Variant {{ $name }}</h3>
     </div>
-    <p class="text-sm lg:text-base  text-font/60">
+    <p class="text-sm lg:text-base 2xl:text-lg  text-font/60">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p>
 </div>
