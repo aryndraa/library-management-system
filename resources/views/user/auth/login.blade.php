@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="flex flex-col-reverse  lg:grid lg:grid-cols-4 ">
-        <div class="col-span-2 px-5  py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center rounded-t-xl transform -translate-y-6 bg-white">
+        <div class="col-span-2 px-5  py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center rounded-t-xl transform -translate-y-6 lg:translate-y-0 bg-white">
             <div class="w-full ">
                 <div class="mb-8  lg:block">
                     <div class="flex items-center gap-2 lg:gap-4 mb-2">
