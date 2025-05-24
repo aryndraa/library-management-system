@@ -1,9 +1,9 @@
-<div class="flex items-center gap-4">
+<div class="flex items-center gap-4 fixed lg:relative left-0 right-0 bottom-0 py-3 px-5 lg:p-0  bg-white shadow-[12px_12px_12px_5px] lg:shadow-none">
 
     @if($isBorrowed)
         <a
             href="{{ route('member.profile.borrowedBooks') }}"
-            class="w-full bg-bgWidget text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2"
+            class="w-full bg-bgWidget lg:text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2"
         >
             Borrowed Detail
         </a>
@@ -12,7 +12,7 @@
             <div x-data="{ showModal: false, loading: false }" class="w-full h-full",>
             <button
                 @click="showModal = true"
-                class="w-full bg-primary-300 text-white text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2"
+                class="w-full bg-primary-300 text-white lg:text-lg p-3 rounded-lg h-full flex items-center justify-center gap-2"
             >
                 <svg x-show="loading" class="animate-spin h-5 w-5 text-font/60" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -66,7 +66,7 @@
 
 
     <button wire:click="toggleLike" class="rounded-full p-4 bg-bgWidget">
-            <x-heroicon-s-heart class="size-7  transform transition ease-in-out duration-300 {{
+            <x-heroicon-s-heart class="size-6 lg:size-7  transform transition ease-in-out duration-300 {{
                  $isLiked ? 'text-red-500 scale-125' : 'text-font/60'
             }}"/>
     </button>
