@@ -9,10 +9,10 @@
     @if($show)
         <div
             x-transition.opacity.duration.500ms
-            class="fixed inset-0 z-50 bg-black/50 flex justify-center items-start overflow-y-hidden"
+            class="fixed inset-0 max-h-screen z-50 w-full bg-black/50 flex justify-center items-end overflow-y-hidden"
         >
             <div
-                class="mt-32 bg-white backdrop-blur-xl rounded-xl w-[40%] h-fit p-6 py-8"
+                class="mt-32 bg-white backdrop-blur-xl rounded-xl w-full lg:w-[40%] h-fit p-6 py-8"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 scale-90"
                 x-transition:enter-end="opacity-100 scale-100"
