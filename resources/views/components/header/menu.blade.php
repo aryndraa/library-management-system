@@ -14,7 +14,7 @@
 
 @endphp
 
-<div x-data="{ open: false }">
+<div x-data="{ open: false }"  x-cloak>
     <!-- Toggle Button -->
     <div>
         <button @click="open = !open" class="flex items-center">
@@ -32,7 +32,7 @@
 
     <!-- Sidebar -->
     <div
-        class="fixed top-0 left-0 p-5 py-5 h-full w-full bg-gray-800 text-white z-50 transform transition-transform duration-300"
+        class="fixed top-0 left-0 p-6 py-5 h-full w-full bg-gray-800 text-white z-50 transform transition-transform duration-300"
         :class="open ? 'translate-x-0' : '-translate-x-full'"
         x-transition
     >
@@ -49,7 +49,7 @@
                             <img
                                 src="{{$user->profile->photoProfile->file_url}}"
                                 alt=""
-                                class="size-14 rounded-full"
+                                class="size-14 rounded-full object-cover"
                             >
                         @endif
                         <div>
@@ -64,7 +64,7 @@
             <div>
                 <h3 class="text-sm text-white/50 mb-5 font-light">Menu</h3>
                 <div class="flex flex-col gap-6 pl-2">
-                    <a href="#" class="text-white/50 font-light text-base flex gap-3 items-center">
+                    <a href="{{ route('member.home') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-o-home class="size-6"/>
                         </div>
@@ -76,13 +76,13 @@
                         </div>
                         About us
                     </a>
-                    <a href="{{route('member.book.index')}}" class="text-white/50 font-light text-base flex gap-3 items-center">
+                    <a href="{{ route('member.book.index') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-o-rectangle-stack class="size-6"/>
                         </div>
                         Rooms
                     </a>
-                    <a href="#" class="text-white/50 font-light text-base flex gap-3 items-center">
+                    <a href="{{ route('member.room.index') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-o-book-open class="size-6"/>
                         </div>
@@ -93,17 +93,17 @@
             <div>
                 <h3 class="text-sm text-white/50 mb-5 font-light">Options</h3>
                 <div class="flex flex-col gap-6 pl-2">
-                    <a href="#" class="text-white/50 font-light text-base flex gap-3 items-center">
+                    <a href="{{ route('member.profile.borrowedBooks') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-o-bookmark-square class="size-6"/>
                         </div>
                         Borrowed Books
                     </a>
-                    <a href="#" class="text-white/50 font-light text-base flex gap-3 items-center">
+                    <a href="{{ route('member.profile.bookedRooms') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
                             <x-heroicon-s-list-bullet class="size-6"/>
                         </div>
-                        Booking Rooms
+                        Booked Rooms
                     </a>
                 </div>
             </div>

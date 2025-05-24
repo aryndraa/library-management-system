@@ -1,8 +1,8 @@
 @extends('layouts.auth')
 
 @section('content')
-    <section class="grid grid-cols-1 lg:grid-cols-4 ">
-        <div class="col-span-2 px-5  py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center">
+    <section class="flex flex-col-reverse  lg:grid lg:grid-cols-4 ">
+        <div class="col-span-2 px-5  py-6 lg:ml-20 lg:mr-32  lg:min-h-[94vh]  flex items-center rounded-t-xl transform -translate-y-6 bg-white">
             <div class="w-full ">
                 <div class="mb-8  lg:block">
                     <div class="flex items-center gap-2 lg:gap-4 mb-2">
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div
-            class="min-h-[25vh]  lg:min-h-[94vh] m-2 lg:m-5 lg:py-6 p-5 lg:px-8 bg-black-300 col-span-2 rounded-xl bg-cover bg-center bg-blend-overlay bg-black/20"
+            class="min-h-[25vh] lg:min-h-[94vh] m-0 lg:m-5 lg:py-6 p-5 lg:px-8 bg-black-300 col-span-2 lg:rounded-xl bg-cover bg-center bg-blend-overlay bg-black/20"
             style="background-image: url('https://images.unsplash.com/photo-1526827826797-7b05204a22ef?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
 
         >
