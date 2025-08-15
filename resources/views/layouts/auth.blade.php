@@ -25,10 +25,11 @@
     @livewireStyles
 </head>
 
-<body class="antialiased">
-    @yield('content')
+<body class="antialiased flex justify-center w-full">
+    <main class="w-full max-w-[1520px]">
+        @yield('content')
+    </main>
     @livewireScripts
-
 </body>
 
 </html>
