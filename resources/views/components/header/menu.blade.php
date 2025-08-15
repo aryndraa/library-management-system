@@ -78,15 +78,15 @@
                     </a>
                     <a href="{{ route('member.book.index') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
                         <div>
-                            <x-heroicon-o-rectangle-stack class="size-6"/>
-                        </div>
-                        Rooms
-                    </a>
-                    <a href="{{ route('member.room.index') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
-                        <div>
                             <x-heroicon-o-book-open class="size-6"/>
                         </div>
                         Books
+                    </a>
+                    <a href="{{ route('member.room.index') }}" class="text-white/50 font-light text-base flex gap-3 items-center">
+                        <div>
+                            <x-heroicon-o-rectangle-stack class="size-6"/>
+                        </div>
+                        Rooms
                     </a>
                 </div>
             </div>

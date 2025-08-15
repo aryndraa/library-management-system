@@ -31,7 +31,7 @@
     @livewireStyles
 </head>
 
-<body class="antialiased px-5 lg:px-32 py-8 lg:py-12">
+<body class="antialiased px-5 lg:px-32 2xl:mx-80 py-8 lg:py-12">
     <header class="mb-8 lg:mb-14">
         <a href="{{route($routeDirect)}}" class="text-xl flex items-center gap-2.5">
             <span><x-heroicon-o-arrow-left class="w-6 h-6"/></span>

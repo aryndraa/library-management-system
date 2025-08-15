@@ -78,7 +78,7 @@
                 <h3 class="lg:text-lg">
                     {{count($books)}} Books Found
                 </h3>
-                <div class="relative inline-block text-left lg:hidden">
+                <div class="relative inline-block text-left  lg:hidden">
                     <div  id="sortForm">
                         <select wire:model.live="sort" class="text-sm lg:text-base appearance-none capitalize first:text-lg pr-10  focus:outline-none focus:ring-0 border-none  cursor-pointer font-light ">
                             <option class="text-sm lg:text-base" value="">Default</option>
@@ -90,8 +90,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-col lg:flex-row w-full items-end lg:items-center gap-2 lg:gap-6">
-                <div class="flex items-center gap-3 px-4 py-2 bg-bgWidget rounded-xl lg:rounded-full w-full">
+            <div class="flex flex-col lg:flex-row w-full lg:w-fit items-end lg:items-center gap-2 lg:gap-6">
+                <div class="flex items-center gap-3 px-4 py-2 bg-bgWidget rounded-xl lg:rounded-full w-full lg:w-fit">
                     <input
                         type="text"
                         class="border-none focus:ring-0 bg-transparent w-full lg:w-72 placeholder:text-font/40"
@@ -104,7 +104,7 @@
                 </div>
 
 
-                <div class="relative text-left hidden lg:inline-block">
+                <div class="relative text-left hidden lg:inline">
                     <div  id="sortForm">
                         <select wire:model.live="sort" class="text-sm lg:text-base appearance-none capitalize first:text-lg pr-10  focus:outline-none focus:ring-0 border-none  cursor-pointer font-light ">
                             <option class="text-sm lg:text-base" value="">Default</option>

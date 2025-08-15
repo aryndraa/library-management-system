@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-4 min-h-[260px] lg:min-h-[320px]">
+        <div class="grid grid-cols-4 lg:gap-4 min-h-[260px] lg:min-h-[320px]">
             <div class="col-span-1 h-full hidden lg:flex flex-col justify-between p-6 bg-bgWidget rounded-xl">
                 <h3 class="text-3xl leading-[1.4]">Find more categories</h3>
                 <a href="{{ route('member.book.index') }}" class="flex gap-3 text-lg items-center">

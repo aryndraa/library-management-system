@@ -22,7 +22,7 @@
                 <img
                     src="{{$user->profile->photoProfile->file_url}}"
                     alt=""
-                    class="size-8 rounded-full"
+                    class="size-8 rounded-full object-cover"
                 >
             @endif
             <div>

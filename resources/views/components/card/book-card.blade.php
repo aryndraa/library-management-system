@@ -12,7 +12,7 @@
 {{--        @endif--}}
     </div>
     <div class="px-1">
-        <h3 class="w-[90%] mb-1 text-sm lg:text-[16px]">
+        <h3 class="w-[90%] mb-1 lg:mb-1.5 text-sm lg:text-[16px]">
             {{$book->title}}
         </h3>
         <p class="text-xs lg:text-sm text-font/60">

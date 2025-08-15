@@ -1,14 +1,14 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
 <section class="flex flex-col-reverse lg:flex-row gap-6 lg:gap-16" wire:poll.5>
     <div class="w-full lg:w-[46%]">
-        <div class="flex gap-4 text-lg text-font/60 mb-10">
+        <div class="flex gap-2 lg:gap-4 text-base lg:text-lg text-font/60 mb-4 lg:mb-10">
             <button wire:click="toggleComment(false)"
-                    class="pb-2.5 pr-4 {{!$openComment ? 'text-primary-300 border-b border-primary-300' : ''}} "
+                    class="pb-1 lg:pb-2.5 pr-4 {{!$openComment ? 'text-primary-300 border-b border-primary-300' : ''}} "
             >
                 About
             </button>
             <button wire:click="toggleComment(true)"
-                    class="pb-2.5 pr-4 {{$openComment ? 'text-primary-300 border-b border-primary-300' : ''}}"
+                    class="pb-1 lg:pb-2.5 pr-4 {{$openComment ? 'text-primary-300 border-b border-primary-300' : ''}}"
             >
                 {{$book->bookComments->count()}} Comments
             </button>
@@ -16,30 +16,30 @@
 
         @if(!$openComment)
             <div>
-                <div class="mb-10">
-                    <div class="mb-3">
-                        <h1 class="text-2xl lg:text-3xl mb-3">{{$book->title}}</h1>
-                        <h2 class="text-base lg:text-lg text-font/60">{{$book->isbn}}</h2>
+                <div class="mb-6 lg:mb-10">
+                    <div class="mb-6 lg:mb-3">
+                        <h1 class="text-xl lg:text-3xl mb-1 lg:mb-3">{{$book->title}}</h1>
+                        <h2 class="text-sm lg:text-lg text-font/60">{{$book->isbn}}</h2>
                     </div>
-                    <div class="flex text-sm lg:text-base ">
+                    <div class="flex justify-between text-sm lg:text-base">
                         <p class="pr-8">{{$book->category->name ?? '-///-'}}</p>
                         <p class="px-8 border-x">{{$book->likes->count()}} Likes</p>
                         <p class="pl-8">{{$book->borrowings->count() }} Borrowed</p>
                     </div>
                 </div>
                 <div>
-                    <div class="mb-10">
+                    <div class="mb-6 lg:mb-10">
                         <h3 class="text-sm lg:text-base text-font/60 mb-1 lg:mb-2">About</h3>
-                        <div x-data="{ expanded: false }" class="text-sm lg:text-base">
+                        <div x-data="{ expanded: false }" class="text-justify text-sm lg:text-base">
                             <p class="leading-[1.6]">
                                 <span x-show="!expanded" x-text="'{{ Str::limit($book->synopsis, 200) }}'"></span>
                                 <span x-show="expanded" x-text="'{{ $book->synopsis }}'"></span>
-                                <button @click="expanded = !expanded" class="text-font font-normal underline ml-2"
+                                <button @click="expanded = !expanded" class="text-font font-normal underline ml-1 lg:ml-2"
                                         x-text="expanded ? 'Read less' : 'Read more'"></button>
                             </p>
                         </div>
                     </div>
-                    <div class="mb-10 lg:mb-0">
+                    <div class="mb-32 lg:mb-0">
                         <div class="grid grid-cols-2 gap-6">
                             <div>
                                 <h3 class="text-font/60 mb-1 lg:mb-2 text-sm lg:text-base">Publication Date</h3>
