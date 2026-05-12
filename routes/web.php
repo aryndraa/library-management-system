@@ -22,9 +22,6 @@ Route::prefix('member')
 
                 Route::get('/login', 'login')->name('login');
                 Route::post('/login', 'postLogin')->name('postLogin');
-
-                Route::get('/make-profile', 'makeProfile')->name('makeProfile');
-                Route::post('/make-profile', 'postMakeProfile')->name('postMakeProfile');
             });
 
         Route::controller(ProfileController::class)

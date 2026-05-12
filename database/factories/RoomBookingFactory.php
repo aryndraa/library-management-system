@@ -43,6 +43,7 @@ class RoomBookingFactory extends Factory
         $totalPrice = $totalHours * $room->price;
 
         return [
+            "code"          => 'BRW-' . Carbon::instance($bookingDate)->format('Ymd') . '-' . strtoupper(fake()->lexify('????')),
             "member_id"     => Member::query()->inRandomOrder()->first()->id,
             "room_id"       => Room::query()->inRandomOrder()->first()->id,
             "booking_date"  => $bookingDate,

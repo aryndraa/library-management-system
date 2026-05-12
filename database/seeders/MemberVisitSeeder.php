@@ -13,7 +13,7 @@ class MemberVisitSeeder extends Seeder
      */
     public function run(): void
     {
-        $memberVisits = MemberVisit::factory()->count(200)->make();
+        $memberVisits = MemberVisit::factory()->count(1432)->make();
 
         MemberVisit::query()->insert($memberVisits->toArray());
     }

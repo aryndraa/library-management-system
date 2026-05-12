@@ -13,7 +13,7 @@
                     <div class="flex  col-span-2">
                         <label for="avatarInput" class="relative">
                             <div class="w-40 h-40 lg:w-52 lg:h-52 rounded-full overflow-hidden bg-bgWidget cursor-pointer">
-                                <img id="avatarPreview" src="{{$member->profile->photoProfile->file_url}}" alt="."
+                                <img id="avatarPreview" src="{{$member->profile->photoProfile->file_url ?? null}}" alt="."
                                      class="w-full h-full object-cover">
 
                                 <div class="absolute bottom-0 right-0 transform p-3 rounded-full bg-primary-300 -translate-x-6 -translate-y-1">
