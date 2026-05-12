@@ -39,7 +39,7 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan proyek di lokal:
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/username/library-management-system.git
+    git clone https://github.com/aryndraa/library-management-system
     cd library-management-system
     ```
 
